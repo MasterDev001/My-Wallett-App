@@ -2,6 +2,7 @@ package com.example.presenter.di
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.hilt.ScreenModelKey
+import com.example.presenter.signUp.SignUpViewModelImpl
 import com.example.presenter.signin.SignInViewModelImpl
 import dagger.Binds
 import dagger.Module
@@ -17,4 +18,9 @@ internal interface ViewModelModule {
     @IntoMap
     @ScreenModelKey(SignInViewModelImpl::class)
     fun signInViewModelImpl(impl: SignInViewModelImpl): ScreenModel
+
+    @Binds
+    @IntoMap
+    @ScreenModelKey(SignUpViewModelImpl::class)
+    fun signUpViewModelImpl(impl: SignUpViewModelImpl): ScreenModel
 }

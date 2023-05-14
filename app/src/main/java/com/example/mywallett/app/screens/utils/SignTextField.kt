@@ -23,25 +23,29 @@ import com.example.mywallett.ui.theme.ColorGray
 
 @Composable
 fun SignTextField(
-    hint: String,
+    text:String,
+    hint: String="",
     testTag: String = "",
     keyboardType: KeyboardType = KeyboardType.Text,
     textStyle: TextStyle = TextStyle(),
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    isError:Boolean=false,
     onValueChange: (String) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
 
     OutlinedTextField(
-        value = name,
-        onValueChange = { name = it },
+        value = text,
+        onValueChange = { onValueChange(it) },
         label = { Text(text = hint) },
+        maxLines = 1,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 5.dp)
             .testTag(testTag),
         shape = RoundedCornerShape(8.dp),
         textStyle = textStyle,
+        isError=isError,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = Color.Transparent, unfocusedLabelColor = Color.Black,
             backgroundColor = ColorGray

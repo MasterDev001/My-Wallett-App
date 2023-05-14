@@ -1,13 +1,13 @@
 package com.example.presenter.signin
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import kotlinx.coroutines.flow.StateFlow
-import uz.gita.vogayerlib.ScreenModelImpl
+import com.google.firebase.auth.AuthCredential
 
-internal interface SigInContract {
+
+class LoginContract {
 
     sealed interface Intent {
-        sealed class Login(val email: String, val password: String) : Intent
+        class Login(val email: String, val password: String) : Intent
+        class SignWithGoogle(val credential: AuthCredential):Intent
         object ForgotPassword : Intent
         object OpenRegister : Intent
     }
@@ -15,14 +15,6 @@ internal interface SigInContract {
     data class UiState(
         val isLoading: Boolean? = null,
         val message: String? = null,
-        val error: String? = null
+        val error: Throwable? = null
     )
-
-    @ScreenModelImpl(SignInViewModelImpl::class)
-    interface ViewModel : ScreenModel {
-
-        val uiStateFlow: StateFlow<SigInContract.UiState>
-
-        fun onEventDispatcher(intent: SigInContract.Intent)
-    }
 }

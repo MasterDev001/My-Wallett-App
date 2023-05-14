@@ -1,118 +1,170 @@
 package com.example.mywallett.app.screens.signin
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.androidx.AndroidScreen
 import com.example.mywallett.R
 import com.example.mywallett.app.screens.utils.*
 import com.example.mywallett.ui.theme.ColorGreenButton
+import com.example.presenter.signin.LoginContract
+import com.example.presenter.signin.SignInViewModel
+import kotlinx.coroutines.launch
+import uz.gita.vogayerlib.hiltScreenModel
 
 
 class SignInScreen : AndroidScreen() {
 
     @Composable
     override fun Content() {
-
-        SignInContent()
+        val viewModel: SignInViewModel = hiltScreenModel()
+        val uiState = viewModel.uiStateFlow.collectAsState()
+        SignInContent(uiState, viewModel::onEventDispatcher)
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
-fun SignInContent() {
-    Column(
-        Modifier
-            .padding(30.dp)
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+fun SignInContent(
+    uiState: State<LoginContract.UiState>,
+    onEvent: (LoginContract.Intent) -> Unit
+) {
+    val password = rememberSaveable { mutableStateOf("") }
+    val email = rememberSaveable { mutableStateOf("") }
+    val checkState = remember { mutableStateOf(true) }
+    val passwordError = remember { mutableStateOf(false) }
+    val emailError = remember { mutableStateOf(false) }
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
+    Scaffold(Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
+        snackbarHost = {
+            SnackbarHost(it) { snackbar ->
+                Snackbar(
+                    backgroundColor = Color.Black,
+                    actionColor = Color.Red,
+                    contentColor = Color.Red,
+                    snackbarData = snackbar
+                )
+            }
+        }
     ) {
-
-        val checkState = remember { mutableStateOf(true) }
-
         Column(
-            Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Text(
-                modifier = Modifier.padding(bottom = 36.dp),
-                text = stringResource(R.string.signIN),
-                style = MaterialTheme.typography.h3
-            )
-            SignTextField(
-                hint = stringResource(R.string.eMail),
-                onValueChange = {},
-                keyboardType = KeyboardType.Email
-            )
-            PasswordTextField(hint = stringResource(id = R.string.password), onValueChange = {})
-
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Row {
-                    Switch(
-                        checked = checkState.value,
-                        onCheckedChange = { checkState.value = it },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = Color.Green,
-                            uncheckedThumbColor = Color.White,
-                            uncheckedTrackColor = Color.Black
-                        )
-                    )
-                    Text(
-                        text = stringResource(R.string.remember),
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .focusable(true)
-                    )
-                }
-
-                Text(text = stringResource(R.string.forgotPassword),
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .clickable {
-
-                        }
-                        .focusable(true))
-            }
-        }
-        PrimaryButton(text = stringResource(R.string.signIN), verticalPadding = 50.dp) {
-
-        }
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Divider(color = Color.Black, modifier = Modifier.width(85.dp))
-            Text(
-                text = stringResource(R.string.orSIgnIn), modifier = Modifier.padding(5.dp)
-            )
-            Divider(color = Color.Black, modifier = Modifier.width(85.dp))
-        }
-        Row(
             Modifier
-                .padding(top = horizontalPadding_20)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(30.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            GoogleBtn {
 
+            Column(
+                Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Text(
+                    modifier = Modifier.padding(bottom = 36.dp),
+                    text = stringResource(R.string.signIN),
+                    style = MaterialTheme.typography.h3
+                )
+                SignTextField(
+                    text = email.value,
+                    hint = stringResource(R.string.eMail),
+                    isError = emailError.value,
+                    onValueChange = {
+                        email.value = it
+                        if (isValidEmail(email.value)) emailError.value = false
+                    },
+                    keyboardType = KeyboardType.Email
+                )
+                PasswordTextField(
+                    text = password.value,
+                    hint = stringResource(id = R.string.password),
+                    isError = passwordError.value,
+                    onValueChange = {
+                        password.value = it
+                        if (password.value.length > 7) passwordError.value = false
+                    })
+
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Row {
+                        Switch(
+                            checked = checkState.value,
+                            onCheckedChange = { checkState.value = it },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = Color.Green,
+                                uncheckedThumbColor = Color.White,
+                                uncheckedTrackColor = Color.Black
+                            )
+                        )
+                        Text(
+                            text = stringResource(R.string.remember),
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .focusable(true)
+                        )
+                    }
+
+                    Text(text = stringResource(R.string.forgotPassword),
+                        modifier = Modifier
+                            .padding(top = 10.dp)
+                            .clickable {
+
+                            }
+                            .focusable(true))
+                }
             }
-            GoogleBtn(icon = R.drawable.apple) {
+            PrimaryButton(text = stringResource(R.string.signIN), verticalPadding = 50.dp) {
+                when {
+                    !isValidEmail(email.value) -> emailError.value = true
+                    password.value.length < 8 -> passwordError.value = true
+                    else -> {
+                        onEvent.invoke(LoginContract.Intent.Login(email.value, password.value))
+                    }
+                }
+            }
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Divider(color = Color.Black, modifier = Modifier.width(85.dp))
+                Text(
+                    text = stringResource(R.string.orSIgnIn), modifier = Modifier.padding(5.dp)
+                )
+                Divider(color = Color.Black, modifier = Modifier.width(85.dp))
+            }
+            Row(
+                Modifier
+                    .padding(top = horizontalPadding_20)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                GoogleBtn {
 
+                }
+                GoogleBtn(icon = R.drawable.apple) {
+
+                }
             }
         }
     }
@@ -128,8 +180,24 @@ fun SignInContent() {
             text = stringResource(R.string.register),
             color = ColorGreenButton,
             modifier = Modifier.clickable {
-
+                onEvent.invoke(LoginContract.Intent.OpenRegister)
             }
         )
+    }
+
+
+    if (uiState.value.isLoading == true) {
+        CircularProgress()
+    } else {
+        scope.launch {
+            scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
+        }
+        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
+//    } else if (uiState.value.error != null) {
+//        Log.d("TAG1111", "SignInContent: ${uiState.value.error.toString()}")
+//        scope.launch {
+//            scaffoldState.snackbarHostState.showSnackbar(uiState.value.error.toString())
+//        }
+
     }
 }

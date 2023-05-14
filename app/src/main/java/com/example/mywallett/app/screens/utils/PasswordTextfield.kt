@@ -23,24 +23,27 @@ import com.example.mywallett.ui.theme.ColorGray
 
 @Composable
 fun PasswordTextField(
-    name:String="",
-    hint: String,
+    text:String,
+    hint: String="",
     testTag: String = "",
     textStyle: TextStyle = TextStyle(),
+    isError:Boolean=false,
     onValueChange: (String) -> Unit
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
 
     OutlinedTextField(
-        value = name,
+        value = text,
         onValueChange = onValueChange,
         label = { Text(text = hint) },
+        maxLines = 1,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 5.dp)
             .testTag(testTag),
         shape = RoundedCornerShape(8.dp),
         textStyle = textStyle,
+        isError=isError,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = Color.Transparent, unfocusedLabelColor = Color.Black,
             backgroundColor = ColorGray

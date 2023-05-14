@@ -1,36 +1,63 @@
 package com.example.presenter.signin
 
 import cafe.adriel.voyager.core.model.coroutineScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.coroutineScope
+import com.example.common.ResultData
+import com.example.usecase.usecases.authUseCase.GoogleSignUseCase
+import com.example.usecase.usecases.authUseCase.SignInUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 internal class SignInViewModelImpl @Inject constructor(
+    private val signInUseCase: SignInUseCase,
+    private val googleSignUseCase: GoogleSignUseCase,
     private val direction: SignInDirection
-) : SigInContract.ViewModel {
+) : SignInViewModel {
 
-    override val uiStateFlow = MutableStateFlow(SigInContract.UiState(false))
+    override val uiStateFlow = MutableStateFlow(LoginContract.UiState(isLoading = false))
 
-    private fun reduce(action: (SigInContract.UiState) -> SigInContract.UiState) {
+    private fun reduce(action: (LoginContract.UiState) -> LoginContract.UiState) {
         val oldState = uiStateFlow.value
         uiStateFlow.value = action(oldState)
     }
 
-    override fun onEventDispatcher(intent: SigInContract.Intent) {
+    override fun onEventDispatcher(intent: LoginContract.Intent) {
         when (intent) {
-            is SigInContract.Intent.Login -> {
+            is LoginContract.Intent.Login -> {
                 reduce { it.copy(isLoading = true) }
-
+                signInUseCase.invoke(intent.email, intent.password).onEach {
+                        reduce { it.copy(isLoading = false) }
+                        when (it) {
+                            is ResultData.Success -> direction.navigateToHome()
+                            is ResultData.Message -> LoginContract.UiState(message = it.message)
+                            is ResultData.Loading -> LoginContract.UiState(isLoading = true)
+                            is ResultData.Error -> LoginContract.UiState(error = it.error)
+                        }
+                    }.launchIn(coroutineScope)
             }
-            is SigInContract.Intent.ForgotPassword -> {
+
+            is LoginContract.Intent.ForgotPassword -> {
                 coroutineScope.launch { direction.navigateToForgotPsw() }
             }
-            is SigInContract.Intent.OpenRegister -> {
+
+            is LoginContract.Intent.OpenRegister -> {
                 coroutineScope.launch { direction.navigateToRegister() }
+            }
+
+            is LoginContract.Intent.SignWithGoogle -> {
+                reduce { it.copy(isLoading = true) }
+                googleSignUseCase.invoke(intent.credential).onEach {
+                    reduce { it.copy(isLoading = false) }
+                    when (it) {
+                        is ResultData.Success -> direction.navigateToHome()
+                        is ResultData.Message -> LoginContract.UiState(message = it.message)
+                        is ResultData.Loading -> LoginContract.UiState(isLoading = true)
+                        is ResultData.Error -> LoginContract.UiState(error = it.error)
+                    }
+                }
             }
         }
 
