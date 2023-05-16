@@ -1,4 +1,4 @@
-package com.example.usecase.common
+package com.example.r_usecase.common
 
 const val CHILD_ID = "id"
 const val CHILD_FULLNAME = "fullname"

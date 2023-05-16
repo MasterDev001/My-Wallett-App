@@ -2,6 +2,8 @@ package com.example.mywallett.app.screens.signin
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
@@ -16,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -25,6 +28,10 @@ import com.example.mywallett.app.screens.utils.*
 import com.example.mywallett.ui.theme.ColorGreenButton
 import com.example.presenter.signin.LoginContract
 import com.example.presenter.signin.SignInViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 import uz.gita.vogayerlib.hiltScreenModel
 
@@ -52,6 +59,20 @@ fun SignInContent(
     val emailError = remember { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val launcher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
+            val account = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            try {
+                val result = account.getResult(ApiException::class.java)
+                val credentials = GoogleAuthProvider.getCredential(result.idToken, null)
+                onEvent.invoke(LoginContract.Intent.SignWithGoogle(credentials))
+            } catch (e:ApiException) {
+                Log.d("TAG1111", "$e")
+            }
+        }
+
 
     Scaffold(Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
@@ -160,10 +181,14 @@ fun SignInContent(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 GoogleBtn {
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken("985140081211-9bv972kuq39ocfhqpu0t91j9bcda2un6.apps.googleusercontent.com")
+                        .requestEmail()
+                        .build()
 
-                }
-                GoogleBtn(icon = R.drawable.apple) {
+                    val googleSignInClient = GoogleSignIn.getClient(context, gso)
 
+                    launcher.launch(googleSignInClient.signInIntent)
                 }
             }
         }

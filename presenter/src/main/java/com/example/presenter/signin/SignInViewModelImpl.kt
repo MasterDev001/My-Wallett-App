@@ -2,8 +2,8 @@ package com.example.presenter.signin
 
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.common.ResultData
-import com.example.usecase.usecases.authUseCase.GoogleSignUseCase
-import com.example.usecase.usecases.authUseCase.SignInUseCase
+import com.example.r_usecase.usecases.authUseCase.GoogleSignUseCase
+import com.example.r_usecase.usecases.authUseCase.SignInUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

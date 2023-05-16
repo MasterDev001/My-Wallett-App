@@ -1,4 +1,4 @@
-package com.example.usecase
+package com.example.r_usecase
 
 import org.junit.Test
 

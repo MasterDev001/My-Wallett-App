@@ -1,4 +1,4 @@
-package com.example.usecase
+package com.example.r_usecase
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

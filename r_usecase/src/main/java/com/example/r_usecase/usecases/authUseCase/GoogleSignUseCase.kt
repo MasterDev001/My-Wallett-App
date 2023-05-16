@@ -1,4 +1,4 @@
-package com.example.usecase.usecases.authUseCase
+package com.example.r_usecase.usecases.authUseCase
 
 import com.example.repository.AuthRepository
 import com.google.firebase.auth.AuthCredential

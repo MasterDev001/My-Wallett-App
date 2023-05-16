@@ -1,7 +1,7 @@
-package com.example.usecase.di
+package com.example.r_usecase.di
 
 import com.example.repository.AuthRepository
-import com.example.usecase.repositoryimpl.AuthRepositoryImpl
+import com.example.r_usecase.repositoryimpl.AuthRepositoryImpl
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -20,9 +20,9 @@ internal object DatabaseModule {
     @Provides
     @Singleton
     fun authRepositoryImpl(): AuthRepository =
-        AuthRepositoryImpl(
+        com.example.r_usecase.repositoryimpl.AuthRepositoryImpl(
             auth = Firebase.auth,
-            fireStore=Firebase.firestore
+            fireStore = Firebase.firestore
         )
 
     @Provides

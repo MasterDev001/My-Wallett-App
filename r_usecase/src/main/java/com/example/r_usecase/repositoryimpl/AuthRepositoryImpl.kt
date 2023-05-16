@@ -1,19 +1,17 @@
-package com.example.usecase.repositoryimpl
+package com.example.r_usecase.repositoryimpl
 
 
-import com.example.usecase.common.CHILD_EMAIL
-import com.example.usecase.common.CHILD_FULLNAME
-import com.example.usecase.common.CHILD_ID
-import com.example.usecase.common.CHILD_TYPE
-import com.example.usecase.common.EMAIL_USERS
 import com.example.common.ResultData
+import com.example.r_usecase.common.CHILD_EMAIL
+import com.example.r_usecase.common.CHILD_FULLNAME
+import com.example.r_usecase.common.CHILD_ID
+import com.example.r_usecase.common.CHILD_TYPE
+import com.example.r_usecase.common.EMAIL_USERS
 import com.example.repository.AuthRepository
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -32,17 +30,16 @@ internal class AuthRepositoryImpl @Inject constructor(
         var result: ResultData<Any> = ResultData.Loading()
 
         auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                val dataMap = hashMapOf<String, Any>()
-                dataMap[CHILD_EMAIL] = email
-                dataMap[CHILD_FULLNAME] = name
-                dataMap[CHILD_ID] = auth.uid.toString()
-                dataMap[CHILD_TYPE] = EmailAuthProvider.PROVIDER_ID
-                fireStore.collection(EMAIL_USERS).document(email).set(dataMap)
-                    .addOnSuccessListener { result = ResultData.Success(true) }
-                    .addOnFailureListener {
-                        result = ResultData.Message(it.message.toString())
-                    }
-            }.addOnFailureListener { result = ResultData.Message(it.message.toString()) }.await()
+            val dataMap = hashMapOf<String, Any>()
+            dataMap[CHILD_EMAIL] = email
+            dataMap[CHILD_FULLNAME] = name
+            dataMap[CHILD_ID] = auth.uid.toString()
+            dataMap[CHILD_TYPE] = EmailAuthProvider.PROVIDER_ID
+            fireStore.collection(EMAIL_USERS).document(email).set(dataMap)
+                .addOnSuccessListener { result = ResultData.Success(true) }.addOnFailureListener {
+                    result = ResultData.Message(it.message.toString())
+                }
+        }.addOnFailureListener { result = ResultData.Message(it.message.toString()) }.await()
         emit(result)
     }.catch { ResultData.Error<Throwable>(it) }.flowOn(Dispatchers.IO)
 
@@ -56,13 +53,13 @@ internal class AuthRepositoryImpl @Inject constructor(
         emit(result)
     }.catch { emit(ResultData.Error<Throwable>(it)) }.flowOn(Dispatchers.IO)
 
-    override fun signInWithGoogle(credential: AuthCredential): Flow<ResultData<Any>> {
-        return flow<ResultData<Any>> {
-            emit(ResultData.Loading())
-            val result = auth.signInWithCredential(credential).await()
-            emit(ResultData.Success(result))
-        }.catch { emit(ResultData.Error(it))}.flowOn(Dispatchers.IO)
-    }
+    override fun signInWithGoogle(credential: AuthCredential): Flow<ResultData<Any>> = flow {
+        var result: ResultData<Any> = ResultData.Loading()
+        auth.signInWithCredential(credential)
+            .addOnSuccessListener { result = ResultData.Success(true) }
+            .addOnFailureListener { result = ResultData.Message(it.message.toString()) }.await()
+        emit(result)
+    }.catch { emit(ResultData.Error(it)) }.flowOn(Dispatchers.IO)
 
     override fun resetPassword(email: String): Flow<ResultData<Any>> = flow<ResultData<Any>> {
 

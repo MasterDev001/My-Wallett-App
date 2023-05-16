@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWallett"
         tools:targetApi="31">
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.wallet.api.enabled"-->
+<!--            android:value="true" />-->
         <activity
             android:name=".app.MainActivity"
             android:exported="true"

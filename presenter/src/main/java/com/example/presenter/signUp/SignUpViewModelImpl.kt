@@ -2,8 +2,7 @@ package com.example.presenter.signUp
 
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.common.ResultData
-import com.example.presenter.signin.LoginContract
-import com.example.usecase.usecases.authUseCase.RegisterUseCase
+import com.example.r_usecase.usecases.authUseCase.RegisterUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
