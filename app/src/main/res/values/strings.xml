@@ -11,4 +11,10 @@
     <string name="nameSurname">Name Surname</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="doYouHaveAnAcc">Do you have an account?</string>
+    <string name="kirim">"Kirim "</string>
+    <string name="chiqim">"Chiqim "</string>
+    <string name="qarz_olish">Qarz olish</string>
+    <string name="qarz_berish">Qarz berish</string>
+    <string name="tarix">Tarix</string>
+    <string name="recent_transactions">Recent Transactions</string>
 </resources>

@@ -8,22 +8,51 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:985140081211:android:22a94f52b884acb492a21e",
+        "mobilesdk_app_id": "1:985140081211:android:f4a3e2623ee9589092a21e",
         "android_client_info": {
           "package_name": "com.example.mywallett"
         }
       },
       "oauth_client": [
         {
-          "client_id": "985140081211-vtcsoep8f6fbpvf9pnt9jj3qiu65spmr.apps.googleusercontent.com",
+          "client_id": "985140081211-9bv972kuq39ocfhqpu0t91j9bcda2un6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFm00Sz8uC4jR_poFH_FwYXhJxFYGOPDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985140081211-8e37sov3762qbcrmaaid7dala06o588p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985140081211:android:20b5a98c947ce16d92a21e",
+        "android_client_info": {
+          "package_name": "com.example.r_usecase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985140081211-2gvfgui1mn0ojmkub6m5md2hmqu7t66n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mywallett",
+            "package_name": "com.example.r_usecase",
             "certificate_hash": "f017238cf6e2c6858b934b800872e714dd7552f9"
           }
         },
         {
-          "client_id": "985140081211-om9ht1hf45aeg4qn24kbh6gauf22n3r0.apps.googleusercontent.com",
+          "client_id": "985140081211-9bv972kuq39ocfhqpu0t91j9bcda2un6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

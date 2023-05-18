@@ -9,6 +9,7 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -59,7 +60,6 @@ fun SignInContent(
     val emailError = remember { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-
     val context = LocalContext.current
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
@@ -68,11 +68,10 @@ fun SignInContent(
                 val result = account.getResult(ApiException::class.java)
                 val credentials = GoogleAuthProvider.getCredential(result.idToken, null)
                 onEvent.invoke(LoginContract.Intent.SignWithGoogle(credentials))
-            } catch (e:ApiException) {
+            } catch (e: ApiException) {
                 Log.d("TAG1111", "$e")
             }
         }
-
 
     Scaffold(Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
@@ -159,7 +158,14 @@ fun SignInContent(
                     !isValidEmail(email.value) -> emailError.value = true
                     password.value.length < 8 -> passwordError.value = true
                     else -> {
-                        onEvent.invoke(LoginContract.Intent.Login(email.value, password.value))
+                        Log.d("TAG12", "SinIng:1")
+                        onEvent.invoke(
+                            LoginContract.Intent.Login(
+                                email.value,
+                                password.value,
+                                checkState.value
+                            )
+                        )
                     }
                 }
             }
@@ -184,6 +190,7 @@ fun SignInContent(
                     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken("985140081211-9bv972kuq39ocfhqpu0t91j9bcda2un6.apps.googleusercontent.com")
                         .requestEmail()
+
                         .build()
 
                     val googleSignInClient = GoogleSignIn.getClient(context, gso)
@@ -211,18 +218,27 @@ fun SignInContent(
     }
 
 
-    if (uiState.value.isLoading == true) {
-        CircularProgress()
-    } else {
-        scope.launch {
-            scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
+    when (uiState.value) {
+        is LoginContract.UiState.Loading -> {
+            CircularProgress()
         }
-        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
+
+        is LoginContract.UiState.Error -> {
+            Log.d("TAG12", "SinIng: ${(uiState.value as LoginContract.UiState.Error).message}")
+        }
+    }
+//    when (uiState.value.isLoading == true) {
+//        CircularProgress()
+//    } else {
+//        scope.launch {
+//            scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
+//        }
+//        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
 //    } else if (uiState.value.error != null) {
 //        Log.d("TAG1111", "SignInContent: ${uiState.value.error.toString()}")
 //        scope.launch {
 //            scaffoldState.snackbarHostState.showSnackbar(uiState.value.error.toString())
 //        }
 
-    }
 }
+

@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 val horizontalPadding_16 = 16.dp
+val padding_10 = 10.dp
 val horizontalPadding_20 = 20.dp
 val bottomPadding_25 = 25.dp
 val primaryCornerRadius_12 = 12.dp

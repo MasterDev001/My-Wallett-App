@@ -1,11 +1,13 @@
 package com.example.mywallett.app.screens.register
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -192,19 +194,22 @@ fun RegisterScreenContent(
            onEventDispatcher.invoke( SignUpContract.Intent.OpenSignIn)
             })
     }
-
+    LaunchedEffect(key1 = uiState.value.message, key2 = uiState.value.error) {
+        Log.d("TAG1111", "SignInContent: ${uiState.value.error.toString()}")
+        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
+//        Toast.makeText(context, uiState.value.message, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, uiState.value.error, Toast.LENGTH_SHORT).show()
+    }
     if (uiState.value.isLoading == true) {
         CircularProgress()
     } else if (uiState.value.message != null) {
 //            scope.launch {
 //                scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
 //            }
-        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
     } else if (uiState.value.error != null) {
 //            scope.launch {
 //                scaffoldState.snackbarHostState.showSnackbar(uiState.value.error.toString())
 //            }
-        Log.d("TAG1111", "SignInContent: ${uiState.value.error.toString()}")
 
     }
 }

@@ -1,11 +1,14 @@
 package com.example.presenter.signin
 
+import android.annotation.SuppressLint
+import android.util.Log
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.common.ResultData
+import com.example.r_usecase.usecases.authUseCase.CheckStateUseCase
 import com.example.r_usecase.usecases.authUseCase.GoogleSignUseCase
 import com.example.r_usecase.usecases.authUseCase.SignInUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,29 +17,38 @@ import javax.inject.Inject
 internal class SignInViewModelImpl @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val googleSignUseCase: GoogleSignUseCase,
+    private val checkStateUseCase: CheckStateUseCase,
     private val direction: SignInDirection
 ) : SignInViewModel {
 
-    override val uiStateFlow = MutableStateFlow(LoginContract.UiState(isLoading = false))
-
-    private fun reduce(action: (LoginContract.UiState) -> LoginContract.UiState) {
-        val oldState = uiStateFlow.value
-        uiStateFlow.value = action(oldState)
+    init {
+        coroutineScope.launch {
+            if (checkStateUseCase.invoke())
+                direction.navigateToHome()
+        }
     }
 
+    override val uiStateFlow =
+        MutableStateFlow<LoginContract.UiState>(LoginContract.UiState.Default)
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onEventDispatcher(intent: LoginContract.Intent) {
         when (intent) {
             is LoginContract.Intent.Login -> {
-                reduce { it.copy(isLoading = true) }
-                signInUseCase.invoke(intent.email, intent.password).onEach {
-                        reduce { it.copy(isLoading = false) }
-                        when (it) {
-                            is ResultData.Success -> direction.navigateToHome()
-                            is ResultData.Message -> LoginContract.UiState(message = it.message)
-                            is ResultData.Loading -> LoginContract.UiState(isLoading = true)
-                            is ResultData.Error -> LoginContract.UiState(error = it.error)
+                uiStateFlow.value = LoginContract.UiState.Loading
+                coroutineScope.launch {
+                    var response =
+                        signInUseCase.invoke(intent.email, intent.password, intent.checkState)
+                    when (response) {
+                        is ResultData.Success<*> -> {
+                            direction.navigateToHome()
                         }
-                    }.launchIn(coroutineScope)
+
+                        is ResultData.Error<*> -> LoginContract.UiState.Error(response.message.toString())
+                        is ResultData.Loading<*> -> LoginContract.UiState.Loading
+//                            is ResultData.Error -> LoginContract.UiState.Error(response.message)
+                    }
+                }
             }
 
             is LoginContract.Intent.ForgotPassword -> {
@@ -48,18 +60,17 @@ internal class SignInViewModelImpl @Inject constructor(
             }
 
             is LoginContract.Intent.SignWithGoogle -> {
-                reduce { it.copy(isLoading = true) }
+//                reduce { it.copy(isLoading = true) }
                 googleSignUseCase.invoke(intent.credential).onEach {
-                    reduce { it.copy(isLoading = false) }
-                    when (it) {
-                        is ResultData.Success -> direction.navigateToHome()
-                        is ResultData.Message -> LoginContract.UiState(message = it.message)
-                        is ResultData.Loading -> LoginContract.UiState(isLoading = true)
-                        is ResultData.Error -> LoginContract.UiState(error = it.error)
-                    }
+//                    reduce { it.copy(isLoading = false) }
+//                    when (it) {
+//                        is ResultData.Success -> direction.navigateToHome()
+//                        is ResultData.Message<Any?> -> LoginContract.UiState(message = it.message)
+//                        is ResultData.Loading -> LoginContract.UiState(isLoading = true)
+//                        is ResultData.Error -> LoginContract.UiState(error = it.error)
                 }
             }
         }
-
     }
+
 }

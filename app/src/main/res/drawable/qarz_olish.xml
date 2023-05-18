@@ -1,0 +1,15 @@
+<vector android:height="24dp" android:viewportHeight="64"
+    android:viewportWidth="64" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ffe27a" android:pathData="M46,26.23V44a7,7 0,0 1,-7 7H24a7,7 0,0 1,-7 -7V34H38V26a4,4 0,0 1,3.81 -4A4.17,4.17 0,0 1,46 26.23Z"/>
+    <path android:fillColor="#f6b545" android:pathData="M46,26.23V44a7,7 0,0 1,-7 7H24a7,7 0,0 1,-4.95 -2,7.43 7.43,0 0,1 -0.9,-1.1A6.92,6.92 0,0 0,22 49H39.76A4.24,4.24 0,0 0,44 44.76V23.12a2.45,2.45 0,0 0,-0.08 -0.58A4.34,4.34 0,0 1,46 26.23Z"/>
+    <path android:fillColor="#f6b545" android:pathData="M37.9,34a8.7,8.7 0,0 0,-2.26 1.64A8.94,8.94 0,0 0,33 42a1,1 0,0 1,-2 0,10.92 10.92,0 0,1 3.22,-7.78l0.23,-0.22Z"/>
+    <path android:fillColor="#6f707e" android:pathData="M59,9v3a4,4 0,0 0,-4 -4H9a4,4 0,0 0,-4 4V9A4,4 0,0 1,9 5H55A4,4 0,0 1,59 9Z"/>
+    <path android:fillColor="#595a66" android:pathData="M59,12v5a4,4 0,0 1,-4 4H54V13H10v8H9a4,4 0,0 1,-4 -4V12A4,4 0,0 1,9 8H55A4,4 0,0 1,59 12Z"/>
+    <path android:fillColor="#4c9cd6" android:pathData="M44,54v4a3,3 0,0 1,-3 3H22a3,3 0,0 1,-3 -3V54a3,3 0,0 1,3 -3H41a2.77,2.77 0,0 1,1 0.18A3,3 0,0 1,44 54Z"/>
+    <path android:fillColor="#70b7e5" android:pathData="M42,51.18V55a3,3 0,0 1,-3 3H20a2.77,2.77 0,0 1,-1 -0.18V54a3,3 0,0 1,3 -3H41A2.77,2.77 0,0 1,42 51.18Z"/>
+    <path android:fillColor="#0e9347" android:pathData="M38,30v4H14a4,4 0,0 1,-4 -4V13h7.87A4,4 0,0 1,14 16V26a4,4 0,0 1,4 4Z"/>
+    <path android:fillColor="#3bb54a" android:pathData="M50,16V26a4,4 0,0 0,-4 4V26.23A4.17,4.17 0,0 0,41.81 22,4 4,0 0,0 38,26v4H18a4,4 0,0 0,-4 -4V16a4,4 0,0 0,3.87 -3H46.13A4,4 0,0 0,50 16Z"/>
+    <path android:fillColor="#0e9347" android:pathData="M54,13V30a4,4 0,0 1,-2.94 3.85A3.72,3.72 0,0 1,50 34H46V30a4,4 0,0 1,4 -4V16a4,4 0,0 1,-3.87 -3Z"/>
+    <path android:fillColor="#89c763" android:pathData="M27,19.5a5,6.5 0,1 0,10 0a5,6.5 0,1 0,-10 0z"/>
+    <path android:fillColor="#494a52" android:pathData="M55,14H9a1,1 0,0 1,0 -2H55a1,1 0,0 1,0 2Z"/>
+</vector>

@@ -1,5 +1,6 @@
 package com.example.presenter.signUp
 
+import android.util.Log
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.common.ResultData
 import com.example.r_usecase.usecases.authUseCase.RegisterUseCase
@@ -32,21 +33,27 @@ internal class SignUpViewModelImpl @Inject constructor(
                             is ResultData.Loading -> {
                                 SignUpContract.UiState(isLoading = true)
                             }
-                            is ResultData.Success -> direction.navigateToHome()
 
-                            is ResultData.Message -> {
+                            is ResultData.Success -> {
+                                Log.d("TAG1111", "onEventDispatcher: 11")
+                                coroutineScope.launch {
+                                    direction.navigateToHome()
+                                }
+                            }
+
+                            is ResultData.Error<*> -> {
                                 SignUpContract.UiState(message = it.message)
                             }
 
-                            is ResultData.Error -> {
-                                SignUpContract.UiState(error = it.error)
-                            }
+//                            is ResultData.Error -> {
+//                                SignUpContract.UiState(error = it.error)
+//                            }
                         }
                     }.launchIn(coroutineScope)
             }
 
             is SignUpContract.Intent.OpenSignIn -> {
-                coroutineScope.launch { direction.navigateToSigIn()}
+                coroutineScope.launch { direction.navigateToSigIn() }
             }
 
             is SignUpContract.Intent.OpenRegister -> {

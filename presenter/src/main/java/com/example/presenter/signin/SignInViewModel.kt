@@ -10,5 +10,5 @@ interface  SignInViewModel : ScreenModel {
 
     val uiStateFlow: StateFlow<LoginContract.UiState>
 
-    fun onEventDispatcher(intent: LoginContract.Intent)
+     fun onEventDispatcher(intent: LoginContract.Intent)
 }
