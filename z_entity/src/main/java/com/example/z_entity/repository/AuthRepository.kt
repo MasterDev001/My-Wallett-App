@@ -1,4 +1,4 @@
-package com.example.repository
+package com.example.z_entity.repository
 
 import com.example.common.ResultData
 import com.google.firebase.auth.AuthCredential

@@ -1,5 +1,6 @@
 package com.example.repository
 
+import com.example.z_entity.repository.AuthRepository
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.first

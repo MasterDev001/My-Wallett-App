@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.entity'
+    namespace 'com.example.z_entity'
     compileSdk 33
 
     defaultConfig {
@@ -49,12 +49,9 @@ dependencies {
     compileOnly "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-compiler:2.45"
 
-    def room_version = "2.4.0"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-
-    // To use Kotlin annotation processing tool (kapt)
-    implementation 'androidx.room:room-ktx:2.4.0'
-    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-ktx:2.5.1"
+    implementation "androidx.room:room-runtime:2.5.1"
+    kapt "androidx.room:room-compiler:2.5.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    androidTestImplementation "androidx.room:room-testing:2.5.1"
 }

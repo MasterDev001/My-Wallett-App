@@ -1,15 +1,15 @@
 package com.example.r_usecase.repositoryimpl
 
-import MyCurrency
-import com.example.db.daos.CurrencyDao
+import com.example.z_entity.db.entity.MyCurrency
+import com.example.z_entity.db.daos.CurrencyDao
 import com.example.r_usecase.common.CHILD_DATE
 import com.example.r_usecase.common.CHILD_ID
 import com.example.r_usecase.common.CHILD_NAME
 import com.example.r_usecase.common.CHILD_RATE
 import com.example.r_usecase.common.CURRENCIES
 import com.example.r_usecase.common.USERS
-import com.example.repository.AuthRepository
-import com.example.repository.CurrencyRepository
+import com.example.z_entity.repository.AuthRepository
+import com.example.z_entity.repository.CurrencyRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 

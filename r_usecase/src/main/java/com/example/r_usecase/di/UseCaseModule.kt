@@ -1,7 +1,7 @@
 package com.example.r_usecase.di
 
-import com.example.db.daos.CurrencyDao
-import com.example.repository.AuthRepository
+import com.example.z_entity.db.daos.CurrencyDao
+import com.example.z_entity.repository.AuthRepository
 import com.example.r_usecase.repositoryimpl.AuthRepositoryImpl
 import com.example.r_usecase.repositoryimpl.CurrencyRepositoryImpl
 import com.example.r_usecase.usecases.currencyUseCase.AddCurrencyUseCase
@@ -10,7 +10,7 @@ import com.example.r_usecase.usecases.currencyUseCase.DeleteCurrencyUseCase
 import com.example.r_usecase.usecases.currencyUseCase.GetAllCurrenciesUseC
 import com.example.r_usecase.usecases.currencyUseCase.GetCurrencyUseC
 import com.example.r_usecase.usecases.currencyUseCase.UpdateCurrencyUseCase
-import com.example.repository.CurrencyRepository
+import com.example.z_entity.repository.CurrencyRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

@@ -5,4 +5,6 @@ import uz.gita.vogayerlib.ScreenModelImpl
 
 @ScreenModelImpl(CurrencyViewModelImpl::class)
 interface CurrencyViewModel:ScreenModel {
+
+
 }

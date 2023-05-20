@@ -2,7 +2,7 @@ package com.example.r_usecase.usecases.authUseCase
 
 import android.util.Log
 
-import com.example.repository.AuthRepository
+import com.example.z_entity.repository.AuthRepository
 import javax.inject.Inject
 
 class CheckStateUseCase @Inject constructor(private val repository: AuthRepository) {

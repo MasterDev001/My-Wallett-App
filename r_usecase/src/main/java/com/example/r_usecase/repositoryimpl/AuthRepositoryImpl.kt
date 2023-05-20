@@ -6,7 +6,7 @@ import com.example.r_usecase.common.CHILD_FULLNAME
 import com.example.r_usecase.common.CHILD_ID
 import com.example.r_usecase.common.CHILD_TYPE
 import com.example.r_usecase.common.USERS
-import com.example.repository.AuthRepository
+import com.example.z_entity.repository.AuthRepository
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth

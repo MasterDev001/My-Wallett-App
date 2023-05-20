@@ -21,7 +21,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,77 +30,80 @@ import com.example.mywallett.app.screens.utils.CircularButton
 import com.example.mywallett.app.screens.utils.horizontalPadding_16
 import com.example.mywallett.app.screens.utils.padding_10
 import com.example.mywallett.app.screens.utils.textSize_21sp
+import com.example.presenter.home.HomeContract
+import com.example.presenter.home.HomeViewModel
 import kotlinx.coroutines.launch
+import uz.gita.vogayerlib.hiltScreenModel
 
 class HomeScreen : AndroidScreen() {
 
     @Composable
     override fun Content() {
-        HomeScreenContent()
+        val viewModel: HomeViewModel = hiltScreenModel()
+        val uiState = viewModel.uiState.collectAsState()
+        HomeScreenContent(uiState, viewModel::onEventDispatcher)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(
+    uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Intent) -> Unit
+) {
     var selectedItem by remember { mutableStateOf(0) }
     val scaffoldState =
         rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
-    Scaffold(scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(title = {},
-                navigationIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.menu),
-                        contentDescription = "Menu",
-                        modifier = Modifier.clickable {
-                            scope.launch { scaffoldState.drawerState.open() }
-                        }
-                    )
+    Scaffold(scaffoldState = scaffoldState, topBar = {
+        TopAppBar(title = {}, navigationIcon = {
+            Icon(painter = painterResource(id = R.drawable.menu),
+                contentDescription = "Menu",
+                modifier = Modifier.clickable {
+                    scope.launch { scaffoldState.drawerState.open() }
                 })
-        }, content = {
-            if (selectedItem == 0) {
-                HomeCScreen()
-            } else {
-                Settings()
-            }
-        }, drawerContent = {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .size(150.dp)
-                    .background(colorResource(id = R.color.black))
-            ) {
-                Text(text = "asugyhi", fontSize = 36.sp, color = Color.White)
-            }
-
-            DropdownMenuItem(onClick = {
-                selectedItem = 0
-                scope.launch { scaffoldState.drawerState.close() }
-            }) {
-                Text(text = "Home")
-            }
-            DropdownMenuItem(onClick = {
-                selectedItem = 1
-                scope.launch { scaffoldState.drawerState.close() }
-            }) {
-                Text(text = "Second Screen")
-            }
-            val activity = (LocalContext.current as Activity)
-            BackHandler {
-                if (scaffoldState.drawerState.isOpen) {
-                    scope.launch { scaffoldState.drawerState.close() }
-                } else {
-                    activity.finish()
-                }
-            }
         })
+    }, content = {
+        if (selectedItem == 0) {
+            HomeCScreen(uiState, onEvent)
+        } else {
+            Settings()
+        }
+    }, drawerContent = {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .size(150.dp)
+                .background(colorResource(id = R.color.black))
+        ) {
+            Text(text = "asugyhi", fontSize = 36.sp, color = Color.White)
+        }
+
+        DropdownMenuItem(onClick = {
+            selectedItem = 0
+            scope.launch { scaffoldState.drawerState.close() }
+        }) {
+            Text(text = "Home")
+        }
+        DropdownMenuItem(onClick = {
+            selectedItem = 1
+            scope.launch { scaffoldState.drawerState.close() }
+        }) {
+            Text(text = "Second Screen")
+        }
+        val activity = (LocalContext.current as Activity)
+        BackHandler {
+            if (scaffoldState.drawerState.isOpen) {
+                scope.launch { scaffoldState.drawerState.close() }
+            } else {
+                activity.finish()
+            }
+        }
+    })
 }
 
 @Composable
-fun HomeCScreen() {
+fun HomeCScreen(uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Intent) -> Unit) {
     val itemList = remember { mutableStateListOf("fsadjhju", "akhsfk", "daskhjg", "lksajhf") }
 
     Column(
@@ -161,11 +163,9 @@ fun HomeCScreen() {
 
                 }
                 Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "* * *",
+                    Text(text = "* * *",
                         style = MaterialTheme.typography.h5,
                         modifier = Modifier.clickable { })
                 }
@@ -202,7 +202,8 @@ fun HomeCScreen() {
             Row(
                 Modifier
                     .padding(top = horizontalPadding_16)
-                    .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
                 CircularButton(
@@ -223,6 +224,7 @@ fun HomeCScreen() {
                 CircularButton(
                     stringResource(R.string.valyutalar), icon = R.drawable.currency
                 ) {
+                    onEvent.invoke(HomeContract.Intent.OpenCurrency)
                 }
             }
         }

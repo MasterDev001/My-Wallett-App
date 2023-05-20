@@ -1,7 +1,7 @@
-
+package com.example.z_entity.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.db.remote_models.CurrencyRemote
+import com.example.z_entity.db.remote_models.CurrencyRemote
 
 @Entity(tableName = "currencies")
 data class MyCurrency(

@@ -1,4 +1,10 @@
 package com.example.presenter.currency
 
-internal class CurrencyViewModelImpl : CurrencyViewModel {
+import javax.inject.Inject
+
+internal class CurrencyViewModelImpl @Inject constructor(
+
+) : CurrencyViewModel {
+
+
 }

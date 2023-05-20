@@ -1,9 +1,9 @@
-package com.example.db
+package com.example.z_entity.db
 
-import MyCurrency
+import com.example.z_entity.db.entity.MyCurrency
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.db.daos.CurrencyDao
+import com.example.z_entity.db.daos.CurrencyDao
 
 @Database(entities = [MyCurrency::class], version = 1)
 abstract class MyDatabase : RoomDatabase() {

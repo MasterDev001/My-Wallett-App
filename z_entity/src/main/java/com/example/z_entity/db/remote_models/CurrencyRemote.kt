@@ -1,4 +1,4 @@
-package com.example.db.remote_models
+package com.example.z_entity.db.remote_models
 
 
 data class CurrencyRemote(

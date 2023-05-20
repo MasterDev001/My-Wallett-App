@@ -1,6 +1,6 @@
-package com.example.repository
+package com.example.z_entity.repository
 
-import MyCurrency
+import com.example.z_entity.db.entity.MyCurrency
 import kotlinx.coroutines.flow.Flow
 
 interface CurrencyRepository {

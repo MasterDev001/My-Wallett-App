@@ -1,9 +1,9 @@
-package com.example.di
+package com.example.z_entity.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.db.MyDatabase
-import com.example.db.daos.CurrencyDao
+import com.example.z_entity.db.MyDatabase
+import com.example.z_entity.db.daos.CurrencyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,11 +19,11 @@ object DataBaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): MyDatabase =
         Room.databaseBuilder(context, MyDatabase::class.java, MyDatabase.DATABASE_NAME)
-//            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration()
             .build()
 
     @Provides
     @Singleton
-    fun provideCurrency(db:MyDatabase):CurrencyDao=db.currencyDao
+    fun provideCurrency(db: MyDatabase): CurrencyDao =db.currencyDao
 
 }

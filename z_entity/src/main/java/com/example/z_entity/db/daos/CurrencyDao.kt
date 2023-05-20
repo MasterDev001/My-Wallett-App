@@ -1,6 +1,7 @@
-package com.example.db.daos
+package com.example.z_entity.db.daos
 
-import MyCurrency
+
+import com.example.z_entity.db.entity.MyCurrency
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -21,8 +22,8 @@ interface CurrencyDao {
     suspend fun deleteCurrency(id: String): Int
 
     @Query("SELECT * FROM currencies WHERE name=:name")
-    suspend fun getCurrency(name: String): Flow<MyCurrency>
+     fun getCurrency(name: String): Flow<MyCurrency>
 
     @Query("SELECT * FROM currencies")
-    suspend fun getAllCurrencies(): Flow<List<MyCurrency>>
+     fun getAllCurrencies(): Flow<List<MyCurrency>>
 }
