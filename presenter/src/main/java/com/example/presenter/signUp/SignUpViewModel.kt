@@ -1,7 +1,6 @@
 package com.example.presenter.signUp
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import com.example.presenter.signin.LoginContract
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.vogayerlib.ScreenModelImpl
 

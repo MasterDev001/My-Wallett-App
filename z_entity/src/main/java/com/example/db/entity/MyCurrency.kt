@@ -4,7 +4,7 @@ import androidx.room.PrimaryKey
 import com.example.db.remote_models.CurrencyRemote
 
 @Entity(tableName = "currencies")
-data class Currency(
+data class MyCurrency(
     @PrimaryKey
     val id: String,
     var name: String,

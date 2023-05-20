@@ -221,7 +221,7 @@ fun HomeCScreen() {
 
                 }
                 CircularButton(
-                    stringResource(R.string.tarix), icon = R.drawable.history
+                    stringResource(R.string.valyutalar), icon = R.drawable.currency
                 ) {
                 }
             }
@@ -229,13 +229,21 @@ fun HomeCScreen() {
         Column(
             Modifier
                 .padding(horizontal = horizontalPadding_16)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) {
-            Text(
-                text = stringResource(R.string.recent_transactions),
-                fontSize = textSize_21sp,
-                fontWeight = FontWeight.Bold
-            )
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+
+                Text(
+                    text = stringResource(R.string.recent_transactions),
+                    fontSize = textSize_21sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.ko_proq),
+                    fontSize = textSize_21sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
             LazyColumn {
                 items(itemList.count(), itemContent = {
                     val item = itemList[it]

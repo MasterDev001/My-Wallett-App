@@ -9,4 +9,5 @@ interface HomeDirection {
     suspend fun navigateToHaqdorlar()
     suspend fun navigateToWallets()
     suspend fun navigateToHistory()
+    suspend fun navigateToCurrencies()
 }

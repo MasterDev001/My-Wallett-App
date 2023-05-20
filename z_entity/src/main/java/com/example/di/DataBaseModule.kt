@@ -3,6 +3,7 @@ package com.example.di
 import android.content.Context
 import androidx.room.Room
 import com.example.db.MyDatabase
+import com.example.db.daos.CurrencyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,8 @@ object DataBaseModule {
 //            .fallbackToDestructiveMigration()
             .build()
 
-//    @Provides
-//    @Singleton
+    @Provides
+    @Singleton
+    fun provideCurrency(db:MyDatabase):CurrencyDao=db.currencyDao
 
 }

@@ -5,7 +5,7 @@ import com.example.r_usecase.common.CHILD_EMAIL
 import com.example.r_usecase.common.CHILD_FULLNAME
 import com.example.r_usecase.common.CHILD_ID
 import com.example.r_usecase.common.CHILD_TYPE
-import com.example.r_usecase.common.EMAIL_USERS
+import com.example.r_usecase.common.USERS
 import com.example.repository.AuthRepository
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
@@ -38,7 +38,7 @@ internal class AuthRepositoryImpl @Inject constructor(
             dataMap[CHILD_FULLNAME] = name
             dataMap[CHILD_ID] = auth.uid.toString()
             dataMap[CHILD_TYPE] = EmailAuthProvider.PROVIDER_ID
-            fireStore.collection(EMAIL_USERS).document(email).set(dataMap)
+            fireStore.collection(USERS).document(email).set(dataMap)
                 .addOnSuccessListener { result = ResultData.Success(true) }.addOnFailureListener {
                     result = ResultData.Error<Any>(it.message.toString())
                 }
