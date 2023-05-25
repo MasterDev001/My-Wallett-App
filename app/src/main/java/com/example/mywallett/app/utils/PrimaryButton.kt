@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.utils
+package com.example.mywallett.app.utils
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

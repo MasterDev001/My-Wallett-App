@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.utils
+package com.example.mywallett.app.utils
 
 import android.graphics.drawable.BitmapDrawable
 import androidx.compose.foundation.BorderStroke

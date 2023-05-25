@@ -90,4 +90,6 @@ dependencies {
     implementation project(path: ':presenter')
     implementation project(path: ':a_common')
     implementation project(path: ':z_voyagerlib')
+
+//    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
 }

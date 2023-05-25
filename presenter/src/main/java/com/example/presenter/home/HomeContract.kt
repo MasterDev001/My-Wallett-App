@@ -12,6 +12,7 @@ class HomeContract {
         object OpenHaqdorlar:Intent
         object OpenTarix:Intent
         object OpenCurrency:Intent
+        object OpenWallets:Intent
     }
 
     interface UiState {

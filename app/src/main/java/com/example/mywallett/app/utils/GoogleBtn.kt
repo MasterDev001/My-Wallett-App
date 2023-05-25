@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.utils
+package com.example.mywallett.app.utils
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding

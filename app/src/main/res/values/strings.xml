@@ -20,4 +20,18 @@
     <string name="valyutalar">Valyutalar</string>
     <string name="ko_proq"><![CDATA[Ko\'proq >>]]></string>
     <string name="yangi_valuta_qo_shish">Yangi Valuta Qo\'shish</string>
+    <string name="tahrirlash">Tahrirlash</string>
+    <string name="o_chirish">O\'chirish</string>
+    <string name="valyuta_nomi">Valyuta nomi</string>
+    <string name="kurs_1">"Kurs 1$ = "</string>
+    <string name="qiymati">Qiymati</string>
+    <string name="tasdiqlash">Tasdiqlash</string>
+    <string name="bekor">Bekor</string>
+    <string name="valyutani_tahrirlash">Valyutani Tahrirlash</string>
+    <string name="ni_o_chirishga_ishonchingiz_komilmi">" ni o'chirishga ishonchingiz komilmi?"</string>
+    <string name="hamyonlar">Hamyonlar</string>
+    <string name="haqdorlar">Haqdorlar</string>
+    <string name="qarzdorlar">Qarzdorlar</string>
+    <string name="hamyon_nomi">Hamyon nomi</string>
+    <string name="yangi_hamyon_qo_shish">Yangi hamyon qo\'shish</string>
 </resources>

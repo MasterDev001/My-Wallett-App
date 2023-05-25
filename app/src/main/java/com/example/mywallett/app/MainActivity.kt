@@ -10,7 +10,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
-import com.example.mywallett.app.screens.home.HomeScreenContent
 import com.example.mywallett.app.screens.signin.SignInScreen
 import com.example.mywallett.navigation.AppNavigatorDispatcher
 import com.example.mywallett.ui.theme.MyWallettTheme

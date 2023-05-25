@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.utils
+package com.example.mywallett.app.utils
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp

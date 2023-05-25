@@ -4,10 +4,12 @@ import com.example.mywallett.app.screens.currencies.CurrencyDirectionImpl
 import com.example.mywallett.app.screens.home.HomeDirectionImpl
 import com.example.mywallett.app.screens.register.RegisterDirectionImpl
 import com.example.mywallett.app.screens.signin.SignInDirectionImpl
+import com.example.mywallett.app.screens.wallets.WalletsDirectionImpl
 import com.example.presenter.currency.CurrencyDirection
 import com.example.presenter.home.HomeDirection
 import com.example.presenter.signUp.SignUpDirection
 import com.example.presenter.signin.SignInDirection
+import com.example.presenter.wallets.WalletsDirection
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +30,7 @@ interface DirectionModule {
 
     @Binds
     fun currencyDirection(impl: CurrencyDirectionImpl): CurrencyDirection
+
+    @Binds
+    fun provideWalletsDirection(impl: WalletsDirectionImpl): WalletsDirection
 }

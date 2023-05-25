@@ -1,8 +1,7 @@
 package com.example.presenter.signUp
 
-import android.util.Log
 import cafe.adriel.voyager.core.model.coroutineScope
-import com.example.common.ResultData
+import com.example.a_common.ResultData
 import com.example.r_usecase.usecases.authUseCase.RegisterUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -26,7 +25,7 @@ internal class SignUpViewModelImpl @Inject constructor(
         when (intent) {
             is SignUpContract.Intent.Register -> {
                 reduce { it.copy(isLoading = true) }
-                signUpUseCase.invoke(intent.name, intent.email, intent.password)
+                signUpUseCase.invoke(intent.name.trim(), intent.email.trim(), intent.password)
                     .onEach {
                         reduce { it.copy(isLoading = false) }
                         when (it) {
@@ -35,7 +34,6 @@ internal class SignUpViewModelImpl @Inject constructor(
                             }
 
                             is ResultData.Success -> {
-                                Log.d("TAG1111", "onEventDispatcher: 11")
                                 coroutineScope.launch {
                                     direction.navigateToHome()
                                 }

@@ -2,7 +2,6 @@ package com.example.presenter.home
 
 import cafe.adriel.voyager.core.model.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -48,6 +47,10 @@ internal class HomeViewModelImpl @Inject constructor(
 
             is HomeContract.Intent.OpenTarix -> {
 
+            }
+
+            is HomeContract.Intent.OpenWallets -> {
+                coroutineScope.launch { direction.navigateToWallets() }
             }
         }
     }

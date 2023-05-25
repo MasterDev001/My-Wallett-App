@@ -1,13 +1,11 @@
 package com.example.presenter.signin
 
 import android.annotation.SuppressLint
-import android.util.Log
 import cafe.adriel.voyager.core.model.coroutineScope
-import com.example.common.ResultData
+import com.example.a_common.ResultData
 import com.example.r_usecase.usecases.authUseCase.CheckStateUseCase
 import com.example.r_usecase.usecases.authUseCase.GoogleSignUseCase
 import com.example.r_usecase.usecases.authUseCase.SignInUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -38,7 +36,7 @@ internal class SignInViewModelImpl @Inject constructor(
                 uiStateFlow.value = LoginContract.UiState.Loading
                 coroutineScope.launch {
                     var response =
-                        signInUseCase.invoke(intent.email, intent.password, intent.checkState)
+                        signInUseCase.invoke(intent.email.trim(), intent.password, intent.checkState)
                     when (response) {
                         is ResultData.Success<*> -> {
                             direction.navigateToHome()

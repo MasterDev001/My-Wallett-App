@@ -1,8 +1,7 @@
 package com.example.z_entity.repository
 
-import com.example.common.ResultData
+import com.example.a_common.ResultData
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 

@@ -1,6 +1,8 @@
 package com.example.z_entity.db.entity
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.a_common.data.CurrencyData
 import com.example.z_entity.db.remote_models.CurrencyRemote
 
 @Entity(tableName = "currencies")
@@ -19,3 +21,5 @@ data class MyCurrency(
         date = this.date
     )
 }
+    fun MyCurrency.toCurrencyData() = CurrencyData(id, name, rate, date)
+    fun CurrencyData.toMyCurrency() = MyCurrency(id, name, rate, date)

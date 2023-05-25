@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.a_common
 
 sealed class ResultData<out T> {
     class Success<T>(val t: T) : ResultData<T>()

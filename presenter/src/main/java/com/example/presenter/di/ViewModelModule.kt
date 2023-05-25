@@ -6,6 +6,7 @@ import com.example.presenter.currency.CurrencyViewModelImpl
 import com.example.presenter.home.HomeViewModelImpl
 import com.example.presenter.signUp.SignUpViewModelImpl
 import com.example.presenter.signin.SignInViewModelImpl
+import com.example.presenter.wallets.WalletsViewModelImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -27,4 +28,7 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(CurrencyViewModelImpl::class)]
     fun currencyViewModelImpl(impl: CurrencyViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(WalletsViewModelImpl::class)]
+    fun provideWalletsViewModel(impl: WalletsViewModelImpl): ScreenModel
 }

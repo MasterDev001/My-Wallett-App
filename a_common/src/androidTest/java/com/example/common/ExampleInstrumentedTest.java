@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.a_common;
 
 import android.content.Context;
 

@@ -1,11 +1,20 @@
 package com.example.mywallett.app.screens.register
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -21,7 +30,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.androidx.AndroidScreen
 import com.example.mywallett.R
-import com.example.mywallett.app.screens.utils.*
+import com.example.mywallett.app.utils.CircularProgress
+import com.example.mywallett.app.utils.GoogleBtn
+import com.example.mywallett.app.utils.PasswordTextField
+import com.example.mywallett.app.utils.PrimaryButton
+import com.example.mywallett.app.utils.SignTextField
+import com.example.mywallett.app.utils.bottomPadding_25
+import com.example.mywallett.app.utils.horizontalPadding_20
+import com.example.mywallett.app.utils.isValidEmail
 import com.example.mywallett.ui.theme.ColorGreenButton
 import com.example.presenter.signUp.SignUpContract
 import com.example.presenter.signUp.SignUpViewModel
@@ -39,7 +55,7 @@ class RegisterScreen : AndroidScreen() {
 }
 
 @Composable
-fun RegisterScreenContent(
+private fun RegisterScreenContent(
     uiState: State<SignUpContract.UiState>, onEventDispatcher: (SignUpContract.Intent) -> Unit
 ) {
     val name = remember { mutableStateOf("") }
@@ -191,7 +207,7 @@ fun RegisterScreenContent(
         Text(text = stringResource(R.string.signIN),
             color = ColorGreenButton,
             modifier = Modifier.clickable {
-           onEventDispatcher.invoke( SignUpContract.Intent.OpenSignIn)
+                onEventDispatcher.invoke(SignUpContract.Intent.OpenSignIn)
             })
     }
     LaunchedEffect(key1 = uiState.value.message, key2 = uiState.value.error) {

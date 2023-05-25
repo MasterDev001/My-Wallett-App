@@ -1,6 +1,6 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.common.ResultData
+import com.example.a_common.ResultData
 import com.example.r_usecase.common.CHILD_EMAIL
 import com.example.r_usecase.common.CHILD_FULLNAME
 import com.example.r_usecase.common.CHILD_ID
@@ -25,7 +25,7 @@ internal class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override var checkState: Boolean = true
-    override val currentUser: FirebaseUser? = auth.currentUser
+    override var currentUser: FirebaseUser? = auth.currentUser
 
     override fun registerWithEmail(
         name: String, email: String, password: String
@@ -33,6 +33,7 @@ internal class AuthRepositoryImpl @Inject constructor(
         var result: ResultData<Any> = ResultData.Loading()
 
         auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+            currentUser = it.user
             val dataMap = hashMapOf<String, Any>()
             dataMap[CHILD_EMAIL] = email
             dataMap[CHILD_FULLNAME] = name
@@ -50,8 +51,10 @@ internal class AuthRepositoryImpl @Inject constructor(
         email: String, password: String, checkState: Boolean
     ): ResultData<Any> {
         return try {
-            auth.signInWithEmailAndPassword(email, password).await()
-            this.checkState=checkState
+            auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
+                currentUser = it.user
+            }.await()
+            this.checkState = checkState
             ResultData.Success(true)
         } catch (e: Exception) {
             ResultData.Error(e.message.toString())
@@ -61,7 +64,10 @@ internal class AuthRepositoryImpl @Inject constructor(
     override fun signInWithGoogle(credential: AuthCredential): Flow<ResultData<Any>> = flow {
         var result: ResultData<Any> = ResultData.Loading()
         auth.signInWithCredential(credential)
-            .addOnSuccessListener { result = ResultData.Success(true) }
+            .addOnSuccessListener {
+                result = ResultData.Success(true)
+                currentUser = it.user
+            }
             .addOnFailureListener { result = ResultData.Error<Any>(it.message.toString()) }
             .await().user
         emit(result)

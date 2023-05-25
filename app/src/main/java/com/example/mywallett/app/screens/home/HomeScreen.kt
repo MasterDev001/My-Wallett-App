@@ -26,10 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
 import com.example.mywallett.R
-import com.example.mywallett.app.screens.utils.CircularButton
-import com.example.mywallett.app.screens.utils.horizontalPadding_16
-import com.example.mywallett.app.screens.utils.padding_10
-import com.example.mywallett.app.screens.utils.textSize_21sp
+import com.example.mywallett.app.utils.CircularButton
+import com.example.mywallett.app.utils.horizontalPadding_16
+import com.example.mywallett.app.utils.padding_10
+import com.example.mywallett.app.utils.textSize_21sp
 import com.example.presenter.home.HomeContract
 import com.example.presenter.home.HomeViewModel
 import kotlinx.coroutines.launch
@@ -47,7 +47,7 @@ class HomeScreen : AndroidScreen() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Intent) -> Unit
 ) {
     var selectedItem by remember { mutableStateOf(0) }
@@ -103,7 +103,10 @@ fun HomeScreenContent(
 }
 
 @Composable
-fun HomeCScreen(uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Intent) -> Unit) {
+private fun HomeCScreen(
+    uiState: State<HomeContract.UiState>,
+    onEvent: (HomeContract.Intent) -> Unit
+) {
     val itemList = remember { mutableStateListOf("fsadjhju", "akhsfk", "daskhjg", "lksajhf") }
 
     Column(
@@ -207,19 +210,19 @@ fun HomeCScreen(uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Int
             ) {
 
                 CircularButton(
-                    "Qarzdorlar", icon = R.drawable.qarzdorlar
+                    stringResource(R.string.qarzdorlar), icon = R.drawable.qarzdorlar
                 ) {
 
                 }
                 CircularButton(
-                    "Haqdorlar", icon = R.drawable.haqdorlar
+                    stringResource(R.string.haqdorlar), icon = R.drawable.haqdorlar
                 ) {
 
                 }
                 CircularButton(
-                    "Hamyonlar", icon = R.drawable.wallet
+                    stringResource(R.string.hamyonlar), icon = R.drawable.wallet
                 ) {
-
+                    onEvent.invoke(HomeContract.Intent.OpenWallets)
                 }
                 CircularButton(
                     stringResource(R.string.valyutalar), icon = R.drawable.currency

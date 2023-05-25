@@ -1,6 +1,7 @@
 package com.example.mywallett.app.screens.home
 
 import com.example.mywallett.app.screens.currencies.CurrencyScreen
+import com.example.mywallett.app.screens.wallets.WalletsScreen
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.home.HomeDirection
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
     }
 
     override suspend fun navigateToWallets() {
-        TODO("Not yet implemented")
+        navigator.navigateTo(WalletsScreen())
     }
 
     override suspend fun navigateToHistory() {
