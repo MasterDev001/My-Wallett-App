@@ -63,19 +63,16 @@ class CurrencyScreen : AndroidScreen() {
 
         val currencyList by viewModel.currencies.collectAsState(emptyList())
         val popUpState = remember { mutableStateOf(false) }
+        var offsetPopUp by remember { mutableStateOf(Offset(0f, 0f)) }
         val editDialogState = remember { mutableStateOf(false) }
         val deleteDialogState = remember { mutableStateOf(false) }
-        var offsetPopUp by remember { mutableStateOf(Offset(0f, 0f)) }
         val itemHeight by remember { mutableStateOf(0.dp) }
         val density = LocalDensity.current
         var addDialogState by remember { mutableStateOf(false) }
-        var currencyName by remember { mutableStateOf("") }
-        var currencyRate by remember { mutableStateOf("") }
         var currentCurrency by remember { mutableStateOf(CurrencyData("")) }
 
         if (popUpState.value) {
             PopUpToDialog(offset = offsetPopUp,
-                itemHeight = itemHeight,
                 text = currentCurrency.name,
                 onDeleteClick = {
                     deleteDialogState.value = true
@@ -110,18 +107,14 @@ class CurrencyScreen : AndroidScreen() {
         }
         if (addDialogState) {
             DialogAddCurrency(
-                currencyName,
-                currencyRate,
-                currencyNameOnValueChange = { currencyName = it },
-                currencyRateOnValueChange = { currencyRate = it },
                 onDismissRequest = { addDialogState = false },
-                onAddClick = {
+                onAddClick = {name,rate->
                     onEvent.invoke(
                         CurrencyContract.Intent.AddCurrency(
                             CurrencyData(
                                 UUID.randomUUID().toString(),
-                                currencyName,
-                                currencyRate.toDouble(),
+                                name,
+                                rate.toDouble(),
                                 System.currentTimeMillis()
                             )
                         )

@@ -29,16 +29,14 @@ import com.example.mywallett.ui.theme.ColorBorderGray
 
 @Composable
 fun DialogAddCurrency(
-    currencyName: String,
-    currencyRate: String,
-    currencyNameOnValueChange: (String) -> Unit,
-    currencyRateOnValueChange: (String) -> Unit,
     onDismissRequest: () -> Unit,
-    onAddClick: () -> Unit
+    onAddClick: (String,String) -> Unit
 ) {
 
     var isErrorName by remember { mutableStateOf(false) }
     var isErrorRate by remember { mutableStateOf(false) }
+    var currencyName by remember { mutableStateOf("") }
+    var currencyRate by remember { mutableStateOf("") }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -58,7 +56,7 @@ fun DialogAddCurrency(
                 OutlinedTextField(
                     value = currencyName,
                     onValueChange = {
-                        currencyNameOnValueChange(it)
+                        currencyName=it
                         if (currencyName != "") isErrorName = false
                     },
                     label = {
@@ -84,7 +82,7 @@ fun DialogAddCurrency(
                         maxLines = 1,
                         onValueChange = {
                             if (currencyRate.toFloatOrNull() != null) isErrorRate = false
-                            currencyRateOnValueChange(it)
+                            currencyRate=it
                         },
                         label = {
                             Text(text = stringResource(R.string.qiymati))
@@ -110,7 +108,7 @@ fun DialogAddCurrency(
                     )
                     DialogButton(onClick = {
                         if (currencyName != "" && currencyRate != "" && currencyRate.toFloatOrNull() != null) {
-                            onAddClick()
+                            onAddClick(currencyName,currencyRate)
                         } else if (currencyName == "") {
                             isErrorName = true
                         } else {

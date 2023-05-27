@@ -20,18 +20,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.a_common.data.WalletData
 import com.example.mywallett.R
 import com.example.mywallett.ui.theme.ColorBorderGray
 
 @Composable
-fun DialogAddWallet(
-    headerText: String,
+fun DialogEditAddWallet(
+    walletData: WalletData,
     onDismissRequest: () -> Unit,
-    onAddClick: (String) -> Unit
+    onAddClick: (WalletData) -> Unit
 ) {
 
     var isErrorName by remember { mutableStateOf(false) }
-    var name by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf(walletData.name) }
 
     Dialog(onDismissRequest = onDismissRequest) {
         Card(Modifier.padding(padding_10), shape = RoundedCornerShape(padding_10)) {
@@ -40,7 +41,7 @@ fun DialogAddWallet(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = headerText,
+                    text = stringResource(R.string.hamyonni_tahrirlash),
                     modifier = Modifier.padding(8.dp),
                     fontWeight = FontWeight.Bold,
                     fontSize = textSize_16sp
@@ -72,7 +73,8 @@ fun DialogAddWallet(
                     )
                     DialogButton(onClick = {
                         if (name.length > 1) {
-                            onAddClick(name)
+                            onAddClick(walletData.copy(name = name))
+                            onDismissRequest()
                         } else {
                             isErrorName = true
                         }

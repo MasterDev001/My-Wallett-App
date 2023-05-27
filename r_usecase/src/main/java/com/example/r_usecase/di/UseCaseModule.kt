@@ -6,7 +6,14 @@ import com.example.r_usecase.usecases.currencyUseCase.DeleteCurrencyUseCase
 import com.example.r_usecase.usecases.currencyUseCase.GetAllCurrenciesUseC
 import com.example.r_usecase.usecases.currencyUseCase.GetCurrencyUseC
 import com.example.r_usecase.usecases.currencyUseCase.UpdateCurrencyUseCase
+import com.example.r_usecase.usecases.walletsUseCase.AddWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.DeleteWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.GetAllWalletsUseC
+import com.example.r_usecase.usecases.walletsUseCase.GetWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.UpdateWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import com.example.z_entity.repository.CurrencyRepository
+import com.example.z_entity.repository.WalletsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +24,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal object UseCaseModule {
 
-    @Provides
-    @Singleton
+    @[Provides Singleton]
     fun provideUseCase(repository: CurrencyRepository): CurrencyUseCase {
         return CurrencyUseCase(
             addCurrency = AddCurrencyUseCase(repository),
@@ -26,6 +32,17 @@ internal object UseCaseModule {
             updateCurrency = UpdateCurrencyUseCase(repository),
             getCurrency = GetCurrencyUseC(repository),
             getAllCurrencies = GetAllCurrenciesUseC(repository)
+        )
+    }
+
+    @[Provides Singleton]
+    fun provideWalletsUseCase(walletsRepository: WalletsRepository): WalletsUseCase {
+        return WalletsUseCase(
+            addWalletUseC = AddWalletUseC(walletsRepository),
+            updateWalletUseC = UpdateWalletUseC(walletsRepository),
+            deleteWalletUseC = DeleteWalletUseC(walletsRepository),
+            getWalletUseC = GetWalletUseC(walletsRepository),
+            getAllWalletsUseC = GetAllWalletsUseC(walletsRepository)
         )
     }
 

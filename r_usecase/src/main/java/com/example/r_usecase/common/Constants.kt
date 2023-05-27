@@ -1,6 +1,7 @@
 package com.example.r_usecase.common
 
 const val CHILD_ID = "id"
+const val CHILD_BALANCE = "balance"
 const val CHILD_FULLNAME = "fullname"
 const val CHILD_NAME = "name"
 const val CHILD_RATE = "rate"

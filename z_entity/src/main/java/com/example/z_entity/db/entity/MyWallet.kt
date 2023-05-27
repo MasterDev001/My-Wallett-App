@@ -7,10 +7,14 @@ import com.example.z_entity.db.remote_models.WalletRemote
 
 @Entity(tableName = "wallets")
 data class MyWallet(
-    @PrimaryKey val id: String, val name: String, val date: Long, val uploaded: Boolean = false
+    @PrimaryKey val id: String,
+    val name: String,
+    val balance: Double,
+    val date: Long,
+    val uploaded: Boolean = false
 ) {
-    fun toWalletRemote() = WalletRemote(id, name, date)
+    fun toWalletRemote() = WalletRemote(id, name, balance, date)
 }
 
-fun MyWallet.toWalletData() = WalletData(id, name, date)
-fun WalletData.toMyWallet() = MyWallet(id, name, date)
+fun MyWallet.toWalletData() = WalletData(id, name, balance, date)
+fun WalletData.toMyWallet() = MyWallet(id, name, balance, date)

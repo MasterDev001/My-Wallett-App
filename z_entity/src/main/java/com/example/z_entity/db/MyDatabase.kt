@@ -7,7 +7,7 @@ import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.db.entity.MyCurrency
 import com.example.z_entity.db.entity.MyWallet
 
-@Database(entities = [MyCurrency::class,MyWallet::class], version = 2)
+@Database(entities = [MyCurrency::class,MyWallet::class], version = 3)
 abstract class MyDatabase : RoomDatabase() {
 
     abstract val currencyDao: CurrencyDao
