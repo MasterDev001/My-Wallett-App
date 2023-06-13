@@ -1,9 +1,11 @@
 package com.example.z_entity.db.remote_models
 
+import com.example.z_entity.db.entity.MyWalletOwnerList
+
 data class WalletRemote(
     val id: String,
     val name: String,
-    val balance:Double,
+    val myWalletOwnerList: MyWalletOwnerList,
     val date: Long
 )
 

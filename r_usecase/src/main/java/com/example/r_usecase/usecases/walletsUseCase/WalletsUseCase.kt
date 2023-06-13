@@ -5,5 +5,7 @@ data class WalletsUseCase(
     val updateWalletUseC: UpdateWalletUseC,
     val deleteWalletUseC: DeleteWalletUseC,
     val getWalletUseC: GetWalletUseC,
-    val getAllWalletsUseC: GetAllWalletsUseC
+    val getAllWalletsUseC: GetAllWalletsUseC,
+    val getWalletOwnerListUseC: GetWalletOwnerListUseC,
+    val isCurrencyIdExistsInWalletUseC: IsCurrencyIdExistsInWalletUseC
 )

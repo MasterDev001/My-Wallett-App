@@ -4,13 +4,13 @@ class HomeContract {
 
     sealed interface Intent{
         object OpenSettings:Intent
-        object OpenKirim:Intent
-        object OpenChiqim:Intent
+        object OpenInCome:Intent
+        object OpenOutCome:Intent
         object OpenQarzOlish:Intent
         object OpenQarzBerish:Intent
         object OpenQarzdorlar:Intent
         object OpenHaqdorlar:Intent
-        object OpenTarix:Intent
+        object OpenHistory:Intent
         object OpenCurrency:Intent
         object OpenWallets:Intent
     }

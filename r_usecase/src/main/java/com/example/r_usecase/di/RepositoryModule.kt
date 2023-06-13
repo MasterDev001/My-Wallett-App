@@ -2,11 +2,14 @@ package com.example.r_usecase.di
 
 import com.example.r_usecase.repositoryimpl.AuthRepositoryImpl
 import com.example.r_usecase.repositoryimpl.CurrencyRepositoryImpl
+import com.example.r_usecase.repositoryimpl.TransactionRepositoryImpl
 import com.example.r_usecase.repositoryimpl.WalletsRepositoryImpl
 import com.example.z_entity.db.daos.CurrencyDao
+import com.example.z_entity.db.daos.TransactionDao
 import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.repository.AuthRepository
 import com.example.z_entity.repository.CurrencyRepository
+import com.example.z_entity.repository.TransactionRepository
 import com.example.z_entity.repository.WalletsRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -59,5 +62,16 @@ internal object RepositoryModule {
         local = walletsDao,
         fireStore = fireStore,
         authRepository = authRepository,
+    )
+
+    @[Provides Singleton]
+    fun provideTransactionRepository(
+        transactionDao: TransactionDao,
+        fireStore: FirebaseFirestore,
+        authRepository: AuthRepository
+    ): TransactionRepository = TransactionRepositoryImpl(
+        local = transactionDao,
+        fireStore = fireStore,
+        authRepository = authRepository
     )
 }

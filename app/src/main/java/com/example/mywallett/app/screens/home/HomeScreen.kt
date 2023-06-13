@@ -184,7 +184,7 @@ private fun HomeCScreen(
                 CircularButton(
                     stringResource(R.string.kirim), icon = R.drawable.kirim
                 ) {
-
+                    onEvent.invoke(HomeContract.Intent.OpenInCome)
                 }
                 CircularButton(
                     stringResource(R.string.chiqim), icon = R.drawable.chiqim

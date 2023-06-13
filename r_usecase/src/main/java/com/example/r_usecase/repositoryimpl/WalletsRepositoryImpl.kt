@@ -1,6 +1,6 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.CHILD_BALANCE
+import com.example.r_usecase.common.CHILD_CURRENCY_LIST
 import com.example.r_usecase.common.CHILD_DATE
 import com.example.r_usecase.common.CHILD_ID
 import com.example.r_usecase.common.CHILD_NAME
@@ -8,6 +8,7 @@ import com.example.r_usecase.common.USERS
 import com.example.r_usecase.common.WALLETS
 import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.db.entity.MyWallet
+import com.example.z_entity.db.entity.MyWalletOwnerList
 import com.example.z_entity.repository.AuthRepository
 import com.example.z_entity.repository.WalletsRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,7 +26,8 @@ class WalletsRepositoryImpl @Inject constructor(
         val dataMap = hashMapOf<String, Any>()
         dataMap[CHILD_ID] = wallet.id
         dataMap[CHILD_NAME] = wallet.name
-        dataMap[CHILD_BALANCE] = wallet.balance
+        dataMap[CHILD_CURRENCY_LIST] = wallet.myWalletOwnerList.myWalletOwners
+//        dataMap[CHILD_BALANCE] = wallet.currencyList.currencies
         dataMap[CHILD_DATE] = wallet.date
 
         fireStore.collection(USERS)
@@ -40,7 +42,8 @@ class WalletsRepositoryImpl @Inject constructor(
         val dataMap = hashMapOf<String, Any>()
         dataMap[CHILD_ID] = wallet.id
         dataMap[CHILD_NAME] = wallet.name
-        dataMap[CHILD_BALANCE] = wallet.balance
+        dataMap[CHILD_CURRENCY_LIST] = wallet.myWalletOwnerList.myWalletOwners
+//        dataMap[CHILD_BALANCE] = wallet.balance
         dataMap[CHILD_DATE] = wallet.date
 
         fireStore.collection(USERS)
@@ -55,6 +58,14 @@ class WalletsRepositoryImpl @Inject constructor(
             .document(authRepository.currentUser?.email.toString()).collection(WALLETS)
             .document(wallet.id).delete()
         return local.deleteWallet(wallet.id)
+    }
+
+    override suspend fun getWalletOwnerList(walletId: String): Flow<MyWalletOwnerList> {
+        return local.getWalletOwnerList(walletId)
+    }
+
+    override suspend fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
+        return local.isCurrencyIdExistsInWallet(walletId, currencyId)
     }
 
     override suspend fun getWallet(name: String): Flow<MyWallet> {

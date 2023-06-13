@@ -4,6 +4,7 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.hilt.ScreenModelKey
 import com.example.presenter.currency.CurrencyViewModelImpl
 import com.example.presenter.home.HomeViewModelImpl
+import com.example.presenter.income.InComeViewModelImpl
 import com.example.presenter.signUp.SignUpViewModelImpl
 import com.example.presenter.signin.SignInViewModelImpl
 import com.example.presenter.wallets.WalletsViewModelImpl
@@ -31,4 +32,7 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(WalletsViewModelImpl::class)]
     fun provideWalletsViewModel(impl: WalletsViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(InComeViewModelImpl::class)]
+    fun provideInComeViewModel(impl: InComeViewModelImpl): ScreenModel
 }

@@ -32,7 +32,7 @@ import com.example.a_common.data.WalletData
 import com.example.mywallett.R
 import com.example.mywallett.app.utils.DialogAddWallet
 import com.example.mywallett.app.utils.DialogConfirm
-import com.example.mywallett.app.utils.DialogEditAddWallet
+import com.example.mywallett.app.utils.DialogEditWallet
 import com.example.mywallett.app.utils.PopUpToDialog
 import com.example.mywallett.app.utils.WalletItem
 import com.example.mywallett.app.utils.horizontalPadding_16
@@ -87,7 +87,7 @@ class WalletsScreen : AndroidScreen() {
 
         if (editDialogState.value) {
             popUpState.value = false
-            DialogEditAddWallet(walletCurrent,
+            DialogEditWallet(walletCurrent,
                 onDismissRequest = { editDialogState.value = false },
                 onAddClick = { newWallet ->
                     onEvent.invoke(WalletsContract.Intent.UpdateWallet(newWallet))
@@ -150,7 +150,9 @@ class WalletsScreen : AndroidScreen() {
                 LazyColumn {
                     items(count = walletsList.count(), itemContent = {
                         val item = walletsList[it]
-                        WalletItem(item, offsetPopUp) { offset, state ->
+                        WalletItem(item, viewModel,offsetPopUp, onItemClick = {
+
+                        }) { offset, state ->
                             offsetPopUp = offset
                             popUpState.value = state
                             walletCurrent = walletsList[it]

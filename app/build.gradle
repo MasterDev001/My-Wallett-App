@@ -92,4 +92,6 @@ dependencies {
     implementation project(path: ':z_voyagerlib')
 
 //    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+
+    implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"//FlowRow
 }

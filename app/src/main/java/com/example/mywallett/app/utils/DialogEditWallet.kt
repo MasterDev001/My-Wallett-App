@@ -25,7 +25,7 @@ import com.example.mywallett.R
 import com.example.mywallett.ui.theme.ColorBorderGray
 
 @Composable
-fun DialogEditAddWallet(
+fun DialogEditWallet(
     walletData: WalletData,
     onDismissRequest: () -> Unit,
     onAddClick: (WalletData) -> Unit

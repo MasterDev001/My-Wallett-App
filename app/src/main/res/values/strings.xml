@@ -35,4 +35,7 @@
     <string name="hamyon_nomi">Hamyon nomi</string>
     <string name="yangi_hamyon_qo_shish">Yangi hamyon qo\'shish</string>
     <string name="hamyonni_tahrirlash">Hamyonni Tahrirlash</string>
+    <string name="izoh_ixtiyoriy">Izoh (ixtiyoriy)</string>
+    <string name="valyuta">"Valyuta: "</string>
+    <string name="summani_kiriting">Summani kiriting</string>
 </resources>
