@@ -16,5 +16,6 @@ interface InComeViewModel : ScreenModel {
     val uiState: StateFlow<InComeContract.UiState>
 
     fun getWalletOwnerListByWalletId(walletId:String): Flow<List<WalletOwnerData>>
+    fun getCurrency(id: String): CurrencyData
     fun onEventDispatcher(intent: InComeContract.Intent)
 }

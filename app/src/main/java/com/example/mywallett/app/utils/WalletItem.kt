@@ -81,6 +81,7 @@ fun WalletItem(
                         modifier = Modifier.padding(top = padding_10)
                     ) {
                         for (walletOwner in walletOwnerListById.value) {
+                            val currencyName = viewModel.getCurrency(walletOwner.currencyId)
                             Surface(
                                 modifier = Modifier
                                     .background(Color.Unspecified),
@@ -90,7 +91,7 @@ fun WalletItem(
                                 Text(
                                     modifier = Modifier.padding(horizontal = 5.dp),
                                     fontSize = 14.sp,
-                                    text = "${walletOwner.currencyBalance} ${walletOwner.currencyName}"
+                                    text = "${walletOwner.currencyBalance} ${currencyName.name}"
                                 )
                             }
                         }

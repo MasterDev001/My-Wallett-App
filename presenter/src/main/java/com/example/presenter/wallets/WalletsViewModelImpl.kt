@@ -1,8 +1,10 @@
 package com.example.presenter.wallets
 
 import cafe.adriel.voyager.core.model.coroutineScope
+import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.WalletData
 import com.example.a_common.data.WalletOwnerData
+import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
 import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 internal class WalletsViewModelImpl @Inject constructor(
     private val direction: WalletsDirection,
-    private val walletsUseCase: WalletsUseCase
+    private val walletsUseCase: WalletsUseCase,
+    private val currencyUseCase: CurrencyUseCase
 ) : WalletsViewModel {
 
     override val wallets: Flow<List<WalletData>> = flow {
@@ -27,6 +30,10 @@ internal class WalletsViewModelImpl @Inject constructor(
         flow {
             emitAll(walletsUseCase.getWalletOwnerListUseC.invoke(walletId))
         }
+
+    override fun getCurrency(id: String): CurrencyData {
+        return currencyUseCase.getCurrency.invoke(id)
+    }
 
     override fun onEventDispatcher(intent: WalletsContract.Intent) {
         when (intent) {

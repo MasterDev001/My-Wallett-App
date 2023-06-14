@@ -56,8 +56,8 @@ internal class CurrencyRepositoryImpl @Inject constructor(
         return local.deleteCurrency(currency.id)
     }
 
-    override suspend fun getCurrency(name: String): Flow<MyCurrency> {
-        return local.getCurrency(name)
+    override fun getCurrency(id: String): MyCurrency {
+        return local.getCurrency(id)
     }
 
     override suspend fun getAllCurrencies(): Flow<List<MyCurrency>> {

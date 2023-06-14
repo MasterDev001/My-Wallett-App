@@ -7,6 +7,6 @@ interface CurrencyRepository {
     suspend fun addCurrency(currency: MyCurrency): Long
     suspend fun updateCurrency(currency: MyCurrency): Int
     suspend fun deleteCurrency(currency: MyCurrency): Int
-    suspend fun getCurrency(name: String): Flow<MyCurrency>
+    fun getCurrency(id: String): MyCurrency
     suspend fun getAllCurrencies(): Flow<List<MyCurrency>>
 }

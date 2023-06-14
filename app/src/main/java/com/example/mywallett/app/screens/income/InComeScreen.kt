@@ -97,7 +97,9 @@ class InComeScreen : AndroidScreen() {
         Scaffold(topBar = {
             TopAppBar(title = { Text(text = stringResource(id = R.string.kirim)) },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = {
+                        onEvent.invoke(InComeContract.Intent.OpenHome)
+                    }) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "back")
                     }
                 })

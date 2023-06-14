@@ -35,9 +35,14 @@ internal class InComeViewModelImpl @Inject constructor(
     }
     override val uiState = MutableStateFlow<InComeContract.UiState>(InComeContract.UiState.Default)
 
-    override fun getWalletOwnerListByWalletId(walletId: String): Flow<List<WalletOwnerData>> = flow {
-        emitAll(walletsUseCase.getWalletOwnerListUseC.invoke(walletId))
+    override fun getCurrency(id: String): CurrencyData {
+        return currencyUseCase.getCurrency.invoke(id)
     }
+
+    override fun getWalletOwnerListByWalletId(walletId: String): Flow<List<WalletOwnerData>> =
+        flow {
+            emitAll(walletsUseCase.getWalletOwnerListUseC.invoke(walletId))
+        }
 
     override fun onEventDispatcher(intent: InComeContract.Intent) {
         when (intent) {
@@ -94,7 +99,7 @@ internal class InComeViewModelImpl @Inject constructor(
                             WalletOwnerData(
                                 intent.currencyData.id,
                                 intent.wallet.id,
-                                intent.currencyData.name,
+                                intent.currencyData.id,
                                 intent.amount,
                                 intent.currencyData.rate
                             )

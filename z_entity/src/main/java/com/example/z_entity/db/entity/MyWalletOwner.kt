@@ -9,13 +9,13 @@ data class MyWalletOwner(
     @PrimaryKey
     var id: String,
     var walletId: String,
-    var currencyName: String,
+    var currencyId: String,
     var currencyBalance: Double,
     var rate: Double
 )
 
 fun WalletOwnerData.toMyWalletOwner() =
-    MyWalletOwner(id, walletId, currencyName, currencyBalance, rate)
+    MyWalletOwner(id, walletId, currencyId, currencyBalance, rate)
 
 fun MyWalletOwner.toWalletOwnerData() =
-    WalletOwnerData(id, walletId, currencyName, currencyBalance, rate)
+    WalletOwnerData(id, walletId, currencyId, currencyBalance, rate)
