@@ -2,6 +2,7 @@ package com.example.mywallett.app.screens.home
 
 import com.example.mywallett.app.screens.currencies.CurrencyScreen
 import com.example.mywallett.app.screens.income.InComeScreen
+import com.example.mywallett.app.screens.outcome.OutComeScreen
 import com.example.mywallett.app.screens.wallets.WalletsScreen
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.home.HomeDirection
@@ -14,7 +15,7 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
     }
 
     override suspend fun navigateToOutCome() {
-        TODO("Not yet implemented")
+        navigator.navigateTo(OutComeScreen())
     }
 
     override suspend fun navigateToQarzOlish() {

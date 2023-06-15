@@ -15,7 +15,9 @@ import com.example.r_usecase.usecases.walletsUseCase.DeleteWalletUseC
 import com.example.r_usecase.usecases.walletsUseCase.GetAllWalletsUseC
 import com.example.r_usecase.usecases.walletsUseCase.GetWalletOwnerListUseC
 import com.example.r_usecase.usecases.walletsUseCase.GetWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.InComeUseCase
 import com.example.r_usecase.usecases.walletsUseCase.IsCurrencyIdExistsInWalletUseC
+import com.example.r_usecase.usecases.walletsUseCase.OutComeUseCase
 import com.example.r_usecase.usecases.walletsUseCase.UpdateWalletUseC
 import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import com.example.z_entity.repository.CurrencyRepository
@@ -51,7 +53,9 @@ internal object UseCaseModule {
             getWalletUseC = GetWalletUseC(walletsRepository),
             getAllWalletsUseC = GetAllWalletsUseC(walletsRepository),
             getWalletOwnerListUseC = GetWalletOwnerListUseC(walletsRepository),
-            isCurrencyIdExistsInWalletUseC = IsCurrencyIdExistsInWalletUseC(walletsRepository)
+            isCurrencyIdExistsInWalletUseC = IsCurrencyIdExistsInWalletUseC(walletsRepository),
+            outComeUseCase = OutComeUseCase(walletsRepository),
+            inComeUseCase = InComeUseCase(walletsRepository)
         )
     }
 

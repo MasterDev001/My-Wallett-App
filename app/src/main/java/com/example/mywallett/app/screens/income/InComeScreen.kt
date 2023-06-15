@@ -115,13 +115,22 @@ class InComeScreen : AndroidScreen() {
             Column(
                 Modifier
                     .background(Color.Gray)
-                    .padding(horizontalPadding_16)
+                    .padding(horizontal=horizontalPadding_16)
                     .fillMaxSize()
             ) {
                 LazyColumn {
                     items(count = walletList.count()) {
                         val item = walletList[it]
-                        WalletItemWithoutMenu(wallet = item, viewModel = viewModel) {
+                        val walletOwnerListById =
+                            viewModel.getWalletOwnerListByWalletId(item.id)
+                                .collectAsState(initial = emptyList())
+
+                        WalletItemWithoutMenu(
+                            wallet = item,
+                            walletOwnerListById,
+                            getCurrency = { currencyId ->
+                                viewModel.getCurrency(currencyId)
+                            }) {
                             inComeDialogState = true
                             currentWallet = item
                         }

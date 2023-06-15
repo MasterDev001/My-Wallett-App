@@ -189,7 +189,7 @@ private fun HomeCScreen(
                 CircularButton(
                     stringResource(R.string.chiqim), icon = R.drawable.chiqim
                 ) {
-
+                    onEvent.invoke(HomeContract.Intent.OpenOutCome)
                 }
                 CircularButton(
                     stringResource(R.string.qarz_olish), icon = R.drawable.qarz_olish

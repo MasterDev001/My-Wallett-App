@@ -15,25 +15,26 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.WalletData
+import com.example.a_common.data.WalletOwnerData
 import com.example.mywallett.ui.theme.ColorBorderGray
-import com.example.presenter.income.InComeViewModel
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun WalletItemWithoutMenu(
     wallet: WalletData,
-    viewModel: InComeViewModel,
+    walletOwnerListById: State<List<WalletOwnerData>>,
+    getCurrency:(String)->CurrencyData,
     onItemClick: () -> Unit,
 ) {
-    val walletOwnerListById =
-        viewModel.getWalletOwnerListByWalletId(wallet.id).collectAsState(initial = emptyList())
+
     Card(
         Modifier
             .padding(top = horizontalPadding_16)
@@ -66,7 +67,7 @@ fun WalletItemWithoutMenu(
                         modifier = Modifier.padding(top = padding_10)
                     ) {
                         for (walletOwner in walletOwnerListById.value) {
-                            val currencyName = viewModel.getCurrency(walletOwner.currencyId)
+                            val currencyName = getCurrency(walletOwner.currencyId)
                             Surface(
                                 modifier = Modifier
                                     .background(Color.Unspecified),
