@@ -86,6 +86,7 @@ internal class InComeViewModelImpl @Inject constructor(
                         intent.amount,
                         intent.currencyData,
                         intent.wallet
+
                     )
                 }
             }
