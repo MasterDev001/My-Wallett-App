@@ -4,6 +4,7 @@ import com.example.mywallett.app.screens.borrow.BorrowDirectionImpl
 import com.example.mywallett.app.screens.currencies.CurrencyDirectionImpl
 import com.example.mywallett.app.screens.home.HomeDirectionImpl
 import com.example.mywallett.app.screens.income.InComeDirectionImpl
+import com.example.mywallett.app.screens.lend.LendDirectionImpl
 import com.example.mywallett.app.screens.outcome.OutComeDirectionImpl
 import com.example.mywallett.app.screens.outcome_currencies.OutComeCurrenciesDirecImpl
 import com.example.mywallett.app.screens.persons.PersonDirectionImpl
@@ -14,6 +15,7 @@ import com.example.presenter.borrow.BorrowDirection
 import com.example.presenter.currency.CurrencyDirection
 import com.example.presenter.home.HomeDirection
 import com.example.presenter.income.InComeDirection
+import com.example.presenter.lend.LendDirection
 import com.example.presenter.outCome_currencies.OutComeCurrenciesDirection
 import com.example.presenter.outcome.OutComeDirection
 import com.example.presenter.persons.PersonDirection
@@ -59,5 +61,7 @@ interface DirectionModule {
     @Binds
     fun provideBorrowDirection(impl: BorrowDirectionImpl): BorrowDirection
 
+    @Binds
+    fun provideLendDirection(impl: LendDirectionImpl): LendDirection
 
 }

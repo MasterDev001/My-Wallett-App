@@ -15,7 +15,13 @@ class HomeContract {
             val currencies: List<CurrencyData>,
             val wallets: List<WalletData>
         ) : Intent
-        object OpenLend : Intent
+
+        class OpenLend(
+            val persons: List<PersonData>,
+            val currencies: List<CurrencyData>,
+            val wallets: List<WalletData>
+        ) : Intent
+
         object OpenPersons : Intent
         object OpenHistory : Intent
         object OpenCurrency : Intent

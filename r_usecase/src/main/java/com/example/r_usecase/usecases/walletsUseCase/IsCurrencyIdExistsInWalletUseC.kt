@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class IsCurrencyIdExistsInWalletUseC @Inject constructor(private val walletsRepository: WalletsRepository) {
 
-    suspend operator fun invoke(walletId: String, currencyId: String) =
+     operator fun invoke(walletId: String, currencyId: String) =
         walletsRepository.isCurrencyIdExistsInWallet(walletId, currencyId)
 }

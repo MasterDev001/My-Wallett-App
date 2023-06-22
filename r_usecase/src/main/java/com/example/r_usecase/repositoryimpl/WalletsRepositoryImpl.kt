@@ -64,7 +64,7 @@ internal class WalletsRepositoryImpl @Inject constructor(
         return local.getWalletOwnerList(walletId)
     }
 
-    override suspend fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
+    override  fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
         return local.isCurrencyIdExistsInWallet(walletId, currencyId)
     }
 

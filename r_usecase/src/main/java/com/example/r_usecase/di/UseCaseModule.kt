@@ -28,6 +28,7 @@ import com.example.r_usecase.usecases.transactionUseCase.AddTransactionUseC
 import com.example.r_usecase.usecases.transactionUseCase.BorrowUseCase
 import com.example.r_usecase.usecases.transactionUseCase.DeleteTransactionUseC
 import com.example.r_usecase.usecases.transactionUseCase.GetAllTransactionsUseC
+import com.example.r_usecase.usecases.transactionUseCase.LendUseCase
 import com.example.r_usecase.usecases.transactionUseCase.TransactionUseCase
 import com.example.r_usecase.usecases.walletsUseCase.AddWalletUseC
 import com.example.r_usecase.usecases.walletsUseCase.DeleteWalletUseC
@@ -92,6 +93,11 @@ internal object UseCaseModule {
             deleteTransaction = DeleteTransactionUseC(transactionRepository),
             getAllTransactions = GetAllTransactionsUseC(transactionRepository),
             borrowUseCase = BorrowUseCase(
+                personCurrencyRepository,
+                transactionRepository,
+                walletsUseCase
+            ),
+            lendUseCase = LendUseCase(
                 personCurrencyRepository,
                 transactionRepository,
                 walletsUseCase

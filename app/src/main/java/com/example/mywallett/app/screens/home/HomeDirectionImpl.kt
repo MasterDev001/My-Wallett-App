@@ -30,11 +30,15 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
         currencies: List<CurrencyData>,
         wallets: List<WalletData>
     ) {
-        navigator.navigateTo(BorrowScreen(persons,currencies,wallets))
+        navigator.navigateTo(BorrowScreen(persons, currencies, wallets))
     }
 
-    override suspend fun navigateToLend() {
-        navigator.navigateTo(LendScreen())
+    override suspend fun navigateToLend(
+        persons: List<PersonData>,
+        currencies: List<CurrencyData>,
+        wallets: List<WalletData>
+    ) {
+        navigator.navigateTo(LendScreen(persons, currencies, wallets))
     }
 
     override suspend fun navigateToPersons() {

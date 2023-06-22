@@ -208,7 +208,13 @@ private fun HomeCScreen(
                 CircularButton(
                     stringResource(R.string.qarz_berish), icon = R.drawable.qarz_berish
                 ) {
-                    onEvent.invoke(HomeContract.Intent.OpenLend)
+                    onEvent.invoke(
+                        HomeContract.Intent.OpenLend(
+                            viewModel.persons(),
+                            viewModel.currencies(),
+                            viewModel.wallets()
+                        )
+                    )
                 }
             }
             Row(

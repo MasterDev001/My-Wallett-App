@@ -13,7 +13,13 @@ interface HomeDirection {
         currencies: List<CurrencyData>,
         wallets: List<WalletData>
     )
-    suspend fun navigateToLend()
+
+    suspend fun navigateToLend(
+        persons: List<PersonData>,
+        currencies: List<CurrencyData>,
+        wallets: List<WalletData>
+    )
+
     suspend fun navigateToPersons()
     suspend fun navigateToWallets()
     suspend fun navigateToHistory()

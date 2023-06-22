@@ -6,6 +6,7 @@ import com.example.presenter.borrow.BorrowViewModelImpl
 import com.example.presenter.currency.CurrencyViewModelImpl
 import com.example.presenter.home.HomeViewModelImpl
 import com.example.presenter.income.InComeViewModelImpl
+import com.example.presenter.lend.LendViewModelImpl
 import com.example.presenter.outCome_currencies.OutComeCurrenciesViewMImpl
 import com.example.presenter.outcome.OutComeViewModelImpl
 import com.example.presenter.persons.PersonViewModelImpl
@@ -51,4 +52,7 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(BorrowViewModelImpl::class)]
     fun borrowViewModelImpl(impl: BorrowViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(LendViewModelImpl::class)]
+    fun lendViewModelImpl(impl: LendViewModelImpl): ScreenModel
 }

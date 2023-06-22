@@ -9,7 +9,7 @@ interface WalletsRepository {
     suspend fun updateWallet(wallet: MyWallet): Int
     suspend fun deleteWallet(wallet: MyWallet): Int
     suspend fun getWalletOwnerList(walletId: String): Flow<MyWalletOwnerList>
-    suspend fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean
+     fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean
     fun isWalletNameExists(name: String): Boolean
     suspend fun getAllWallets(): Flow<List<MyWallet>>
 }

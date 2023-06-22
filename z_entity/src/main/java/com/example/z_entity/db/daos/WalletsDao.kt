@@ -21,8 +21,8 @@ interface WalletsDao {
     @Query("DELETE FROM wallets WHERE id=:id")
     suspend fun deleteWallet(id: String): Int
 
-    @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE id = :walletId AND myWalletOwnerList LIKE '%' || :walletOwnerId || '%')")
-    suspend fun isCurrencyIdExistsInWallet(walletId: String, walletOwnerId: String): Boolean
+    @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE id = :walletId AND myWalletOwnerList LIKE '%' || :currencyId || '%')")
+     fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean
 
     @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE LOWER(name) = LOWER(:name))")
     fun isWalletNameExists(name: String): Boolean

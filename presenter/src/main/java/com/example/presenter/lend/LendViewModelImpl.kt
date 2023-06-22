@@ -1,4 +1,4 @@
-package com.example.presenter.outCome_currencies
+package com.example.presenter.lend
 
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.a_common.Type
@@ -13,55 +13,58 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-internal class OutComeCurrenciesViewMImpl @Inject constructor(
-    private val currencyUseCase: CurrencyUseCase,
-    private val direction: OutComeCurrenciesDirection,
+internal class LendViewModelImpl @Inject constructor(
+    private val direction: LendDirection,
     private val transactionUseCase: TransactionUseCase,
+    private val currencyUseCase: CurrencyUseCase,
     private val walletsUseCase: WalletsUseCase
-) : OutComeCurrenciesViewM {
+) : LendViewModel {
 
-    override val uiState =
-        MutableStateFlow<OutComeCurrenciesContract.UiState>(OutComeCurrenciesContract.UiState.Default)
+    override val uiState = MutableStateFlow(LendContract.UiState.Default)
 
     override fun getCurrency(id: String): CurrencyData {
         return currencyUseCase.getCurrency.invoke(id)
     }
 
-    override fun onEventDispatcher(intent: OutComeCurrenciesContract.Intent) {
+    override fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
+        return walletsUseCase.isCurrencyIdExistsInWalletUseC.invoke(walletId, currencyId)
+    }
+
+    override fun onEventDispatcher(intent: LendContract.Intent) {
         when (intent) {
-            is OutComeCurrenciesContract.Intent.OutComeMoney -> {
+            is LendContract.Intent.OpenHome -> {
+                coroutineScope.launch { direction.back() }
+            }
+
+            is LendContract.Intent.LendMoney -> {
                 coroutineScope.launch(Dispatchers.IO) {
                     val transaction = TransactionData(
                         date = System.currentTimeMillis().toString(),
-                        type = getTypeNumber(Type.INCOME),
-                        fromId = "",
-                        toId = intent.wallet.id,
+                        type = getTypeNumber(Type.LEND),
+                        fromId = intent.wallet.id,
+                        toId = intent.personData.id,
                         currencyId = intent.currencyData.id,
-                        amount = intent.amount,
+                        amount = intent.amount.toDouble(),
                         comment = intent.comment,
 
-                        isFromPocket = false,
-                        isToPocket = true,
+                        isFromPocket = true,
+                        isToPocket = false,
                         rate = intent.currencyData.rate,
                         rateFrom = intent.currencyData.rate,
                         rateTo = intent.currencyData.rate,
                         balance = 0.0
                     )
-                    transactionUseCase.addTransaction.invoke(transaction, intent.wallet)
 
-                    walletsUseCase.outComeUseCase.invoke(
+                    transactionUseCase.lendUseCase.invoke(
                         intent.amount,
+                        intent.personData,
                         intent.wallet,
-                        intent.currentWalletOwner,
+                        intent.currencyData,
+                        intent.selectedWalletOwner,
+                        transaction
                     )
                 }
             }
-
-            is OutComeCurrenciesContract.Intent.OpenOutCome -> {
-                coroutineScope.launch { direction.back() }
-            }
         }
     }
-
-
 }

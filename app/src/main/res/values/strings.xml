@@ -49,4 +49,6 @@
     <string name="kimdan_qarz_olmoqchisiz">Kimdan qarz olmoqchisiz?</string>
     <string name="qaysi_hamyonga">Qaysi Hamyonga</string>
     <string name="valyuta_mavjud_emas">Valyuta mavjud emas</string>
+    <string name="kimga_qarz_bermoqchisiz">Kimga qarz bermoqchisiz?</string>
+    <string name="qaysi_hamyondan">Qaysi hamyondan</string>
 </resources>

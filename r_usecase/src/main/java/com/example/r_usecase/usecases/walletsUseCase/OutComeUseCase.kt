@@ -13,10 +13,15 @@ class OutComeUseCase @Inject constructor(private val walletRepository: WalletsRe
         amount: Double,
         wallet: WalletData,
         currentWalletOwner: WalletOwnerData,
-        currentWalletOwnerIndex: Int
     ) {
+        var currentWalletOwnerIndex = 0
         val updatedAmount = currentWalletOwner.currencyBalance - amount
         val updatedWalletOwnerList = wallet.walletOwnerDataList.walletOwnerData
+        for (i in 0 until updatedWalletOwnerList.size) {
+            if (updatedWalletOwnerList[i].id == currentWalletOwner.id) {
+                currentWalletOwnerIndex=i
+            }
+        }
         if (updatedAmount != 0.0) {
             updatedWalletOwnerList[currentWalletOwnerIndex] =
                 currentWalletOwner.copy(currencyBalance = updatedAmount)
