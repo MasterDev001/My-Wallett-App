@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.outcome_currencies
+package com.example.mywallett.app.screens.outcome.outcome_currencies
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

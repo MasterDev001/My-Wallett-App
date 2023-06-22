@@ -26,6 +26,10 @@ class HomeContract {
         object OpenHistory : Intent
         object OpenCurrency : Intent
         object OpenWallets : Intent
+        class OpenConvert(
+            val currencies: List<CurrencyData>,
+            val wallets: List<WalletData>
+        ) : Intent
     }
 
     interface UiState {

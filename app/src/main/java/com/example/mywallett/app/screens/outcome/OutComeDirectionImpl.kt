@@ -1,7 +1,7 @@
 package com.example.mywallett.app.screens.outcome
 
 import com.example.a_common.data.WalletData
-import com.example.mywallett.app.screens.outcome_currencies.OutComeCurrenciesScreen
+import com.example.mywallett.app.screens.outcome.outcome_currencies.OutComeCurrenciesScreen
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.outcome.OutComeDirection
 import javax.inject.Inject

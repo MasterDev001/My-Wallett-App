@@ -66,7 +66,13 @@ internal class HomeViewModelImpl @Inject constructor(
             }
 
             is HomeContract.Intent.OpenLend -> {
-                coroutineScope.launch { direction.navigateToLend(intent.persons, intent.currencies, intent.wallets) }
+                coroutineScope.launch {
+                    direction.navigateToLend(
+                        intent.persons,
+                        intent.currencies,
+                        intent.wallets
+                    )
+                }
             }
 
             is HomeContract.Intent.OpenBorrow -> {
@@ -91,6 +97,15 @@ internal class HomeViewModelImpl @Inject constructor(
 
             is HomeContract.Intent.OpenWallets -> {
                 coroutineScope.launch { direction.navigateToWallets() }
+            }
+
+            is HomeContract.Intent.OpenConvert -> {
+                coroutineScope.launch {
+                    direction.navigateToConvert(
+                        intent.currencies,
+                        intent.wallets
+                    )
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.outcome_currencies
+package com.example.mywallett.app.screens.outcome.outcome_currencies
 
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.outCome_currencies.OutComeCurrenciesDirection

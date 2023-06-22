@@ -1,4 +1,4 @@
-package com.example.mywallett.app.screens.personHistory
+package com.example.mywallett.app.screens.persons.personHistory
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.androidx.AndroidScreen

@@ -3,6 +3,7 @@ package com.example.presenter.di
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.hilt.ScreenModelKey
 import com.example.presenter.borrow.BorrowViewModelImpl
+import com.example.presenter.convert.ConvertViewModelImpl
 import com.example.presenter.currency.CurrencyViewModelImpl
 import com.example.presenter.home.HomeViewModelImpl
 import com.example.presenter.income.InComeViewModelImpl
@@ -55,4 +56,7 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(LendViewModelImpl::class)]
     fun lendViewModelImpl(impl: LendViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(ConvertViewModelImpl::class)]
+    fun convertViewModelImpl(impl: ConvertViewModelImpl): ScreenModel
 }

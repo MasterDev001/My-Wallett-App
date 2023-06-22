@@ -51,4 +51,8 @@
     <string name="valyuta_mavjud_emas">Valyuta mavjud emas</string>
     <string name="kimga_qarz_bermoqchisiz">Kimga qarz bermoqchisiz?</string>
     <string name="qaysi_hamyondan">Qaysi hamyondan</string>
+    <string name="ayriboshlash">Ayriboshlash</string>
+    <string name="qaysi_valyutadan">Qaysi valyutadan</string>
+    <string name="bir_hamyonda_bir_xil_valyutani_ayriboshlash_mumkin_emas">Bir hamyonda bir xil valyutani ayriboshlash mumkin emas!</string>
+    <string name="ok">Ok</string>
 </resources>

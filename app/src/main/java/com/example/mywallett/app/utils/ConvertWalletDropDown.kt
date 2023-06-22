@@ -26,12 +26,12 @@ import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.WalletData
 import com.example.a_common.data.WalletOwnerData
 import com.example.mywallett.R
-import com.example.presenter.lend.LendViewModel
+import com.example.presenter.convert.ConvertViewModel
 
 @Composable
-fun LendWalletDropDown(
+fun ConvertWalletDropDown(
     modifier: Modifier = Modifier,
-    viewModel: LendViewModel,
+    viewModel: ConvertViewModel,
     selectedCurrency: CurrencyData,
     list: List<WalletData>,
     selectedWallet: (WalletData) -> Unit,

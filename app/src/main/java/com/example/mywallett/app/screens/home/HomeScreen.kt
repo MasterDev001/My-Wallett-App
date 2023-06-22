@@ -230,9 +230,14 @@ private fun HomeCScreen(
                     onEvent.invoke(HomeContract.Intent.OpenPersons)
                 }
                 CircularButton(
-                    "Ayriboshlash", icon = R.drawable.convertation
+                    "Ayriboshlash", icon = R.drawable.convert
                 ) {
-
+                    onEvent.invoke(
+                        HomeContract.Intent.OpenConvert(
+                            viewModel.currencies(),
+                            viewModel.wallets()
+                        )
+                    )
                 }
                 CircularButton(
                     stringResource(R.string.hamyonlar), icon = R.drawable.wallet

@@ -26,6 +26,7 @@ import com.example.r_usecase.usecases.personUseCase.PersonsUseCase
 import com.example.r_usecase.usecases.personUseCase.UpdatePersonUseC
 import com.example.r_usecase.usecases.transactionUseCase.AddTransactionUseC
 import com.example.r_usecase.usecases.transactionUseCase.BorrowUseCase
+import com.example.r_usecase.usecases.transactionUseCase.ConvertUseCase
 import com.example.r_usecase.usecases.transactionUseCase.DeleteTransactionUseC
 import com.example.r_usecase.usecases.transactionUseCase.GetAllTransactionsUseC
 import com.example.r_usecase.usecases.transactionUseCase.LendUseCase
@@ -101,7 +102,8 @@ internal object UseCaseModule {
                 personCurrencyRepository,
                 transactionRepository,
                 walletsUseCase
-            )
+            ),
+            convertUseCase = ConvertUseCase(transactionRepository,walletsUseCase)
         )
     }
 

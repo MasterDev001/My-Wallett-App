@@ -1,17 +1,19 @@
 package com.example.mywallett.di
 
 import com.example.mywallett.app.screens.borrow.BorrowDirectionImpl
+import com.example.mywallett.app.screens.convert.ConvertDirectionImpl
 import com.example.mywallett.app.screens.currencies.CurrencyDirectionImpl
 import com.example.mywallett.app.screens.home.HomeDirectionImpl
 import com.example.mywallett.app.screens.income.InComeDirectionImpl
 import com.example.mywallett.app.screens.lend.LendDirectionImpl
 import com.example.mywallett.app.screens.outcome.OutComeDirectionImpl
-import com.example.mywallett.app.screens.outcome_currencies.OutComeCurrenciesDirecImpl
+import com.example.mywallett.app.screens.outcome.outcome_currencies.OutComeCurrenciesDirecImpl
 import com.example.mywallett.app.screens.persons.PersonDirectionImpl
 import com.example.mywallett.app.screens.register.RegisterDirectionImpl
 import com.example.mywallett.app.screens.signin.SignInDirectionImpl
 import com.example.mywallett.app.screens.wallets.WalletsDirectionImpl
 import com.example.presenter.borrow.BorrowDirection
+import com.example.presenter.convert.ConvertDirection
 import com.example.presenter.currency.CurrencyDirection
 import com.example.presenter.home.HomeDirection
 import com.example.presenter.income.InComeDirection
@@ -64,4 +66,6 @@ interface DirectionModule {
     @Binds
     fun provideLendDirection(impl: LendDirectionImpl): LendDirection
 
+    @Binds
+    fun provideConvertDirection(impl: ConvertDirectionImpl): ConvertDirection
 }

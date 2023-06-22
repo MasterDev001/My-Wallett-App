@@ -42,7 +42,7 @@ import com.example.mywallett.app.utils.CurrencyDropDown
 import com.example.mywallett.app.utils.DialogButton
 import com.example.mywallett.app.utils.DialogConfirm
 import com.example.mywallett.app.utils.PersonDropDown
-import com.example.mywallett.app.utils.WalletDropDown
+import com.example.mywallett.app.utils.BorrowWalletDropDown
 import com.example.mywallett.app.utils.cornerRadius_8
 import com.example.mywallett.app.utils.horizontalPadding_16
 import com.example.mywallett.app.utils.textSize_26sp
@@ -173,7 +173,7 @@ class BorrowScreen(
                             .padding(horizontal = 5.dp)
                             .fillMaxWidth(),
                     )
-                    WalletDropDown(
+                    BorrowWalletDropDown(
                         Modifier
                             .padding(5.dp)
                             .fillMaxWidth(),

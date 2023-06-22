@@ -4,6 +4,7 @@ import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.PersonData
 import com.example.a_common.data.WalletData
 import com.example.mywallett.app.screens.borrow.BorrowScreen
+import com.example.mywallett.app.screens.convert.ConvertScreen
 import com.example.mywallett.app.screens.currencies.CurrencyScreen
 import com.example.mywallett.app.screens.history.HistoryScreen
 import com.example.mywallett.app.screens.income.InComeScreen
@@ -39,6 +40,13 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
         wallets: List<WalletData>
     ) {
         navigator.navigateTo(LendScreen(persons, currencies, wallets))
+    }
+
+    override suspend fun navigateToConvert(
+        currencies: List<CurrencyData>,
+        wallets: List<WalletData>
+    ) {
+        navigator.navigateTo(ConvertScreen( currencies, wallets))
     }
 
     override suspend fun navigateToPersons() {

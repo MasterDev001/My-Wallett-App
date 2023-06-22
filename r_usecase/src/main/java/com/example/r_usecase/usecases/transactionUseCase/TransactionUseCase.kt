@@ -5,5 +5,6 @@ data class TransactionUseCase(
     val deleteTransaction: DeleteTransactionUseC,
     val getAllTransactions: GetAllTransactionsUseC,
     val borrowUseCase: BorrowUseCase,
-    val lendUseCase: LendUseCase
+    val lendUseCase: LendUseCase,
+    val convertUseCase: ConvertUseCase
 )
