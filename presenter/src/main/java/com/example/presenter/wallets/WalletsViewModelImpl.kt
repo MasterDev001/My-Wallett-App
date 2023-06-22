@@ -35,6 +35,10 @@ internal class WalletsViewModelImpl @Inject constructor(
         return currencyUseCase.getCurrency.invoke(id)
     }
 
+    override fun isWalletExist(name: String): Boolean {
+        return walletsUseCase.isWalletExist.invoke(name)
+    }
+
     override fun onEventDispatcher(intent: WalletsContract.Intent) {
         when (intent) {
             is WalletsContract.Intent.AddWallet -> {

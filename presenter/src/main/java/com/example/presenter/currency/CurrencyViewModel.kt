@@ -13,4 +13,5 @@ interface CurrencyViewModel : ScreenModel {
     val uiState: StateFlow<CurrencyContract.UiState>
 
     fun onEventDispatcher(intent: CurrencyContract.Intent)
+    fun isCurrencyExist(name: String): Boolean
 }

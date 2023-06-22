@@ -11,7 +11,6 @@ import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 internal class OutComeCurrenciesViewMImpl @Inject constructor(
@@ -33,13 +32,12 @@ internal class OutComeCurrenciesViewMImpl @Inject constructor(
             is OutComeCurrenciesContract.Intent.OutComeMoney -> {
                 coroutineScope.launch(Dispatchers.IO) {
                     val transaction = TransactionData(
-                        id = UUID.randomUUID().toString(),
+                        date = System.currentTimeMillis().toString(),
                         type = getTypeNumber(Type.INCOME),
                         fromId = "",
                         toId = intent.wallet.id,
                         currencyId = intent.currencyData.id,
                         amount = intent.amount,
-                        date = System.currentTimeMillis(),
                         comment = intent.comment,
 
                         isFromPocket = false,

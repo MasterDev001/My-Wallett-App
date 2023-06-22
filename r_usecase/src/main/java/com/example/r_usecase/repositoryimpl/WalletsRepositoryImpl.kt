@@ -8,7 +8,7 @@ import com.example.r_usecase.common.USERS
 import com.example.r_usecase.common.WALLETS
 import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.db.entity.MyWallet
-import com.example.z_entity.db.entity.MyWalletOwnerList
+import com.example.z_entity.db.models.MyWalletOwnerList
 import com.example.z_entity.repository.AuthRepository
 import com.example.z_entity.repository.WalletsRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,7 +16,7 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class WalletsRepositoryImpl @Inject constructor(
+internal class WalletsRepositoryImpl @Inject constructor(
     private val local: WalletsDao,
     private val fireStore: FirebaseFirestore,
     private val authRepository: AuthRepository
@@ -68,8 +68,9 @@ class WalletsRepositoryImpl @Inject constructor(
         return local.isCurrencyIdExistsInWallet(walletId, currencyId)
     }
 
-    override suspend fun getWallet(name: String): Flow<MyWallet> {
-        return local.getWallet(name)
+
+    override fun isWalletNameExists(name: String): Boolean {
+        return local.isWalletNameExists(name)
     }
 
     override suspend fun getAllWallets(): Flow<List<MyWallet>> {

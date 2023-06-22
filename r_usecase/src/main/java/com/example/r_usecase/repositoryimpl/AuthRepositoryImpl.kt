@@ -40,12 +40,12 @@ internal class AuthRepositoryImpl @Inject constructor(
             dataMap[CHILD_ID] = auth.uid.toString()
             dataMap[CHILD_TYPE] = EmailAuthProvider.PROVIDER_ID
             fireStore.collection(USERS).document(email).set(dataMap)
-                .addOnSuccessListener { result = ResultData.Success(true) }.addOnFailureListener {
-                    result = ResultData.Error<Any>(it.message.toString())
+                .addOnSuccessListener { result = ResultData.Success() }.addOnFailureListener {
+                    result = ResultData.Message<Any>(it.message.toString())
                 }
-        }.addOnFailureListener { result = ResultData.Error<Any>(it.message.toString()) }.await()
+        }.addOnFailureListener { result = ResultData.Message<Any>(it.message.toString()) }.await()
         emit(result)
-    }.catch { emit(ResultData.Error(it.message.toString())) }.flowOn(Dispatchers.IO)
+    }.catch { emit(ResultData.Message(it.message.toString())) }.flowOn(Dispatchers.IO)
 
     override suspend fun signInWithEmail(
         email: String, password: String, checkState: Boolean
@@ -55,9 +55,9 @@ internal class AuthRepositoryImpl @Inject constructor(
                 currentUser = it.user
             }.await()
             this.checkState = checkState
-            ResultData.Success(true)
+            ResultData.Success()
         } catch (e: Exception) {
-            ResultData.Error(e.message.toString())
+            ResultData.Message(e.message.toString())
         }
     }
 
@@ -65,25 +65,25 @@ internal class AuthRepositoryImpl @Inject constructor(
         var result: ResultData<Any> = ResultData.Loading()
         auth.signInWithCredential(credential)
             .addOnSuccessListener {
-                result = ResultData.Success(true)
+                result = ResultData.Success()
                 currentUser = it.user
             }
-            .addOnFailureListener { result = ResultData.Error<Any>(it.message.toString()) }
+            .addOnFailureListener { result = ResultData.Message<Any>(it.message.toString()) }
             .await().user
         emit(result)
-    }.catch { emit(ResultData.Error(it.message.toString())) }.flowOn(Dispatchers.IO)
+    }.catch { emit(ResultData.Message(it.message.toString())) }.flowOn(Dispatchers.IO)
 
     override fun resetPassword(email: String): Flow<ResultData<Any>> = flow<ResultData<Any>> {
 
     }.catch { }.flowOn(Dispatchers.IO)
 
     override fun sendEmailVerification(): Flow<ResultData<Any>> = flow {
-        var result: ResultData<Any> = ResultData.Success(true)
+        var result: ResultData<Any> = ResultData.Success()
         auth.currentUser?.sendEmailVerification()
-            ?.addOnFailureListener { result = ResultData.Error<Any>(it.message.toString()) }
+            ?.addOnFailureListener { result = ResultData.Message<Any>(it.message.toString()) }
             ?.await()
         emit(result)
-    }.catch { emit(ResultData.Error(it.message.toString())) }.flowOn(Dispatchers.IO)
+    }.catch { emit(ResultData.Message(it.message.toString())) }.flowOn(Dispatchers.IO)
 
     override fun signOut(): Flow<ResultData<Any>> = flow<ResultData<Any>> {
 

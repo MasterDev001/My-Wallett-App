@@ -19,8 +19,7 @@ internal class CurrencyRepositoryImpl @Inject constructor(
     private val local: CurrencyDao,
     private val fireStore: FirebaseFirestore,
     private val authRepository: AuthRepository
-) :
-    CurrencyRepository {
+) : CurrencyRepository {
 
     override suspend fun addCurrency(currency: MyCurrency): Long {
         val dataMap = hashMapOf<String, Any>()
@@ -58,6 +57,10 @@ internal class CurrencyRepositoryImpl @Inject constructor(
 
     override fun getCurrency(id: String): MyCurrency {
         return local.getCurrency(id)
+    }
+
+    override fun isCurrencyExist(name: String): Boolean {
+        return local.isCurrencyExists(name)
     }
 
     override suspend fun getAllCurrencies(): Flow<List<MyCurrency>> {

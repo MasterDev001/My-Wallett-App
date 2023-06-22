@@ -1,4 +1,4 @@
-package com.example.z_entity.db.entity
+package com.example.z_entity.db.models
 
 import com.example.a_common.data.WalletOwnerData
 import com.example.a_common.data.WalletOwnerDataList

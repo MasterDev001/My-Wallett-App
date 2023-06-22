@@ -1,6 +1,6 @@
 package com.example.z_entity.db.remote_models
 
-import com.example.z_entity.db.entity.MyWalletOwnerList
+import com.example.z_entity.db.models.MyWalletOwnerList
 
 data class WalletRemote(
     val id: String,

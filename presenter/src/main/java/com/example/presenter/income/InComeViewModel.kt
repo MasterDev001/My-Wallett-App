@@ -17,5 +17,6 @@ interface InComeViewModel : ScreenModel {
 
     fun getWalletOwnerListByWalletId(walletId:String): Flow<List<WalletOwnerData>>
     fun getCurrency(id: String): CurrencyData
+    fun isWalletExist(name: String): Boolean
     fun onEventDispatcher(intent: InComeContract.Intent)
 }

@@ -18,13 +18,15 @@ interface PersonsDao {
     suspend fun updatePerson(person: MyPerson): Int
 
     @Query("DELETE FROM persons WHERE id=:id ")
-    suspend fun deletePerson(id: String): String
+    fun deletePerson(id: String): Int
 
     @Query("SELECT * FROM persons WHERE id=:id limit 1")
-    fun getPerson(id:String):MyPerson
+    fun getPerson(id: String): MyPerson
 
     @Query("SELECT * FROM persons order by date")
-    fun getAllPersons():Flow<List<MyPerson>>
+    fun getAllPersons(): Flow<List<MyPerson>>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM persons WHERE LOWER(name) = LOWER(:name))")
+    fun isPersonExists(name: String): Boolean
 
 }

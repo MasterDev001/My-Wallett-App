@@ -41,14 +41,16 @@ class HomeScreen : AndroidScreen() {
     override fun Content() {
         val viewModel: HomeViewModel = hiltScreenModel()
         val uiState = viewModel.uiState.collectAsState()
-        HomeScreenContent(uiState, viewModel::onEventDispatcher)
+        HomeScreenContent(uiState, viewModel::onEventDispatcher, viewModel)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun HomeScreenContent(
-    uiState: State<HomeContract.UiState>, onEvent: (HomeContract.Intent) -> Unit
+    uiState: State<HomeContract.UiState>,
+    onEvent: (HomeContract.Intent) -> Unit,
+    viewModel: HomeViewModel
 ) {
     var selectedItem by remember { mutableStateOf(0) }
     val scaffoldState =
@@ -65,7 +67,7 @@ private fun HomeScreenContent(
         })
     }, content = {
         if (selectedItem == 0) {
-            HomeCScreen(uiState, onEvent)
+            HomeCScreen(uiState, onEvent, viewModel)
         } else {
             Settings()
         }
@@ -105,7 +107,8 @@ private fun HomeScreenContent(
 @Composable
 private fun HomeCScreen(
     uiState: State<HomeContract.UiState>,
-    onEvent: (HomeContract.Intent) -> Unit
+    onEvent: (HomeContract.Intent) -> Unit,
+    viewModel: HomeViewModel
 ) {
     val itemList = remember { mutableStateListOf("fsadjhju", "akhsfk", "daskhjg", "lksajhf") }
 
@@ -194,12 +197,18 @@ private fun HomeCScreen(
                 CircularButton(
                     stringResource(R.string.qarz_olish), icon = R.drawable.qarz_olish
                 ) {
-
+                    onEvent.invoke(
+                        HomeContract.Intent.OpenBorrow(
+                            viewModel.persons(),
+                            viewModel.currencies(),
+                            viewModel.wallets()
+                        )
+                    )
                 }
                 CircularButton(
                     stringResource(R.string.qarz_berish), icon = R.drawable.qarz_berish
                 ) {
-
+                    onEvent.invoke(HomeContract.Intent.OpenLend)
                 }
             }
             Row(
@@ -210,12 +219,12 @@ private fun HomeCScreen(
             ) {
 
                 CircularButton(
-                    stringResource(R.string.qarzdorlar), icon = R.drawable.qarzdorlar
+                    stringResource(R.string.shaxslar), icon = R.drawable.persons
                 ) {
-
+                    onEvent.invoke(HomeContract.Intent.OpenPersons)
                 }
                 CircularButton(
-                    stringResource(R.string.haqdorlar), icon = R.drawable.haqdorlar
+                    "Ayriboshlash", icon = R.drawable.convertation
                 ) {
 
                 }
@@ -246,7 +255,9 @@ private fun HomeCScreen(
                 Text(
                     text = stringResource(R.string.ko_proq),
                     fontSize = textSize_21sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold, modifier = Modifier.clickable {
+                        onEvent.invoke(HomeContract.Intent.OpenHistory)
+                    }
                 )
             }
             LazyColumn {

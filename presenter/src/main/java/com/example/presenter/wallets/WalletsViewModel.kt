@@ -15,6 +15,7 @@ interface WalletsViewModel : ScreenModel {
     val uiState:StateFlow<WalletsContract.UiState>
 
     fun getCurrency(id: String): CurrencyData
+    fun isWalletExist(name: String): Boolean
     fun getWalletOwnerListByWalletId(walletId:String): Flow<List<WalletOwnerData>>
     fun onEventDispatcher(intent: WalletsContract.Intent)
 }

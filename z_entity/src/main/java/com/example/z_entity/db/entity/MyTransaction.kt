@@ -8,7 +8,7 @@ import com.example.z_entity.db.remote_models.TransactionRemote
 @Entity(tableName = "transactions")
 data class MyTransaction(
     @PrimaryKey
-    var id: String,
+    var date: String,
     var type: Int = 0,
     var fromId: String,
     var toId: String,
@@ -16,7 +16,6 @@ data class MyTransaction(
     var amount: Double,
     var currencyFrom: String = "",
     var currencyTo: String = "",
-    var date: Long,
     var comment: String = "",
     var uploaded: Boolean = false,
 
@@ -28,7 +27,7 @@ data class MyTransaction(
     var balance: Double = 0.0
 ) {
     fun toTransactionRemote() = TransactionRemote(
-        id,
+        date,
         type,
         fromId,
         toId,
@@ -36,7 +35,6 @@ data class MyTransaction(
         amount,
         currencyFrom,
         currencyTo,
-        date,
         comment,
         isFromPocket,
         isToPocket,
@@ -48,7 +46,7 @@ data class MyTransaction(
 }
 
 fun MyTransaction.toTransactionData() = TransactionData(
-    id,
+    date,
     type,
     fromId,
     toId,
@@ -56,7 +54,6 @@ fun MyTransaction.toTransactionData() = TransactionData(
     amount,
     currencyFrom,
     currencyTo,
-    date,
     comment,
     isFromPocket,
     isToPocket,
@@ -67,7 +64,7 @@ fun MyTransaction.toTransactionData() = TransactionData(
 )
 
 fun TransactionData.toMyTransaction() = MyTransaction(
-    id,
+    date,
     type,
     fromId,
     toId,
@@ -75,7 +72,6 @@ fun TransactionData.toMyTransaction() = MyTransaction(
     amount,
     currencyFrom,
     currencyTo,
-    date,
     comment,
     isFromPocket = isFromPocket,
     isToPocket = isToPocket,

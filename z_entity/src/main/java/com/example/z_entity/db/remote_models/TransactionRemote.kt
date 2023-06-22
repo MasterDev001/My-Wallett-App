@@ -1,7 +1,7 @@
 package com.example.z_entity.db.remote_models
 
 data class TransactionRemote(
-    var id: String = "",
+    var date: String ,
     var type: Int = 0,
     var fromId: String = "",
     var toId: String = "",
@@ -9,7 +9,6 @@ data class TransactionRemote(
     var amount: Double = 0.0,
     var currencyFrom: String = "",
     var currencyTo: String = "",
-    var date: Long = 0,
     var comment: String = "",
 
     var isFromPocket: Boolean = false,

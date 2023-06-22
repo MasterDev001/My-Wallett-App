@@ -1,8 +1,15 @@
 package com.example.mywallett.app.screens.home
 
+import com.example.a_common.data.CurrencyData
+import com.example.a_common.data.PersonData
+import com.example.a_common.data.WalletData
+import com.example.mywallett.app.screens.borrow.BorrowScreen
 import com.example.mywallett.app.screens.currencies.CurrencyScreen
+import com.example.mywallett.app.screens.history.HistoryScreen
 import com.example.mywallett.app.screens.income.InComeScreen
+import com.example.mywallett.app.screens.lend.LendScreen
 import com.example.mywallett.app.screens.outcome.OutComeScreen
+import com.example.mywallett.app.screens.persons.PersonsScreen
 import com.example.mywallett.app.screens.wallets.WalletsScreen
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.home.HomeDirection
@@ -18,16 +25,20 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
         navigator.navigateTo(OutComeScreen())
     }
 
-    override suspend fun navigateToQarzOlish() {
-        TODO("Not yet implemented")
+    override suspend fun navigateToBorrow(
+        persons: List<PersonData>,
+        currencies: List<CurrencyData>,
+        wallets: List<WalletData>
+    ) {
+        navigator.navigateTo(BorrowScreen(persons,currencies,wallets))
     }
 
-    override suspend fun navigateToQarzBerish() {
-        TODO("Not yet implemented")
+    override suspend fun navigateToLend() {
+        navigator.navigateTo(LendScreen())
     }
 
-    override suspend fun navigateToHaqdorlar() {
-        TODO("Not yet implemented")
+    override suspend fun navigateToPersons() {
+        navigator.navigateTo(PersonsScreen())
     }
 
     override suspend fun navigateToWallets() {
@@ -35,12 +46,14 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
     }
 
     override suspend fun navigateToHistory() {
-        TODO("Not yet implemented")
+        navigator.navigateTo(HistoryScreen())
     }
 
     override suspend fun navigateToCurrencies() {
         navigator.navigateTo(CurrencyScreen())
     }
 
-
+    override suspend fun navigateToSettings() {
+        navigator.navigateTo(CurrencyScreen())
+    }
 }

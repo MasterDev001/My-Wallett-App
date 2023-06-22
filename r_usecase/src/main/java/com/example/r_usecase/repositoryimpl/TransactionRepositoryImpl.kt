@@ -25,20 +25,27 @@ internal class TransactionRepositoryImpl @Inject constructor(
     override suspend fun add(transaction: MyTransaction): Long {
         val result = local.add(transaction)
 
-        fireStoreTransactionPath.document(transaction.id)
-            .set(transaction.toTransactionRemote().copy(date = System.currentTimeMillis()))
+        fireStoreTransactionPath.document(transaction.date)
+            .set(
+                transaction.toTransactionRemote().copy(date = System.currentTimeMillis().toString())
+            )
             .addOnSuccessListener {
                 runBlocking {
-                    local.add(transaction.copy(date = System.currentTimeMillis(), uploaded = true))
+                    local.add(
+                        transaction.copy(
+                            date = System.currentTimeMillis().toString(),
+                            uploaded = true
+                        )
+                    )
                 }
             }
         return result
     }
 
     override suspend fun delete(transaction: MyTransaction): Int {
-        val result = local.delete(transaction.id)
+        val result = local.delete(transaction.date)
 
-        fireStoreTransactionPath.document(transaction.id).delete().await()
+        fireStoreTransactionPath.document(transaction.date).delete().await()
         return result
     }
 

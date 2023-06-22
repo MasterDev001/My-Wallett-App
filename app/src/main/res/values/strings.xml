@@ -39,4 +39,14 @@
     <string name="valyuta">"Valyuta: "</string>
     <string name="summani_kiriting">Summani kiriting</string>
     <string name="hisobingizda_yetarli_mablag_mavjud_emas">Hisobingizda yetarli mablag\' mavjud emas</string>
+    <string name="shaxslar">Shaxslar</string>
+    <string name="hamma">Hamma</string>
+    <string name="yangi_odam_qo_shish">Yangi odam qo\'shish</string>
+    <string name="isim">Isim</string>
+    <string name="tel_raqam_ixtiyoriy">Tel raqam (ixtiyoriy)</string>
+    <string name="hamyonda_pul_yo_q">Hamyonda pul yo\'q</string>
+    <string name="bu_shaxs_bilan_muomala_qilingan_o_chirish_mumkin_emas">Bu shaxs bilan muomala qilingan. O\'chirish mumkin emas !</string>
+    <string name="kimdan_qarz_olmoqchisiz">Kimdan qarz olmoqchisiz?</string>
+    <string name="qaysi_hamyonga">Qaysi Hamyonga</string>
+    <string name="valyuta_mavjud_emas">Valyuta mavjud emas</string>
 </resources>

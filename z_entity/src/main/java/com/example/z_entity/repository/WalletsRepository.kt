@@ -1,7 +1,7 @@
 package com.example.z_entity.repository
 
 import com.example.z_entity.db.entity.MyWallet
-import com.example.z_entity.db.entity.MyWalletOwnerList
+import com.example.z_entity.db.models.MyWalletOwnerList
 import kotlinx.coroutines.flow.Flow
 
 interface WalletsRepository {
@@ -10,6 +10,6 @@ interface WalletsRepository {
     suspend fun deleteWallet(wallet: MyWallet): Int
     suspend fun getWalletOwnerList(walletId: String): Flow<MyWalletOwnerList>
     suspend fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean
-    suspend fun getWallet(name: String): Flow<MyWallet>
+    fun isWalletNameExists(name: String): Boolean
     suspend fun getAllWallets(): Flow<List<MyWallet>>
 }

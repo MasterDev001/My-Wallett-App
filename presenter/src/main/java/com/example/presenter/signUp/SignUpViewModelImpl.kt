@@ -39,13 +39,13 @@ internal class SignUpViewModelImpl @Inject constructor(
                                 }
                             }
 
-                            is ResultData.Error<*> -> {
+                            is ResultData.Message<*> -> {
                                 SignUpContract.UiState(message = it.message)
                             }
 
-//                            is ResultData.Error -> {
+                            is ResultData.Error -> {
 //                                SignUpContract.UiState(error = it.error)
-//                            }
+                            }
                         }
                     }.launchIn(coroutineScope)
             }

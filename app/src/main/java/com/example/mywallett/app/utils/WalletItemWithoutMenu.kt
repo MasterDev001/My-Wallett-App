@@ -18,12 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.WalletData
 import com.example.a_common.data.WalletOwnerData
+import com.example.mywallett.R
 import com.example.mywallett.ui.theme.ColorBorderGray
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -31,8 +33,8 @@ import com.google.accompanist.flowlayout.FlowRow
 fun WalletItemWithoutMenu(
     wallet: WalletData,
     walletOwnerListById: State<List<WalletOwnerData>>,
-    getCurrency:(String)->CurrencyData,
-    onItemClick: () -> Unit,
+    getCurrency: (String) -> CurrencyData,
+    onItemClick: (Boolean) -> Unit,
 ) {
 
     Card(
@@ -40,7 +42,7 @@ fun WalletItemWithoutMenu(
             .padding(top = horizontalPadding_16)
             .fillMaxWidth()
             .clickable {
-                onItemClick()
+                    onItemClick(walletOwnerListById.value.isNotEmpty())
             },
         shape = RoundedCornerShape(primaryCornerRadius_12)
     ) {
@@ -64,7 +66,7 @@ fun WalletItemWithoutMenu(
                     FlowRow(
                         mainAxisSpacing = padding_10,
                         crossAxisSpacing = padding_10,
-                        modifier = Modifier.padding(top = padding_10)
+                        modifier = Modifier.padding(top = 5.dp)
                     ) {
                         for (walletOwner in walletOwnerListById.value) {
                             val currencyName = getCurrency(walletOwner.currencyId)
@@ -81,6 +83,19 @@ fun WalletItemWithoutMenu(
                                 )
                             }
                         }
+                    }
+                } else {
+                    Surface(
+                        modifier = Modifier
+                            .background(Color.Unspecified),
+                        shape = RoundedCornerShape(cornerRadius_8),
+                        border = BorderStroke(width = 1.dp, color = ColorBorderGray)
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(5.dp),
+                            fontSize = 14.sp,
+                            text = stringResource(R.string.hamyonda_pul_yo_q)
+                        )
                     }
                 }
             }

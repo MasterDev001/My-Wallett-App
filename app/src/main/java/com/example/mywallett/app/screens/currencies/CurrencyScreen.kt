@@ -102,13 +102,13 @@ class CurrencyScreen : AndroidScreen() {
                 },
                 onConfirm = {
                     onEvent.invoke(CurrencyContract.Intent.DeleteCurrency(currentCurrency))
-                    deleteDialogState.value = false
                 })
         }
         if (addDialogState) {
             DialogAddCurrency(
                 onDismissRequest = { addDialogState = false },
-                onAddClick = {name,rate->
+                viewModel::isCurrencyExist,
+                onAddClick = { name, rate ->
                     onEvent.invoke(
                         CurrencyContract.Intent.AddCurrency(
                             CurrencyData(

@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 internal class InComeViewModelImpl @Inject constructor(
@@ -43,6 +42,10 @@ internal class InComeViewModelImpl @Inject constructor(
             emitAll(walletsUseCase.getWalletOwnerListUseC.invoke(walletId))
         }
 
+    override fun isWalletExist(name: String): Boolean {
+        return walletsUseCase.isWalletExist.invoke(name)
+    }
+
     override fun onEventDispatcher(intent: InComeContract.Intent) {
         when (intent) {
             is InComeContract.Intent.OpenHome -> {
@@ -64,13 +67,12 @@ internal class InComeViewModelImpl @Inject constructor(
             is InComeContract.Intent.IncomeMoney -> {
                 coroutineScope.launch(Dispatchers.IO) {
                     val transaction = TransactionData(
-                        id = UUID.randomUUID().toString(),
+                        date = System.currentTimeMillis().toString(),
                         type = getTypeNumber(Type.INCOME),
                         fromId = "",
                         toId = intent.wallet.id,
                         currencyId = intent.currencyData.id,
                         amount = intent.amount,
-                        date = System.currentTimeMillis(),
                         comment = intent.comment,
 
                         isFromPocket = false,
@@ -86,7 +88,6 @@ internal class InComeViewModelImpl @Inject constructor(
                         intent.amount,
                         intent.currencyData,
                         intent.wallet
-
                     )
                 }
             }

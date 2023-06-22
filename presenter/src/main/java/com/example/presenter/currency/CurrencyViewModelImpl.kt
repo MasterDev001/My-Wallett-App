@@ -22,6 +22,10 @@ internal class CurrencyViewModelImpl @Inject constructor(
     override val uiState =
         MutableStateFlow<CurrencyContract.UiState>(CurrencyContract.UiState.Default)
 
+    override fun isCurrencyExist(name: String): Boolean {
+        return currencyUseCase.isCurrencyExistUseC.invoke(name)
+    }
+
     override fun onEventDispatcher(intent: CurrencyContract.Intent) {
         when (intent) {
             is CurrencyContract.Intent.AddCurrency -> {
@@ -49,5 +53,4 @@ internal class CurrencyViewModelImpl @Inject constructor(
             CurrencyContract.Intent.OpenHome -> coroutineScope.launch { direction.back() }
         }
     }
-
 }

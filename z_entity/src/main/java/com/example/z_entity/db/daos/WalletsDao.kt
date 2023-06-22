@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.z_entity.db.entity.MyWallet
-import com.example.z_entity.db.entity.MyWalletOwnerList
+import com.example.z_entity.db.models.MyWalletOwnerList
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,16 +24,16 @@ interface WalletsDao {
     @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE id = :walletId AND myWalletOwnerList LIKE '%' || :walletOwnerId || '%')")
     suspend fun isCurrencyIdExistsInWallet(walletId: String, walletOwnerId: String): Boolean
 
-    @Query("SELECT * FROM wallets WHERE name=:name")
-    fun getWallet(name: String): Flow<MyWallet>
+    @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE LOWER(name) = LOWER(:name))")
+    fun isWalletNameExists(name: String): Boolean
 
-//    @Query("SELECT walletOwner.* FROM wallets JOIN w ON wallets.myWalletOwnerList LIKE '%' || walletOwner.id || '%' WHERE wallets.id = :walletId")
+    //    @Query("SELECT walletOwner.* FROM wallets JOIN w ON wallets.myWalletOwnerList LIKE '%' || walletOwner.id || '%' WHERE wallets.id = :walletId")
     @Query("SELECT myWalletOwnerList FROM wallets WHERE id = :walletId")
     fun getWalletOwnerList(walletId: String): Flow<MyWalletOwnerList>
 
 //    @Query("SELECT currencies.* FROM wallets JOIN currencies ON wallets.id = currencies.id WHERE wallets.id =:id;")
 
-    @Query("SELECT * FROM wallets")
+    @Query("SELECT * FROM wallets ")
     fun getAllWallets(): Flow<List<MyWallet>>
 
 //    @Query(

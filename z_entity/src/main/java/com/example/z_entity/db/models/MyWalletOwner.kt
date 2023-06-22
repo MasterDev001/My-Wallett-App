@@ -1,4 +1,4 @@
-package com.example.z_entity.db.entity
+package com.example.z_entity.db.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

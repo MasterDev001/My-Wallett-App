@@ -5,5 +5,6 @@ data class CurrencyUseCase(
     val deleteCurrency: DeleteCurrencyUseCase,
     val updateCurrency: UpdateCurrencyUseCase,
     val getCurrency: GetCurrencyUseC,
-    val getAllCurrencies: GetAllCurrenciesUseC
+    val getAllCurrencies: GetAllCurrenciesUseC,
+    val isCurrencyExistUseC: IsCurrencyExistUseC
 )

@@ -67,7 +67,7 @@ class OutComeScreen : AndroidScreen() {
                     .fillMaxSize()
             ) {
                 LazyColumn {
-                    items(count = walletList.count()) {
+                    items(count = walletList.count()) { it ->
                         val item = walletList[it]
                         val walletOwnerListById =
                             viewModel.getWalletOwnerListByWalletId(item.id)
@@ -78,8 +78,9 @@ class OutComeScreen : AndroidScreen() {
                             walletOwnerListById, getCurrency = { currencyId ->
                                 viewModel.getCurrency(currencyId)
                             }
-                        ) {
-                            onEvent.invoke(OutComeContract.Intent.OpenOutComeCurrencies(item))
+                        ) { walletIsNotEmpty ->
+                            if (walletIsNotEmpty)
+                                onEvent.invoke(OutComeContract.Intent.OpenOutComeCurrencies(item))
                         }
                     }
                 }

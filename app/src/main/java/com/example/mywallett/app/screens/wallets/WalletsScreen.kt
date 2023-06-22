@@ -70,19 +70,20 @@ class WalletsScreen : AndroidScreen() {
         if (addWalletDialogState) {
             DialogAddWallet(
                 headerText = stringResource(R.string.yangi_hamyon_qo_shish),
-                onDismissRequest = { addWalletDialogState = false },
-                onAddClick = { walletName ->
-                    onEvent.invoke(
-                        WalletsContract.Intent.AddWallet(
-                            WalletData(
-                                UUID.randomUUID().toString(),
-                                walletName,
-                                date = System.currentTimeMillis()
-                            )
+                viewModel::isWalletExist,
+                onDismissRequest = { addWalletDialogState = false }
+            ) { walletName ->
+                onEvent.invoke(
+                    WalletsContract.Intent.AddWallet(
+                        WalletData(
+                            UUID.randomUUID().toString(),
+                            walletName,
+                            date = System.currentTimeMillis()
                         )
                     )
-                    addWalletDialogState = false
-                })
+                )
+                addWalletDialogState = false
+            }
         }
 
         if (editDialogState.value) {
@@ -104,7 +105,6 @@ class WalletsScreen : AndroidScreen() {
                 },
                 onConfirm = {
                     onEvent.invoke(WalletsContract.Intent.DeleteWallet(walletCurrent))
-                    deleteDialogState.value = false
                 })
         }
 

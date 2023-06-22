@@ -1,7 +1,7 @@
 package com.example.a_common.data
 
 data class TransactionData(
-    var id: String,
+    var date: String,
     var type: Int = 0,
     var fromId: String,
     var toId: String,
@@ -9,7 +9,6 @@ data class TransactionData(
     var amount: Double,
     var currencyFrom: String = "",
     var currencyTo: String = "",
-    var date: Long,
     var comment: String = "",
 
 

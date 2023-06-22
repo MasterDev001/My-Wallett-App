@@ -2,13 +2,19 @@ package com.example.r_usecase.di
 
 import com.example.r_usecase.repositoryimpl.AuthRepositoryImpl
 import com.example.r_usecase.repositoryimpl.CurrencyRepositoryImpl
+import com.example.r_usecase.repositoryimpl.PersonCurrencyRepositoryImpl
+import com.example.r_usecase.repositoryimpl.PersonsRepositoryImpl
 import com.example.r_usecase.repositoryimpl.TransactionRepositoryImpl
 import com.example.r_usecase.repositoryimpl.WalletsRepositoryImpl
 import com.example.z_entity.db.daos.CurrencyDao
+import com.example.z_entity.db.daos.PersonCurrencyDao
+import com.example.z_entity.db.daos.PersonsDao
 import com.example.z_entity.db.daos.TransactionDao
 import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.repository.AuthRepository
 import com.example.z_entity.repository.CurrencyRepository
+import com.example.z_entity.repository.PersonCurrencyRepository
+import com.example.z_entity.repository.PersonsRepository
 import com.example.z_entity.repository.TransactionRepository
 import com.example.z_entity.repository.WalletsRepository
 import com.google.firebase.auth.ktx.auth
@@ -74,4 +80,27 @@ internal object RepositoryModule {
         fireStore = fireStore,
         authRepository = authRepository
     )
+
+    @[Provides Singleton]
+    fun providePersonsRepository(
+        personsDao: PersonsDao,
+        fireStore: FirebaseFirestore,
+        authRepository: AuthRepository
+    ): PersonsRepository = PersonsRepositoryImpl(
+        local = personsDao,
+        fireStore = fireStore,
+        authRepository = authRepository
+    )
+
+    @[Provides Singleton]
+    fun providePersonsCurrencyRepository(
+        personsDao: PersonCurrencyDao,
+        fireStore: FirebaseFirestore,
+        authRepository: AuthRepository
+    ): PersonCurrencyRepository = PersonCurrencyRepositoryImpl(
+        local = personsDao,
+        fireStore = fireStore,
+        authRepository = authRepository
+    )
+
 }

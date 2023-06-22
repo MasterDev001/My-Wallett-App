@@ -26,6 +26,7 @@ import com.example.mywallett.ui.theme.ColorBorderGray
 @Composable
 fun DialogAddWallet(
     headerText: String,
+    isWalletExist: (String) -> Boolean,
     onDismissRequest: () -> Unit,
     onAddClick: (String) -> Unit
 ) {
@@ -71,8 +72,8 @@ fun DialogAddWallet(
                         text = stringResource(R.string.bekor)
                     )
                     DialogButton(onClick = {
-                        if (name.length > 1) {
-                            onAddClick(name)
+                        if (name.length > 1 && !isWalletExist.invoke(name.trim())) {
+                            onAddClick(name.trim())
                         } else {
                             isErrorName = true
                         }

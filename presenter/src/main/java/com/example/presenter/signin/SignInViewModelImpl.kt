@@ -36,13 +36,21 @@ internal class SignInViewModelImpl @Inject constructor(
                 uiStateFlow.value = LoginContract.UiState.Loading
                 coroutineScope.launch {
                     var response =
-                        signInUseCase.invoke(intent.email.trim(), intent.password, intent.checkState)
+                        signInUseCase.invoke(
+                            intent.email.trim(),
+                            intent.password,
+                            intent.checkState
+                        )
                     when (response) {
-                        is ResultData.Success<*> -> {
+                        is ResultData.Success -> {
                             direction.navigateToHome()
                         }
 
-                        is ResultData.Error<*> -> LoginContract.UiState.Error(response.message.toString())
+                        is ResultData.Error -> {
+
+                        }
+
+                        is ResultData.Message<*> -> LoginContract.UiState.Error(response.message.toString())
                         is ResultData.Loading<*> -> LoginContract.UiState.Loading
 //                            is ResultData.Error -> LoginContract.UiState.Error(response.message)
                     }

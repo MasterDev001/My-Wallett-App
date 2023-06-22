@@ -26,4 +26,7 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM currencies")
      fun getAllCurrencies(): Flow<List<MyCurrency>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM currencies WHERE LOWER(name) = LOWER(:name))")
+    fun isCurrencyExists(name: String): Boolean
 }

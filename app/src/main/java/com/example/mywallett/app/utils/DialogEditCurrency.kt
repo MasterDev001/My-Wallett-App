@@ -109,11 +109,11 @@ fun DialogEditCurrency(
                         text = stringResource(R.string.bekor)
                     )
                     DialogButton(onClick = {
-                        if (currencyName != "" && currencyRate != "" && currencyRate.toFloatOrNull() != null) {
+                        if (currencyName.length > 1 && currencyRate != "" && currencyRate.toFloatOrNull() != null) {
                             onAddClick.invoke(
                                 CurrencyData(
                                     currency.id,
-                                    currencyName,
+                                    currencyName.trim(),
                                     currencyRate.toDouble(),
                                     System.currentTimeMillis()
                                 )

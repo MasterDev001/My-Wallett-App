@@ -3,6 +3,9 @@ package com.example.z_entity.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.a_common.data.WalletData
+import com.example.z_entity.db.models.MyWalletOwnerList
+import com.example.z_entity.db.models.toMyWalletOwnerList
+import com.example.z_entity.db.models.toWalletOwnerDataList
 import com.example.z_entity.db.remote_models.WalletRemote
 
 @Entity(tableName = "wallets")

@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,9 +38,9 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 fun WalletItem(
     wallet: WalletData,
-    viewModel:WalletsViewModel,
+    viewModel: WalletsViewModel,
     offsetPopUp: Offset,
-    onItemClick:()->Unit,
+    onItemClick: () -> Unit,
     onMenuMoreClicked: (Offset, Boolean) -> Unit
 ) {
     var offsetPopUp1 = offsetPopUp
@@ -95,6 +96,19 @@ fun WalletItem(
                                 )
                             }
                         }
+                    }
+                } else {
+                    Surface(
+                        modifier = Modifier
+                            .background(Color.Unspecified),
+                        shape = RoundedCornerShape(cornerRadius_8),
+                        border = BorderStroke(width = 1.dp, color = ColorBorderGray)
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(5.dp),
+                            fontSize = 14.sp,
+                            text = stringResource(R.string.hamyonda_pul_yo_q)
+                        )
                     }
                 }
             }

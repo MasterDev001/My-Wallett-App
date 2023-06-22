@@ -64,19 +64,20 @@ class InComeScreen : AndroidScreen() {
 
         if (addWalletDialogState) {
             DialogAddWallet(headerText = stringResource(R.string.yangi_hamyon_qo_shish),
-                onDismissRequest = { addWalletDialogState = false },
-                onAddClick = { walletName ->
-                    onEvent.invoke(
-                        InComeContract.Intent.AddWallet(
-                            WalletData(
-                                UUID.randomUUID().toString(),
-                                walletName,
-                                date = System.currentTimeMillis()
-                            )
+                isWalletExist = viewModel::isWalletExist,
+                onDismissRequest = { addWalletDialogState = false }
+            ) { walletName ->
+                onEvent.invoke(
+                    InComeContract.Intent.AddWallet(
+                        WalletData(
+                            UUID.randomUUID().toString(),
+                            walletName,
+                            date = System.currentTimeMillis()
                         )
                     )
-                    addWalletDialogState = false
-                })
+                )
+                addWalletDialogState = false
+            }
         }
 
         if (inComeDialogState) {
@@ -115,7 +116,7 @@ class InComeScreen : AndroidScreen() {
             Column(
                 Modifier
                     .background(Color.Gray)
-                    .padding(horizontal=horizontalPadding_16)
+                    .padding(horizontal = horizontalPadding_16)
                     .fillMaxSize()
             ) {
                 LazyColumn {

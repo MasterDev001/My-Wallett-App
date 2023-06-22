@@ -1,7 +1,7 @@
 package com.example.r_usecase.usecases.walletsUseCase
 
 import com.example.a_common.data.WalletOwnerData
-import com.example.z_entity.db.entity.toWalletOwnerData
+import com.example.z_entity.db.models.toWalletOwnerData
 import com.example.z_entity.repository.WalletsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

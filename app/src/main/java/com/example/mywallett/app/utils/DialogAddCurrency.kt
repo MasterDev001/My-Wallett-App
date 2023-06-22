@@ -30,7 +30,8 @@ import com.example.mywallett.ui.theme.ColorBorderGray
 @Composable
 fun DialogAddCurrency(
     onDismissRequest: () -> Unit,
-    onAddClick: (String,String) -> Unit
+    isCurrencyExist: (String) -> Boolean,
+    onAddClick: (String, String) -> Unit
 ) {
 
     var isErrorName by remember { mutableStateOf(false) }
@@ -56,7 +57,7 @@ fun DialogAddCurrency(
                 OutlinedTextField(
                     value = currencyName,
                     onValueChange = {
-                        currencyName=it
+                        currencyName = it
                         if (currencyName != "") isErrorName = false
                     },
                     label = {
@@ -82,7 +83,7 @@ fun DialogAddCurrency(
                         maxLines = 1,
                         onValueChange = {
                             if (currencyRate.toFloatOrNull() != null) isErrorRate = false
-                            currencyRate=it
+                            currencyRate = it
                         },
                         label = {
                             Text(text = stringResource(R.string.qiymati))
@@ -107,8 +108,12 @@ fun DialogAddCurrency(
                         text = stringResource(R.string.bekor)
                     )
                     DialogButton(onClick = {
-                        if (currencyName != "" && currencyRate != "" && currencyRate.toFloatOrNull() != null) {
-                            onAddClick(currencyName,currencyRate)
+                        if (currencyName.length > 1 && currencyRate.toDoubleOrNull() != null && currencyRate.toFloatOrNull() != null) {
+                            if (!isCurrencyExist.invoke(currencyName.trim())) {
+                                onAddClick(currencyName, currencyRate)
+                            } else {
+                                isErrorName = true
+                            }
                         } else if (currencyName == "") {
                             isErrorName = true
                         } else {
@@ -118,7 +123,6 @@ fun DialogAddCurrency(
 
                 }
             }
-
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.z_entity.db
 
 import androidx.room.TypeConverter
-import com.example.z_entity.db.entity.MyWalletOwnerList
+import com.example.z_entity.db.models.MyWalletOwnerList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

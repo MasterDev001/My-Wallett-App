@@ -61,6 +61,7 @@ fun DialogConfirm(text: String, message: String, onDismiss: () -> Unit, onConfir
                     }
                     DialogButton() {
                         onConfirm()
+                        onDismiss()
                     }
                 }
             }
