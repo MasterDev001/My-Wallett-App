@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.z_entity.db.MyDatabase
 import com.example.z_entity.db.daos.CurrencyDao
+import com.example.z_entity.db.daos.HistoryDao
 import com.example.z_entity.db.daos.PersonCurrencyDao
 import com.example.z_entity.db.daos.PersonsDao
 import com.example.z_entity.db.daos.TransactionDao
@@ -42,4 +43,6 @@ object DataBaseModule {
     @[Provides Singleton]
     fun providePersonCurrency(db: MyDatabase): PersonCurrencyDao = db.personCurrencyDao
 
+    @[Provides Singleton]
+    fun provideHistory(db: MyDatabase): HistoryDao = db.historyDao
 }

@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.z_entity.db.daos.CurrencyDao
+import com.example.z_entity.db.daos.HistoryDao
 import com.example.z_entity.db.daos.PersonCurrencyDao
 import com.example.z_entity.db.daos.PersonsDao
 import com.example.z_entity.db.daos.TransactionDao
@@ -16,8 +17,15 @@ import com.example.z_entity.db.models.MyPersonCurrency
 import com.example.z_entity.db.models.MyWalletOwner
 
 @Database(
-    entities = [MyCurrency::class, MyWallet::class, MyTransaction::class, MyWalletOwner::class, MyPerson::class, MyPersonCurrency::class],
-    version = 10
+    entities = [
+        MyCurrency::class,
+        MyWallet::class,
+        MyTransaction::class,
+        MyWalletOwner::class,
+        MyPerson::class,
+        MyPersonCurrency::class,
+    ],
+    version = 11
 )
 @TypeConverters(value = [Converters::class])
 abstract class MyDatabase : RoomDatabase() {
@@ -27,6 +35,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract val transactionDao: TransactionDao
     abstract val personsDao: PersonsDao
     abstract val personCurrencyDao: PersonCurrencyDao
+    abstract val historyDao: HistoryDao
 
     companion object {
         const val DATABASE_NAME = "my_wallet"
