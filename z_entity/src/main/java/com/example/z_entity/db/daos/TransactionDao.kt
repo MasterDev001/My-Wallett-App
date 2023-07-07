@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.z_entity.db.entity.MyTransaction
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +13,9 @@ interface TransactionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun add(transaction: MyTransaction): Long
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(transaction: MyTransaction): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTransactions(transactions: List<MyTransaction>): List<Long>

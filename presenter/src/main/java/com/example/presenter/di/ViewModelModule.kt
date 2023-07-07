@@ -12,9 +12,11 @@ import com.example.presenter.lend.LendViewModelImpl
 import com.example.presenter.outCome_currencies.OutComeCurrenciesViewMImpl
 import com.example.presenter.outcome.OutComeViewModelImpl
 import com.example.presenter.persons.PersonViewModelImpl
+import com.example.presenter.persons.personHistory.PersonHistoryViewModelImpl
 import com.example.presenter.signUp.SignUpViewModelImpl
 import com.example.presenter.signin.SignInViewModelImpl
 import com.example.presenter.wallets.WalletsViewModelImpl
+import com.example.presenter.wallets.walletHistory.WalletHistoryViewModelImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -63,4 +65,10 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(HistoryViewModelImpl::class)]
     fun historyViewModelImpl(impl: HistoryViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(PersonHistoryViewModelImpl::class)]
+    fun personHistoryViewModelImpl(impl: PersonHistoryViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(WalletHistoryViewModelImpl::class)]
+    fun walletHistoryViewModelImpl(impl: WalletHistoryViewModelImpl): ScreenModel
 }

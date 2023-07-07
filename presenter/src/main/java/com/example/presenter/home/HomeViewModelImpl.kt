@@ -2,13 +2,18 @@ package com.example.presenter.home
 
 import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.a_common.data.CurrencyData
+import com.example.a_common.data.HistoryData
 import com.example.a_common.data.PersonData
 import com.example.a_common.data.WalletData
 import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
+import com.example.r_usecase.usecases.historyUseCase.HistoryUseCase
 import com.example.r_usecase.usecases.personUseCase.PersonsUseCase
 import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +21,8 @@ internal class HomeViewModelImpl @Inject constructor(
     private val direction: HomeDirection,
     private val walletsUseCase: WalletsUseCase,
     private val currencyUseCase: CurrencyUseCase,
-    private val personsUseCase: PersonsUseCase
+    private val personsUseCase: PersonsUseCase,
+    private val historyUseCase: HistoryUseCase
 ) : HomeViewModel {
 
     override val uiState = MutableStateFlow(HomeContract.UiState.Default)
@@ -39,6 +45,10 @@ internal class HomeViewModelImpl @Inject constructor(
             }
         }
         return currencyList
+    }
+
+    override fun getLimitedHistory(count: Int): Flow<List<HistoryData>> = flow {
+        emitAll(historyUseCase.getLimitedHistoryUseC.invoke(count))
     }
 
     override fun persons(): List<PersonData> {

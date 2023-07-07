@@ -67,7 +67,10 @@ internal class WalletsViewModelImpl @Inject constructor(
                     direction.back()
                 }
             }
+
+            is WalletsContract.Intent.OpenWalletHistory -> {
+                coroutineScope.launch { direction.navigateToWalletHistory(intent.walletData) }
+            }
         }
     }
-
 }

@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {
 
-    fun getByOwnerId(ownerId: String): Flow<List<MyHistory>>
-    fun getForHome(count: Int): Flow<List<MyHistory>>
+    fun getByOwnerId(ownerId: String,limit: Int, page: Int): List<MyHistory>
+    suspend fun getHistoryForHome(count: Int): Flow<List<MyHistory>>
     fun getHistory(): Flow<List<MyHistory>>
     fun getHistory(limit: Int, page: Int): List<MyHistory>
     fun getHistoryCount(): Flow<Int>

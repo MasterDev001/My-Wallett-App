@@ -33,15 +33,15 @@ internal class OutComeCurrenciesViewMImpl @Inject constructor(
                 coroutineScope.launch(Dispatchers.IO) {
                     val transaction = TransactionData(
                         date = System.currentTimeMillis().toString(),
-                        type = getTypeNumber(Type.INCOME),
-                        fromId = "",
-                        toId = intent.wallet.id,
+                        type = getTypeNumber(Type.OUTCOME),
+                        fromId = intent.wallet.id,
+                        toId = "",
                         currencyId = intent.currencyData.id,
                         amount = intent.amount,
                         comment = intent.comment,
 
-                        isFromPocket = false,
-                        isToPocket = true,
+                        isFromPocket = true,
+                        isToPocket = false,
                         rate = intent.currencyData.rate,
                         rateFrom = intent.currencyData.rate,
                         rateTo = intent.currencyData.rate,

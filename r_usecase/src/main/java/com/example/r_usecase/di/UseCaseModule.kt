@@ -7,7 +7,9 @@ import com.example.r_usecase.usecases.currencyUseCase.GetAllCurrenciesUseC
 import com.example.r_usecase.usecases.currencyUseCase.GetCurrencyUseC
 import com.example.r_usecase.usecases.currencyUseCase.IsCurrencyExistUseC
 import com.example.r_usecase.usecases.currencyUseCase.UpdateCurrencyUseCase
-import com.example.r_usecase.usecases.historyUseCase.GetHistoryPager
+import com.example.r_usecase.usecases.historyUseCase.GetHistoryByOwnerIdUseC
+import com.example.r_usecase.usecases.historyUseCase.GetHistoryPagerUseC
+import com.example.r_usecase.usecases.historyUseCase.GetLimitedHistoryUseC
 import com.example.r_usecase.usecases.historyUseCase.HistoryUseCase
 import com.example.r_usecase.usecases.personCurrencyUseCase.AddPersonCurrencyUseC
 import com.example.r_usecase.usecases.personCurrencyUseCase.DeletePersonCurrencyUseC
@@ -141,6 +143,10 @@ internal object UseCaseModule {
 
     @[Provides Singleton]
     fun provideHistoryUseCase(historyRepository: HistoryRepository): HistoryUseCase {
-        return HistoryUseCase(getHistoryForPaging = GetHistoryPager(historyRepository))
+        return HistoryUseCase(
+            getHistoryForPaging = GetHistoryPagerUseC(historyRepository),
+            getHistoryByOwnerIdUseC = GetHistoryByOwnerIdUseC(historyRepository),
+            getLimitedHistoryUseC = GetLimitedHistoryUseC(historyRepository)
+        )
     }
 }

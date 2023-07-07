@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
- internal class HistoryRepositoryImpl @Inject constructor(
+internal class HistoryRepositoryImpl @Inject constructor(
     private val local: HistoryDao,
     private val fireStore: FirebaseFirestore,
     private val authRepository: AuthRepository
@@ -20,12 +20,12 @@ import javax.inject.Inject
         fireStore.collection(USERS).document(authRepository.currentUser?.email.toString())
             .collection(HISTORY)
 
-    override fun getByOwnerId(ownerId: String): Flow<List<MyHistory>> {
-        TODO("Not yet implemented")
+    override fun getByOwnerId(ownerId: String, limit: Int, page: Int): List<MyHistory> {
+        return local.getByOwnerId(ownerId, limit, page)
     }
 
-    override fun getForHome(count: Int): Flow<List<MyHistory>> {
-        TODO("Not yet implemented")
+    override suspend fun getHistoryForHome(count: Int): Flow<List<MyHistory>> {
+        return local.getForHome(count)
     }
 
     override fun getHistory(): Flow<List<MyHistory>> {

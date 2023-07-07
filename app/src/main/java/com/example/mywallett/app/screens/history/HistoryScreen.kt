@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.androidx.AndroidScreen
 import com.example.mywallett.R
+import com.example.mywallett.app.utils.HistoryItem
 import com.example.presenter.history.HistoryContract
 import com.example.presenter.history.HistoryViewModel
 import uz.gita.vogayerlib.hiltScreenModel
@@ -53,7 +54,9 @@ class HistoryScreen : AndroidScreen() {
             LazyColumn {
                 items(count = historyList.itemCount) {
                     val item = historyList[it]
-                    Text(text = "${item?.title} ")
+                    HistoryItem(item = item!!) {
+                        
+                    }
                 }
             }
         }

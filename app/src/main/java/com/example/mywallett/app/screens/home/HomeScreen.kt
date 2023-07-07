@@ -3,20 +3,16 @@ package com.example.mywallett.app.screens.home
 import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -27,8 +23,8 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
 import com.example.mywallett.R
 import com.example.mywallett.app.utils.CircularButton
+import com.example.mywallett.app.utils.HistoryItem
 import com.example.mywallett.app.utils.horizontalPadding_16
-import com.example.mywallett.app.utils.padding_10
 import com.example.mywallett.app.utils.textSize_21sp
 import com.example.presenter.home.HomeContract
 import com.example.presenter.home.HomeViewModel
@@ -110,7 +106,7 @@ private fun HomeCScreen(
     onEvent: (HomeContract.Intent) -> Unit,
     viewModel: HomeViewModel
 ) {
-    val itemList = remember { mutableStateListOf("fsadjhju", "akhsfk", "daskhjg", "lksajhf") }
+    val historyList by viewModel.getLimitedHistory(5).collectAsState(initial = emptyList())
 
     Column(
         Modifier.fillMaxSize(),
@@ -272,41 +268,12 @@ private fun HomeCScreen(
                 )
             }
             LazyColumn {
-                items(itemList.count(), itemContent = {
-                    val item = itemList[it]
-                    Row(
-                        Modifier
-                            .padding(vertical = padding_10)
-                            .fillMaxWidth()
-                            .clickable {
+                items(historyList.count(), itemContent = {
+                    val item = historyList[it]
+                    HistoryItem(item = item) {
 
-                            }) {
-                        Image(
-                            contentScale = ContentScale.FillBounds,
-                            painter = painterResource(id = R.drawable.kirim),
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colors.primary),
-                            contentDescription = ""
-                        )
-                        Row(
-                            Modifier
-                                .padding(start = padding_10)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                Text(
-                                    text = "Payment",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = textSize_21sp
-                                )
-                                Text(text = "25.05.2023", style = MaterialTheme.typography.body2)
-                            }
-                            Text(text = "$4546546", fontWeight = FontWeight.Bold)
-                        }
                     }
+
                 })
             }
         }

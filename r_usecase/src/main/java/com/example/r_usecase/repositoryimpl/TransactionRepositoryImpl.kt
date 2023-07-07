@@ -26,14 +26,11 @@ internal class TransactionRepositoryImpl @Inject constructor(
         val result = local.add(transaction)
 
         fireStoreTransactionPath.document(transaction.date)
-            .set(
-                transaction.toTransactionRemote().copy(date = System.currentTimeMillis().toString())
-            )
+            .set(transaction.toTransactionRemote())
             .addOnSuccessListener {
                 runBlocking {
-                    local.add(
+                    local.update(
                         transaction.copy(
-                            date = System.currentTimeMillis().toString(),
                             uploaded = true
                         )
                     )

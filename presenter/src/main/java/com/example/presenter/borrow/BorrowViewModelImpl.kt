@@ -28,7 +28,7 @@ internal class BorrowViewModelImpl @Inject constructor(
                     val transaction = TransactionData(
                         date = System.currentTimeMillis().toString(),
                         type = getTypeNumber(Type.BORROW),
-                        fromId = "",
+                        fromId = intent.personData.id,
                         toId = intent.wallet.id,
                         currencyId = intent.currencyData.id,
                         amount = intent.amount.toDouble(),

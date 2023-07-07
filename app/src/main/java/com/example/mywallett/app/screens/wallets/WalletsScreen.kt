@@ -150,8 +150,8 @@ class WalletsScreen : AndroidScreen() {
                 LazyColumn {
                     items(count = walletsList.count(), itemContent = {
                         val item = walletsList[it]
-                        WalletItem(item, viewModel,offsetPopUp, onItemClick = {
-
+                        WalletItem(item, viewModel, offsetPopUp, onItemClick = {
+                            onEvent.invoke(WalletsContract.Intent.OpenWalletHistory(item))
                         }) { offset, state ->
                             offsetPopUp = offset
                             popUpState.value = state

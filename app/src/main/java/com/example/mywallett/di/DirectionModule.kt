@@ -10,9 +10,11 @@ import com.example.mywallett.app.screens.lend.LendDirectionImpl
 import com.example.mywallett.app.screens.outcome.OutComeDirectionImpl
 import com.example.mywallett.app.screens.outcome.outcome_currencies.OutComeCurrenciesDirecImpl
 import com.example.mywallett.app.screens.persons.PersonDirectionImpl
+import com.example.mywallett.app.screens.persons.personHistory.PersonHistoryDirectionImpl
 import com.example.mywallett.app.screens.register.RegisterDirectionImpl
 import com.example.mywallett.app.screens.signin.SignInDirectionImpl
 import com.example.mywallett.app.screens.wallets.WalletsDirectionImpl
+import com.example.mywallett.app.screens.wallets.walletHistory.WalletHistoryDirectionImpl
 import com.example.presenter.borrow.BorrowDirection
 import com.example.presenter.convert.ConvertDirection
 import com.example.presenter.currency.CurrencyDirection
@@ -23,9 +25,11 @@ import com.example.presenter.lend.LendDirection
 import com.example.presenter.outCome_currencies.OutComeCurrenciesDirection
 import com.example.presenter.outcome.OutComeDirection
 import com.example.presenter.persons.PersonDirection
+import com.example.presenter.persons.personHistory.PersonHistoryDirection
 import com.example.presenter.signUp.SignUpDirection
 import com.example.presenter.signin.SignInDirection
 import com.example.presenter.wallets.WalletsDirection
+import com.example.presenter.wallets.walletHistory.WalletHistoryDirection
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -73,4 +77,11 @@ interface DirectionModule {
 
     @Binds
     fun provideHistoryDirection(impl: HistoryDirectionImpl): HistoryDirection
+
+    @Binds
+    fun providePersonHistoryDirection(impl: PersonHistoryDirectionImpl): PersonHistoryDirection
+
+    @Binds
+    fun provideWalletHistoryDirection(impl: WalletHistoryDirectionImpl): WalletHistoryDirection
+
 }

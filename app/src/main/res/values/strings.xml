@@ -55,4 +55,9 @@
     <string name="qaysi_valyutadan">Qaysi valyutadan</string>
     <string name="bir_hamyonda_bir_xil_valyutani_ayriboshlash_mumkin_emas">Bir hamyonda bir xil valyutani ayriboshlash mumkin emas!</string>
     <string name="ok">Ok</string>
+    <string name="qarzlari">Qarzlari:</string>
+    <string name="haqlari">Haqlari:</string>
+    <string name="tel_raqami">Tel raqami:</string>
+    <string name="manzili">Manzili:</string>
+    <string name="balans">Balans</string>
 </resources>

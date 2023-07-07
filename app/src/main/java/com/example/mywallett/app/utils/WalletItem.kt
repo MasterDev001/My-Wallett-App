@@ -33,7 +33,6 @@ import com.example.a_common.data.WalletData
 import com.example.mywallett.R
 import com.example.mywallett.ui.theme.ColorBorderGray
 import com.example.presenter.wallets.WalletsViewModel
-import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun WalletItem(
@@ -47,17 +46,15 @@ fun WalletItem(
     val walletOwnerListById =
         viewModel.getWalletOwnerListByWalletId(wallet.id).collectAsState(initial = emptyList())
 
-    Card(
-        Modifier
-            .padding(top = horizontalPadding_16)
-            .fillMaxWidth()
-            .clickable {
-                onItemClick()
-            }
-            .onSizeChanged {
+    Card(Modifier
+        .padding(top = horizontalPadding_16)
+        .fillMaxWidth()
+        .clickable {
+            onItemClick()
+        }
+        .onSizeChanged {
 //                itemHeight1 = with(density) { it.height.toDp() }
-            },
-        shape = RoundedCornerShape(primaryCornerRadius_12)
+        }, shape = RoundedCornerShape(primaryCornerRadius_12)
     ) {
         Row(
             Modifier
@@ -66,8 +63,7 @@ fun WalletItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
-                Modifier.fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceEvenly
+                Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
                     modifier = Modifier.padding(horizontal = padding_10),
@@ -76,31 +72,13 @@ fun WalletItem(
                     style = MaterialTheme.typography.h5
                 )
                 if (walletOwnerListById.value.isNotEmpty()) {
-                    FlowRow(
-                        mainAxisSpacing = padding_10,
-                        crossAxisSpacing = padding_10,
-                        modifier = Modifier.padding(top = padding_10)
-                    ) {
-                        for (walletOwner in walletOwnerListById.value) {
-                            val currencyName = viewModel.getCurrency(walletOwner.currencyId)
-                            Surface(
-                                modifier = Modifier
-                                    .background(Color.Unspecified),
-                                shape = RoundedCornerShape(cornerRadius_8),
-                                border = BorderStroke(width = 1.dp, color = ColorBorderGray)
-                            ) {
-                                Text(
-                                    modifier = Modifier.padding(horizontal = 5.dp),
-                                    fontSize = 14.sp,
-                                    text = "${walletOwner.currencyBalance} ${currencyName.name}"
-                                )
-                            }
-                        }
-                    }
+                    WalletFlowRowItem(
+                        walletOwnerListById = walletOwnerListById.value,
+                        getCurrency = viewModel::getCurrency
+                    )
                 } else {
                     Surface(
-                        modifier = Modifier
-                            .background(Color.Unspecified),
+                        modifier = Modifier.background(Color.Unspecified),
                         shape = RoundedCornerShape(cornerRadius_8),
                         border = BorderStroke(width = 1.dp, color = ColorBorderGray)
                     ) {
@@ -119,8 +97,7 @@ fun WalletItem(
                 onMenuMoreClicked(offsetPopUp1, true)
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.popupicon),
-                    contentDescription = ""
+                    painter = painterResource(id = R.drawable.popupicon), contentDescription = ""
                 )
             }
         }
