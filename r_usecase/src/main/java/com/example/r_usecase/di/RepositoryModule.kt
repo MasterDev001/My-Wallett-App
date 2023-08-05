@@ -2,6 +2,7 @@ package com.example.r_usecase.di
 
 import com.example.r_usecase.repositoryimpl.AuthRepositoryImpl
 import com.example.r_usecase.repositoryimpl.CurrencyRepositoryImpl
+import com.example.r_usecase.repositoryimpl.DataRepositoryImpl
 import com.example.r_usecase.repositoryimpl.HistoryRepositoryImpl
 import com.example.r_usecase.repositoryimpl.PersonCurrencyRepositoryImpl
 import com.example.r_usecase.repositoryimpl.PersonsRepositoryImpl
@@ -15,6 +16,7 @@ import com.example.z_entity.db.daos.TransactionDao
 import com.example.z_entity.db.daos.WalletsDao
 import com.example.z_entity.repository.AuthRepository
 import com.example.z_entity.repository.CurrencyRepository
+import com.example.z_entity.repository.DataRepository
 import com.example.z_entity.repository.HistoryRepository
 import com.example.z_entity.repository.PersonCurrencyRepository
 import com.example.z_entity.repository.PersonsRepository
@@ -113,6 +115,25 @@ internal object RepositoryModule {
         authRepository: AuthRepository
     ): HistoryRepository = HistoryRepositoryImpl(
         local = historyDao,
+        fireStore = fireStore,
+        authRepository = authRepository
+    )
+
+    @[Provides Singleton]
+    fun provideDataRepository(
+        transactionDao: TransactionDao,
+        personCurrencyDao: PersonCurrencyDao,
+        personsDao: PersonsDao,
+        walletsDao: WalletsDao,
+        currencyDao: CurrencyDao,
+        fireStore: FirebaseFirestore,
+        authRepository: AuthRepository
+    ): DataRepository = DataRepositoryImpl(
+        transactionDao = transactionDao,
+        personCurrencyDao = personCurrencyDao,
+        personsDao = personsDao,
+        walletsDao = walletsDao,
+        currencyDao = currencyDao,
         fireStore = fireStore,
         authRepository = authRepository
     )

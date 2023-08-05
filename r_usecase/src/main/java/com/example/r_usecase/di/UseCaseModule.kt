@@ -7,6 +7,10 @@ import com.example.r_usecase.usecases.currencyUseCase.GetAllCurrenciesUseC
 import com.example.r_usecase.usecases.currencyUseCase.GetCurrencyUseC
 import com.example.r_usecase.usecases.currencyUseCase.IsCurrencyExistUseC
 import com.example.r_usecase.usecases.currencyUseCase.UpdateCurrencyUseCase
+import com.example.r_usecase.usecases.dataUseCase.DataUseCase
+import com.example.r_usecase.usecases.dataUseCase.DownloadAllDataUseC
+import com.example.r_usecase.usecases.dataUseCase.IsNeedUpdateUseC
+import com.example.r_usecase.usecases.dataUseCase.LoadNotLoadedDataUseC
 import com.example.r_usecase.usecases.historyUseCase.GetHistoryByOwnerIdUseC
 import com.example.r_usecase.usecases.historyUseCase.GetHistoryPagerUseC
 import com.example.r_usecase.usecases.historyUseCase.GetLimitedHistoryUseC
@@ -46,6 +50,7 @@ import com.example.r_usecase.usecases.walletsUseCase.OutComeUseCase
 import com.example.r_usecase.usecases.walletsUseCase.UpdateWalletUseC
 import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
 import com.example.z_entity.repository.CurrencyRepository
+import com.example.z_entity.repository.DataRepository
 import com.example.z_entity.repository.HistoryRepository
 import com.example.z_entity.repository.PersonCurrencyRepository
 import com.example.z_entity.repository.PersonsRepository
@@ -147,6 +152,15 @@ internal object UseCaseModule {
             getHistoryForPaging = GetHistoryPagerUseC(historyRepository),
             getHistoryByOwnerIdUseC = GetHistoryByOwnerIdUseC(historyRepository),
             getLimitedHistoryUseC = GetLimitedHistoryUseC(historyRepository)
+        )
+    }
+
+    @[Provides Singleton]
+    fun provideDataUseCase(dataRepository: DataRepository): DataUseCase {
+        return DataUseCase(
+            loadedDataUseC = LoadNotLoadedDataUseC(dataRepository),
+            isNeedUpdateUseC = IsNeedUpdateUseC(dataRepository),
+            downloadAllDataUseC = DownloadAllDataUseC(dataRepository)
         )
     }
 }

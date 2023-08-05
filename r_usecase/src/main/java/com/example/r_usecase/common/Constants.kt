@@ -3,7 +3,7 @@ package com.example.r_usecase.common
 const val CHILD_ID = "id"
 const val CHILD_BALANCE = "balance"
 const val CHILD_FULLNAME = "fullname"
-const val CHILD_CURRENCY_LIST = "currencyList"
+const val CHILD_MY_WALLET_OWNER_LIST = "myWalletOwnerList"
 const val CHILD_NAME = "name"
 const val CHILD_RATE = "rate"
 const val CHILD_EMAIL = "email"

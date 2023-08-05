@@ -14,6 +14,9 @@ interface PersonsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPerson(person: MyPerson): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addPersonList(personList: List<MyPerson>): List<Long>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updatePerson(person: MyPerson): Int
 
@@ -29,4 +32,9 @@ interface PersonsDao {
     @Query("SELECT EXISTS(SELECT 1 FROM persons WHERE LOWER(name) = LOWER(:name))")
     fun isPersonExists(name: String): Boolean
 
+    @Query("SELECT * FROM persons WHERE uploaded=0")
+    fun getNotUploaded(): Flow<List<MyPerson>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM persons WHERE uploaded =0)")
+    fun isNeedUpdate(): Boolean
 }

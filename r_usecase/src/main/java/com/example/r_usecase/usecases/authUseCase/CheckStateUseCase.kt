@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CheckStateUseCase @Inject constructor(private val repository: AuthRepository) {
 
     operator fun invoke(): Boolean {
-        Log.d("TAG12", "invoke: ${repository.currentUser} ${repository.checkState}")
-        return repository.currentUser != null && repository.checkState
+        Log.d("TAG12", "invoke: ${repository.currentUser} ${repository.checkedState}")
+        return repository.currentUser != null && repository.checkedState
     }
 }

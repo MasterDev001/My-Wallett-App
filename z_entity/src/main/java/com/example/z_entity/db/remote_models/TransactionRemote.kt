@@ -1,7 +1,9 @@
 package com.example.z_entity.db.remote_models
 
-data class TransactionRemote(
-    var date: String ,
+import com.example.z_entity.db.entity.MyTransaction
+
+data class TransactionRemote (
+    var date: String="",
     var type: Int = 0,
     var fromId: String = "",
     var toId: String = "",
@@ -17,4 +19,24 @@ data class TransactionRemote(
     var rateFrom: Double = 1.0,
     var rateTo: Double = 1.0,
     var balance: Double = 0.0
-)
+) {
+
+    fun toTransactionLocal() = MyTransaction(
+        this.date,
+        this.type,
+        this.fromId,
+        this.toId,
+        this.currencyId,
+        this.amount,
+        this.currencyFrom,
+        this.currencyTo,
+        this.comment,
+        uploaded = true,
+        this.isFromPocket,
+        this.isToPocket,
+        this.rate,
+        this.rateFrom,
+        this.rateTo,
+        this.balance
+    )
+}

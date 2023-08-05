@@ -14,18 +14,17 @@ import com.example.z_entity.db.entity.MyPerson
 import com.example.z_entity.db.entity.MyTransaction
 import com.example.z_entity.db.entity.MyWallet
 import com.example.z_entity.db.models.MyPersonCurrency
-import com.example.z_entity.db.models.MyWalletOwner
 
 @Database(
     entities = [
         MyCurrency::class,
         MyWallet::class,
         MyTransaction::class,
-        MyWalletOwner::class,
+//        MyWalletOwner::class,
         MyPerson::class,
         MyPersonCurrency::class,
     ],
-    version = 11
+    version = 14
 )
 @TypeConverters(value = [Converters::class])
 abstract class MyDatabase : RoomDatabase() {

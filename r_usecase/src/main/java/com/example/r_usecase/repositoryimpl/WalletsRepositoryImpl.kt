@@ -1,8 +1,8 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.CHILD_CURRENCY_LIST
 import com.example.r_usecase.common.CHILD_DATE
 import com.example.r_usecase.common.CHILD_ID
+import com.example.r_usecase.common.CHILD_MY_WALLET_OWNER_LIST
 import com.example.r_usecase.common.CHILD_NAME
 import com.example.r_usecase.common.USERS
 import com.example.r_usecase.common.WALLETS
@@ -14,6 +14,7 @@ import com.example.z_entity.repository.WalletsRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 internal class WalletsRepositoryImpl @Inject constructor(
@@ -26,14 +27,16 @@ internal class WalletsRepositoryImpl @Inject constructor(
         val dataMap = hashMapOf<String, Any>()
         dataMap[CHILD_ID] = wallet.id
         dataMap[CHILD_NAME] = wallet.name
-        dataMap[CHILD_CURRENCY_LIST] = wallet.myWalletOwnerList.myWalletOwners
+        dataMap[CHILD_MY_WALLET_OWNER_LIST] = wallet.myWalletOwnerList
 //        dataMap[CHILD_BALANCE] = wallet.currencyList.currencies
         dataMap[CHILD_DATE] = wallet.date
 
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString()).collection(WALLETS)
             .document(wallet.id).set(dataMap, SetOptions.merge()).addOnSuccessListener {
-
+                runBlocking {
+                    local.addWallet(wallet.copy(uploaded = true))
+                }
             }
         return local.addWallet(wallet)
     }
@@ -42,14 +45,18 @@ internal class WalletsRepositoryImpl @Inject constructor(
         val dataMap = hashMapOf<String, Any>()
         dataMap[CHILD_ID] = wallet.id
         dataMap[CHILD_NAME] = wallet.name
-        dataMap[CHILD_CURRENCY_LIST] = wallet.myWalletOwnerList.myWalletOwners
+        dataMap[CHILD_MY_WALLET_OWNER_LIST] = wallet.myWalletOwnerList
 //        dataMap[CHILD_BALANCE] = wallet.balance
         dataMap[CHILD_DATE] = wallet.date
 
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString()).collection(WALLETS)
             .document(wallet.id).update(dataMap)
-            .addOnSuccessListener {}
+            .addOnSuccessListener {
+                runBlocking {
+                    local.updateWallet(wallet.copy(uploaded = true))
+                }
+            }
         return local.updateWallet(wallet)
     }
 
@@ -64,7 +71,7 @@ internal class WalletsRepositoryImpl @Inject constructor(
         return local.getWalletOwnerList(walletId)
     }
 
-    override  fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
+    override fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean {
         return local.isCurrencyIdExistsInWallet(walletId, currencyId)
     }
 

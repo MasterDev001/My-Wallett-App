@@ -14,6 +14,9 @@ interface PersonCurrencyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPersonCurrency(personCurrency: MyPersonCurrency): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addPersonCurrencyList(personCurrencyList: List<MyPersonCurrency>): List<Long>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updatePersonCurrency(personCurrency: MyPersonCurrency): Int
 
@@ -37,4 +40,10 @@ interface PersonCurrencyDao {
 
     @Query("SELECT * FROM personCurrency WHERE currencyBalance < 0")
     fun getAllLenders(): Flow<List<MyPersonCurrency>>
+
+    @Query("SELECT * FROM personCurrency WHERE uploaded=0")
+    fun getNotUploaded(): Flow<List<MyPersonCurrency>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM personCurrency WHERE uploaded =0)")
+    fun isNeedUpdate(): Boolean
 }

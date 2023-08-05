@@ -38,8 +38,10 @@ interface TransactionDao {
     @Query("SELECT MAX(date) FROM transactions")
     fun getLastUpdateTime(): Long
 
-    @Query("SELECT * FROM transactions WHERE uploaded=:uploaded")
-    fun getNotUploaded(uploaded: Boolean): Flow<List<MyTransaction>>
+    @Query("SELECT * FROM transactions WHERE uploaded=0")
+    fun getNotUploaded(): Flow<List<MyTransaction>>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM transactions WHERE uploaded =0)")
+    fun isNeedUpdate(): Boolean
 
 }

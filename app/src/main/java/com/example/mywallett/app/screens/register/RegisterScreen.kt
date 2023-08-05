@@ -1,5 +1,6 @@
 package com.example.mywallett.app.screens.register
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
@@ -15,12 +16,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +44,7 @@ import com.example.mywallett.app.utils.isValidEmail
 import com.example.mywallett.ui.theme.ColorGreenButton
 import com.example.presenter.signUp.SignUpContract
 import com.example.presenter.signUp.SignUpViewModel
+import kotlinx.coroutines.launch
 import uz.gita.vogayerlib.hiltScreenModel
 
 
@@ -54,6 +58,7 @@ class RegisterScreen : AndroidScreen() {
     }
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 private fun RegisterScreenContent(
     uiState: State<SignUpContract.UiState>, onEventDispatcher: (SignUpContract.Intent) -> Unit
@@ -66,6 +71,8 @@ private fun RegisterScreenContent(
     val emailError = remember { mutableStateOf(false) }
     val passwordError = remember { mutableStateOf(false) }
     val nameError = remember { mutableStateOf(false) }
+    val scope= rememberCoroutineScope()
+    val scaffoldState= rememberScaffoldState()
 
     Column(
         Modifier
@@ -212,16 +219,18 @@ private fun RegisterScreenContent(
     }
     LaunchedEffect(key1 = uiState.value.message, key2 = uiState.value.error) {
         Log.d("TAG1111", "SignInContent: ${uiState.value.error.toString()}")
-        Log.d("TAG1111", "SignInContent: ${uiState.value.message.toString()}")
+        Log.d("TAG1212", "SignInContent: ${uiState.value.message.toString()}")
 //        Toast.makeText(context, uiState.value.message, Toast.LENGTH_SHORT).show()
 //        Toast.makeText(context, uiState.value.error, Toast.LENGTH_SHORT).show()
     }
     if (uiState.value.isLoading == true) {
         CircularProgress()
-    } else if (uiState.value.message != null) {
-//            scope.launch {
-//                scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
-//            }
+    }
+    if (uiState.value.message != null) {
+            scope.launch {
+                scaffoldState.snackbarHostState.showSnackbar(uiState.value.message.toString())
+            }
+        Log.d("TAG1212", "RegisterScreenContent: ${uiState.value.message}")
     } else if (uiState.value.error != null) {
 //            scope.launch {
 //                scaffoldState.snackbarHostState.showSnackbar(uiState.value.error.toString())

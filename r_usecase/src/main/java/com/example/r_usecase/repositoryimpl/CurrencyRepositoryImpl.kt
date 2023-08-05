@@ -13,6 +13,7 @@ import com.example.z_entity.repository.CurrencyRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 internal class CurrencyRepositoryImpl @Inject constructor(
@@ -31,7 +32,11 @@ internal class CurrencyRepositoryImpl @Inject constructor(
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString())
             .collection(CURRENCIES).document(currency.id).set(dataMap, SetOptions.merge())
-            .addOnSuccessListener { }
+            .addOnSuccessListener {
+                runBlocking {
+                    local.addCurrency(currency.copy(uploaded = true))
+                }
+            }
         return local.addCurrency(currency)
     }
 
@@ -44,7 +49,11 @@ internal class CurrencyRepositoryImpl @Inject constructor(
 
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString())
-            .collection(CURRENCIES).document(currency.id).update(dataMap)
+            .collection(CURRENCIES).document(currency.id).update(dataMap).addOnSuccessListener {
+                runBlocking {
+                    local.updateCurrency(currency.copy(uploaded = true))
+                }
+            }
         return local.updateCurrency(currency)
     }
 

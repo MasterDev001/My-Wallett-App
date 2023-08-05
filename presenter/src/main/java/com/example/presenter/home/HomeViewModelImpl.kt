@@ -6,6 +6,7 @@ import com.example.a_common.data.HistoryData
 import com.example.a_common.data.PersonData
 import com.example.a_common.data.WalletData
 import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
+import com.example.r_usecase.usecases.dataUseCase.DataUseCase
 import com.example.r_usecase.usecases.historyUseCase.HistoryUseCase
 import com.example.r_usecase.usecases.personUseCase.PersonsUseCase
 import com.example.r_usecase.usecases.walletsUseCase.WalletsUseCase
@@ -22,8 +23,20 @@ internal class HomeViewModelImpl @Inject constructor(
     private val walletsUseCase: WalletsUseCase,
     private val currencyUseCase: CurrencyUseCase,
     private val personsUseCase: PersonsUseCase,
-    private val historyUseCase: HistoryUseCase
+    private val historyUseCase: HistoryUseCase,
+    private val dataUseCase: DataUseCase
 ) : HomeViewModel {
+
+    init {
+        coroutineScope.launch {
+//            dataUseCase.downloadAllDataUseC.invoke(){
+//
+//            }
+            if (dataUseCase.isNeedUpdateUseC.invoke()) {
+                dataUseCase.loadedDataUseC.invoke()
+            }
+        }
+    }
 
     override val uiState = MutableStateFlow(HomeContract.UiState.Default)
 

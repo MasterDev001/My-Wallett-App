@@ -39,7 +39,7 @@ internal class SignUpViewModelImpl @Inject constructor(
                                 }
                             }
 
-                            is ResultData.Message<*> -> {
+                            is ResultData.Message -> {
                                 SignUpContract.UiState(message = it.message)
                             }
 

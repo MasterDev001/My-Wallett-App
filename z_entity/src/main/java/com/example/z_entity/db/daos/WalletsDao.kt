@@ -15,6 +15,9 @@ interface WalletsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWallet(wallet: MyWallet): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addWalletList(walletList: List<MyWallet>): List<Long>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateWallet(wallet: MyWallet): Int
 
@@ -35,6 +38,12 @@ interface WalletsDao {
 
     @Query("SELECT * FROM wallets ")
     fun getAllWallets(): Flow<List<MyWallet>>
+
+    @Query("SELECT * FROM wallets WHERE uploaded=0")
+    fun getNotUploaded(): Flow<List<MyWallet>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE uploaded =0)")
+    fun isNeedUpdate(): Boolean
 
 //    @Query(
 //        "SELECT currencies.name as name,\n" +

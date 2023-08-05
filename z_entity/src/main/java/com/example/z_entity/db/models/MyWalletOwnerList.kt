@@ -4,7 +4,7 @@ import com.example.a_common.data.WalletOwnerData
 import com.example.a_common.data.WalletOwnerDataList
 
 data class MyWalletOwnerList(
-    val myWalletOwners: List<MyWalletOwner>
+    val myWalletOwners: List<MyWalletOwner> = listOf(MyWalletOwner("", "", "", 0.0, 0.0))
 )
 
 fun MyWalletOwnerList.toWalletOwnerDataList() =

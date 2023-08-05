@@ -11,7 +11,7 @@ class GetWalletOwnerListUseC @Inject constructor(private val walletsRepository: 
 
     suspend operator fun invoke(id: String): Flow<List<WalletOwnerData>> =
         walletsRepository.getWalletOwnerList(id).map { myWalletOwnerList ->
-            myWalletOwnerList.myWalletOwners.map {
+            myWalletOwnerList.myWalletOwners!!.map {
                 it.toWalletOwnerData()
             }
         }

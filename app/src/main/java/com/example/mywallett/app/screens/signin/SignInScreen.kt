@@ -177,7 +177,6 @@ private fun SignInContent(
                     !isValidEmail(email.value) -> emailError.value = true
                     password.value.length < 8 -> passwordError.value = true
                     else -> {
-                        Log.d("TAG12", "SinIng:1")
                         onEvent.invoke(
                             LoginContract.Intent.Login(
                                 email.value,
@@ -243,7 +242,7 @@ private fun SignInContent(
         }
 
         is LoginContract.UiState.Error -> {
-            Log.d("TAG12", "SinIng: ${(uiState.value as LoginContract.UiState.Error).message}")
+            Log.d("TAG12", "SinIng12: ${(uiState.value as LoginContract.UiState.Error).message}")
         }
     }
 //    when (uiState.value.isLoading == true) {
