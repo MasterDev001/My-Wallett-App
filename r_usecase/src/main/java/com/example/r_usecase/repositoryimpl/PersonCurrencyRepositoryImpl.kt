@@ -1,7 +1,7 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.PERSON_CURRENCIES
-import com.example.r_usecase.common.USERS
+import com.example.a_common.PERSON_CURRENCIES
+import com.example.a_common.USERS
 import com.example.z_entity.db.daos.PersonCurrencyDao
 import com.example.z_entity.db.models.MyPersonCurrency
 import com.example.z_entity.repository.AuthRepository

@@ -10,6 +10,7 @@ class HomeContract {
         object OpenSettings : Intent
         object OpenInCome : Intent
         object OpenOutCome : Intent
+        object OpenShare : Intent
         class OpenBorrow(
             val persons: List<PersonData>,
             val currencies: List<CurrencyData>,

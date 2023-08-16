@@ -82,12 +82,12 @@ internal class InComeViewModelImpl @Inject constructor(
                         rateTo = intent.currencyData.rate,
                         balance = 0.0
                     )
-                    transactionUseCase.addTransaction.invoke(transaction, intent.wallet)
+                    transactionUseCase.addTransaction.invoke(transaction)
 
                     walletsUseCase.inComeUseCase.invoke(
                         intent.amount,
                         intent.currencyData,
-                        intent.wallet
+                        intent.wallet,
                     )
                 }
             }

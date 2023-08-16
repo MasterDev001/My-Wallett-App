@@ -24,7 +24,7 @@ interface HomeDirection {
         currencies: List<CurrencyData>,
         wallets: List<WalletData>
     )
-
+    suspend fun navigateToShare()
     suspend fun navigateToPersons()
     suspend fun navigateToWallets()
     suspend fun navigateToHistory()

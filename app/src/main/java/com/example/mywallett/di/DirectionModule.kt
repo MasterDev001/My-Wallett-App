@@ -12,6 +12,7 @@ import com.example.mywallett.app.screens.outcome.outcome_currencies.OutComeCurre
 import com.example.mywallett.app.screens.persons.PersonDirectionImpl
 import com.example.mywallett.app.screens.persons.personHistory.PersonHistoryDirectionImpl
 import com.example.mywallett.app.screens.register.RegisterDirectionImpl
+import com.example.mywallett.app.screens.share.ShareDirectionImpl
 import com.example.mywallett.app.screens.signin.SignInDirectionImpl
 import com.example.mywallett.app.screens.wallets.WalletsDirectionImpl
 import com.example.mywallett.app.screens.wallets.walletHistory.WalletHistoryDirectionImpl
@@ -26,6 +27,7 @@ import com.example.presenter.outCome_currencies.OutComeCurrenciesDirection
 import com.example.presenter.outcome.OutComeDirection
 import com.example.presenter.persons.PersonDirection
 import com.example.presenter.persons.personHistory.PersonHistoryDirection
+import com.example.presenter.share.ShareDirection
 import com.example.presenter.signUp.SignUpDirection
 import com.example.presenter.signin.SignInDirection
 import com.example.presenter.wallets.WalletsDirection
@@ -41,6 +43,9 @@ interface DirectionModule {
 
     @Binds
     fun signInDirection(impl: SignInDirectionImpl): SignInDirection
+
+    @Binds
+    fun shareDirection(impl: ShareDirectionImpl): ShareDirection
 
     @Binds
     fun signUpDirection(impl: RegisterDirectionImpl): SignUpDirection

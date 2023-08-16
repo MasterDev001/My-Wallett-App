@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 class LendUseCase @Inject constructor(
     private val personCurrencyRepository: PersonCurrencyRepository,
+    private val walletsUseCase: WalletsUseCase,
     private val transactionRepository: TransactionRepository,
-    private val walletsUseCase: WalletsUseCase
 ) {
 
     suspend operator fun invoke(
@@ -66,6 +66,7 @@ class LendUseCase @Inject constructor(
             amount.toDouble(),
             walletData,
             walletOwner,
+            currencyData,
         )
     }
 }

@@ -12,14 +12,16 @@ data class MyCurrency(
     var name: String,
     var rate: Double,
     var date: Long,
+    var balance:Double=0.0,
     var uploaded: Boolean = false
 ) {
     fun toRemote() = CurrencyRemote(
         id = this.id,
         name = this.name,
+        balance = this.balance,
         rate = this.rate,
         date = this.date
     )
 }
-    fun MyCurrency.toCurrencyData() = CurrencyData(id, name, rate, date)
-    fun CurrencyData.toMyCurrency() = MyCurrency(id, name, rate, date)
+    fun MyCurrency.toCurrencyData() = CurrencyData(id, name, rate,date, balance = balance)
+    fun CurrencyData.toMyCurrency() = MyCurrency(id, name, rate, date, balance = balance)

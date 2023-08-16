@@ -13,6 +13,7 @@ import com.example.presenter.outCome_currencies.OutComeCurrenciesViewMImpl
 import com.example.presenter.outcome.OutComeViewModelImpl
 import com.example.presenter.persons.PersonViewModelImpl
 import com.example.presenter.persons.personHistory.PersonHistoryViewModelImpl
+import com.example.presenter.share.ShareViewModelImpl
 import com.example.presenter.signUp.SignUpViewModelImpl
 import com.example.presenter.signin.SignInViewModelImpl
 import com.example.presenter.wallets.WalletsViewModelImpl
@@ -71,4 +72,7 @@ internal interface ViewModelModule {
 
     @[Binds IntoMap ScreenModelKey(WalletHistoryViewModelImpl::class)]
     fun walletHistoryViewModelImpl(impl: WalletHistoryViewModelImpl): ScreenModel
+
+    @[Binds IntoMap ScreenModelKey(ShareViewModelImpl::class)]
+    fun shareViewModelImpl(impl: ShareViewModelImpl): ScreenModel
 }

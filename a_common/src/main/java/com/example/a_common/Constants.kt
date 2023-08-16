@@ -1,4 +1,4 @@
-package com.example.r_usecase.common
+package com.example.a_common
 
 const val CHILD_ID = "id"
 const val CHILD_BALANCE = "balance"
@@ -15,11 +15,15 @@ const val CHILD_AMOUNT = "amount"
 const val CHILD_TRANSACTION_CURRENCY= "transaction_currency"
 
 const val USERS = "users"
+const val BALANCE = "balance"
 const val HISTORY="history"
 const val WALLETS="wallets"
-const val QARZDORLAR="qarzdorlar"
-const val HAQDORLAR="haqdorlar"
+const val DEBTORS="debtors"
+const val LENDERS="lenders"
 const val CURRENCIES="currencies"
 const val TRANSACTIONS="transactions"
 const val PERSONS="persons"
 const val PERSON_CURRENCIES="personCurrencies"
+
+const val FILE_NAME = "wallet_app"
+const val FOLDER_NAME = "files"

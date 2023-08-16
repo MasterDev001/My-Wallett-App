@@ -9,5 +9,5 @@ data class WalletsUseCase(
     val getWalletOwnerListUseC: GetWalletOwnerListUseC,
     val isCurrencyIdExistsInWalletUseC: IsCurrencyIdExistsInWalletUseC,
     val outComeUseCase: OutComeUseCase,
-    val inComeUseCase: InComeUseCase
+    val inComeUseCase: InComeUseCase,
 )

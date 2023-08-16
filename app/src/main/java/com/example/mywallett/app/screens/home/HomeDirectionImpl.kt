@@ -11,6 +11,7 @@ import com.example.mywallett.app.screens.income.InComeScreen
 import com.example.mywallett.app.screens.lend.LendScreen
 import com.example.mywallett.app.screens.outcome.OutComeScreen
 import com.example.mywallett.app.screens.persons.PersonsScreen
+import com.example.mywallett.app.screens.share.ShareScreen
 import com.example.mywallett.app.screens.wallets.WalletsScreen
 import com.example.mywallett.navigation.AppNavigator
 import com.example.presenter.home.HomeDirection
@@ -47,6 +48,10 @@ class HomeDirectionImpl @Inject constructor(private val navigator: AppNavigator)
         wallets: List<WalletData>
     ) {
         navigator.navigateTo(ConvertScreen( currencies, wallets))
+    }
+
+    override suspend fun navigateToShare() {
+        navigator.navigateTo(ShareScreen())
     }
 
     override suspend fun navigateToPersons() {

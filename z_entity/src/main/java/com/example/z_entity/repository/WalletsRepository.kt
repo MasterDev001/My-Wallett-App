@@ -8,8 +8,8 @@ interface WalletsRepository {
     suspend fun addWallet(wallet: MyWallet): Long
     suspend fun updateWallet(wallet: MyWallet): Int
     suspend fun deleteWallet(wallet: MyWallet): Int
+    suspend fun getAllWallets(): Flow<List<MyWallet>>
     suspend fun getWalletOwnerList(walletId: String): Flow<MyWalletOwnerList>
      fun isCurrencyIdExistsInWallet(walletId: String, currencyId: String): Boolean
     fun isWalletNameExists(name: String): Boolean
-    suspend fun getAllWallets(): Flow<List<MyWallet>>
 }

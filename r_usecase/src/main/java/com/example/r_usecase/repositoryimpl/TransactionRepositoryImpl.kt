@@ -1,7 +1,7 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.TRANSACTIONS
-import com.example.r_usecase.common.USERS
+import com.example.a_common.TRANSACTIONS
+import com.example.a_common.USERS
 import com.example.z_entity.db.daos.TransactionDao
 import com.example.z_entity.db.entity.MyTransaction
 import com.example.z_entity.repository.AuthRepository

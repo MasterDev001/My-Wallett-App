@@ -62,7 +62,7 @@ class BorrowUseCase @Inject constructor(
         walletsUseCase.inComeUseCase.invoke(
             amount.toDouble(),
             currencyData,
-            walletData
+            walletData,
         )
     }
 }

@@ -1,11 +1,11 @@
 package com.example.r_usecase.repositoryimpl
 
 import com.example.a_common.ResultData
-import com.example.r_usecase.common.CHILD_EMAIL
-import com.example.r_usecase.common.CHILD_FULLNAME
-import com.example.r_usecase.common.CHILD_ID
-import com.example.r_usecase.common.CHILD_TYPE
-import com.example.r_usecase.common.USERS
+import com.example.a_common.CHILD_EMAIL
+import com.example.a_common.CHILD_FULLNAME
+import com.example.a_common.CHILD_ID
+import com.example.a_common.CHILD_TYPE
+import com.example.a_common.USERS
 import com.example.z_entity.repository.AuthRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential

@@ -1,7 +1,7 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.PERSONS
-import com.example.r_usecase.common.USERS
+import com.example.a_common.PERSONS
+import com.example.a_common.USERS
 import com.example.z_entity.db.daos.PersonsDao
 import com.example.z_entity.db.entity.MyPerson
 import com.example.z_entity.repository.AuthRepository

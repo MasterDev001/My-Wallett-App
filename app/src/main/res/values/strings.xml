@@ -60,4 +60,6 @@
     <string name="tel_raqami">Tel raqami:</string>
     <string name="manzili">Manzili:</string>
     <string name="balans">Balans</string>
+    <string name="share">Share</string>
+    <string name="sharewith">ShareWith</string>
 </resources>

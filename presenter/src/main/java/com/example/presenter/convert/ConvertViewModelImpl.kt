@@ -63,6 +63,7 @@ internal class ConvertViewModelImpl @Inject constructor(
                         intent.fromWalletOwner,
                         intent.fromWallet,
                         intent.toWallet,
+                        fromCurrency,
                         intent.toCurrency,
                         intent.rate
                     )

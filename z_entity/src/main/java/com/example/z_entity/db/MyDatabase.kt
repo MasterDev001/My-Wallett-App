@@ -24,7 +24,7 @@ import com.example.z_entity.db.models.MyPersonCurrency
         MyPerson::class,
         MyPersonCurrency::class,
     ],
-    version = 14
+    version = 15
 )
 @TypeConverters(value = [Converters::class])
 abstract class MyDatabase : RoomDatabase() {

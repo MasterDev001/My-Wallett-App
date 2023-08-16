@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="jami_balance">"Jami Balance: "</string>
+    <string name="dollar">" $"</string>
+    <string name="hamyon">hamyon</string>
+    <string name="bundan_oldingi_balans">Bundan oldingi balans:</string>
+    <string name="izoh">izoh:</string>
+    <string name="sanagacha_bolgan_malumotlar">sanagacha bo\'lgan ma\'lumotlar:</string>
+</resources>

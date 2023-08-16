@@ -10,8 +10,8 @@ import com.example.z_entity.repository.TransactionRepository
 import javax.inject.Inject
 
 class ConvertUseCase @Inject constructor(
+    private val walletsUseCase: WalletsUseCase,
     private val transactionRepository: TransactionRepository,
-    val walletsUseCase: WalletsUseCase
 ) {
 
     suspend operator fun invoke(
@@ -20,6 +20,7 @@ class ConvertUseCase @Inject constructor(
         fromWalletOwner: WalletOwnerData,
         fromWallet: WalletData,
         toWallet: WalletData,
+        fromCurrency:CurrencyData,
         toCurrency: CurrencyData,
         rate: String
     ) {
@@ -29,11 +30,12 @@ class ConvertUseCase @Inject constructor(
             amount.toDouble(),
             fromWallet,
             fromWalletOwner,
+            fromCurrency,
         )
         walletsUseCase.inComeUseCase.invoke(
             amount.toDouble() * rate.toDouble(),
             toCurrency,
-            toWallet
+            toWallet,
         )
     }
 }

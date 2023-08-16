@@ -1,12 +1,12 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.CHILD_DATE
-import com.example.r_usecase.common.CURRENCIES
-import com.example.r_usecase.common.PERSONS
-import com.example.r_usecase.common.PERSON_CURRENCIES
-import com.example.r_usecase.common.TRANSACTIONS
-import com.example.r_usecase.common.USERS
-import com.example.r_usecase.common.WALLETS
+import com.example.a_common.CHILD_DATE
+import com.example.a_common.CURRENCIES
+import com.example.a_common.PERSONS
+import com.example.a_common.PERSON_CURRENCIES
+import com.example.a_common.TRANSACTIONS
+import com.example.a_common.USERS
+import com.example.a_common.WALLETS
 import com.example.z_entity.db.daos.CurrencyDao
 import com.example.z_entity.db.daos.PersonCurrencyDao
 import com.example.z_entity.db.daos.PersonsDao

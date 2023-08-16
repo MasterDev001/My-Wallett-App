@@ -1,11 +1,12 @@
 package com.example.r_usecase.repositoryimpl
 
-import com.example.r_usecase.common.CHILD_DATE
-import com.example.r_usecase.common.CHILD_ID
-import com.example.r_usecase.common.CHILD_NAME
-import com.example.r_usecase.common.CHILD_RATE
-import com.example.r_usecase.common.CURRENCIES
-import com.example.r_usecase.common.USERS
+import com.example.a_common.CHILD_BALANCE
+import com.example.a_common.CHILD_DATE
+import com.example.a_common.CHILD_ID
+import com.example.a_common.CHILD_NAME
+import com.example.a_common.CHILD_RATE
+import com.example.a_common.CURRENCIES
+import com.example.a_common.USERS
 import com.example.z_entity.db.daos.CurrencyDao
 import com.example.z_entity.db.entity.MyCurrency
 import com.example.z_entity.repository.AuthRepository
@@ -28,6 +29,7 @@ internal class CurrencyRepositoryImpl @Inject constructor(
         dataMap[CHILD_NAME] = currency.name
         dataMap[CHILD_DATE] = currency.date
         dataMap[CHILD_RATE] = currency.rate
+        dataMap[CHILD_BALANCE] = currency.balance
 
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString())
@@ -46,6 +48,8 @@ internal class CurrencyRepositoryImpl @Inject constructor(
         dataMap[CHILD_NAME] = currency.name
         dataMap[CHILD_DATE] = currency.date
         dataMap[CHILD_RATE] = currency.rate
+        dataMap[CHILD_BALANCE] = currency.balance
+
 
         fireStore.collection(USERS)
             .document(authRepository.currentUser?.email.toString())
@@ -62,6 +66,10 @@ internal class CurrencyRepositoryImpl @Inject constructor(
             .document(authRepository.currentUser?.email.toString())
             .collection(CURRENCIES).document(currency.id).delete()
         return local.deleteCurrency(currency.id)
+    }
+
+    override suspend fun getTotalBalance(): Double {
+        return local.getTotalBalance()
     }
 
     override fun getCurrency(id: String): MyCurrency {

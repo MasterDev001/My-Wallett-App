@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.a_common.Type
 import com.example.a_common.data.HistoryData
-import com.example.a_common.data.huminize
 import com.example.a_common.getTypeEnum
 import com.example.a_common.getTypeNumber
 import com.example.a_common.getTypeText
+import com.example.a_common.huminize
 import com.example.mywallett.R
 import com.example.mywallett.ui.theme.ColorBorderGray
 import com.example.mywallett.ui.theme.ColorGreenText

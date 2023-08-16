@@ -5,10 +5,12 @@ import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
 import com.example.r_usecase.usecases.currencyUseCase.DeleteCurrencyUseCase
 import com.example.r_usecase.usecases.currencyUseCase.GetAllCurrenciesUseC
 import com.example.r_usecase.usecases.currencyUseCase.GetCurrencyUseC
+import com.example.r_usecase.usecases.currencyUseCase.GetTotalBalanceUseC
 import com.example.r_usecase.usecases.currencyUseCase.IsCurrencyExistUseC
 import com.example.r_usecase.usecases.currencyUseCase.UpdateCurrencyUseCase
 import com.example.r_usecase.usecases.dataUseCase.DataUseCase
 import com.example.r_usecase.usecases.dataUseCase.DownloadAllDataUseC
+import com.example.r_usecase.usecases.dataUseCase.GetAllDataUseC
 import com.example.r_usecase.usecases.dataUseCase.IsNeedUpdateUseC
 import com.example.r_usecase.usecases.dataUseCase.LoadNotLoadedDataUseC
 import com.example.r_usecase.usecases.historyUseCase.GetHistoryByOwnerIdUseC
@@ -67,19 +69,25 @@ import javax.inject.Singleton
 internal object UseCaseModule {
 
     @[Provides Singleton]
-    fun provideUseCase(repository: CurrencyRepository): CurrencyUseCase {
+    fun provideUseCase(
+        repository: CurrencyRepository,
+    ): CurrencyUseCase {
         return CurrencyUseCase(
             addCurrency = AddCurrencyUseCase(repository),
             deleteCurrency = DeleteCurrencyUseCase(repository),
             updateCurrency = UpdateCurrencyUseCase(repository),
             getCurrency = GetCurrencyUseC(repository),
             getAllCurrencies = GetAllCurrenciesUseC(repository),
-            isCurrencyExistUseC = IsCurrencyExistUseC(repository)
+            isCurrencyExistUseC = IsCurrencyExistUseC(repository),
+            getTotalBalanceUseC = GetTotalBalanceUseC(repository)
         )
     }
 
     @[Provides Singleton]
-    fun provideWalletsUseCase(walletsRepository: WalletsRepository): WalletsUseCase {
+    fun provideWalletsUseCase(
+        walletsRepository: WalletsRepository,
+        currencyUseCase: CurrencyUseCase,
+    ): WalletsUseCase {
         return WalletsUseCase(
             addWalletUseC = AddWalletUseC(walletsRepository),
             updateWalletUseC = UpdateWalletUseC(walletsRepository),
@@ -88,32 +96,30 @@ internal object UseCaseModule {
             getAllWalletsUseC = GetAllWalletsUseC(walletsRepository),
             getWalletOwnerListUseC = GetWalletOwnerListUseC(walletsRepository),
             isCurrencyIdExistsInWalletUseC = IsCurrencyIdExistsInWalletUseC(walletsRepository),
-            outComeUseCase = OutComeUseCase(walletsRepository),
-            inComeUseCase = InComeUseCase(walletsRepository)
+            outComeUseCase = OutComeUseCase(walletsRepository, currencyUseCase),
+            inComeUseCase = InComeUseCase(walletsRepository, currencyUseCase),
         )
     }
 
     @[Provides Singleton]
     fun provideTransactionUseCase(
         transactionRepository: TransactionRepository,
-        walletsUseCase: WalletsUseCase,
         personCurrencyRepository: PersonCurrencyRepository,
+        walletsUseCase: WalletsUseCase
     ): TransactionUseCase {
         return TransactionUseCase(
-            addTransaction = AddTransactionUseC(transactionRepository, walletsUseCase),
+            addTransaction = AddTransactionUseC(transactionRepository),
             deleteTransaction = DeleteTransactionUseC(transactionRepository),
             getAllTransactions = GetAllTransactionsUseC(transactionRepository),
             borrowUseCase = BorrowUseCase(
-                personCurrencyRepository,
-                transactionRepository,
-                walletsUseCase
+                personCurrencyRepository, transactionRepository, walletsUseCase
             ),
             lendUseCase = LendUseCase(
                 personCurrencyRepository,
-                transactionRepository,
-                walletsUseCase
+                walletsUseCase,
+                transactionRepository
             ),
-            convertUseCase = ConvertUseCase(transactionRepository, walletsUseCase)
+            convertUseCase = ConvertUseCase(walletsUseCase, transactionRepository)
         )
     }
 
@@ -156,11 +162,25 @@ internal object UseCaseModule {
     }
 
     @[Provides Singleton]
-    fun provideDataUseCase(dataRepository: DataRepository): DataUseCase {
+    fun provideDataUseCase(
+        dataRepository: DataRepository,
+        personsUseCase: PersonsUseCase,
+        personCurrencyUseCase: PersonCurrencyUseCase,
+        walletsUseCase: WalletsUseCase,
+        currencyUseCase: CurrencyUseCase,
+        historyUseCase: HistoryUseCase
+    ): DataUseCase {
         return DataUseCase(
             loadedDataUseC = LoadNotLoadedDataUseC(dataRepository),
             isNeedUpdateUseC = IsNeedUpdateUseC(dataRepository),
-            downloadAllDataUseC = DownloadAllDataUseC(dataRepository)
+            downloadAllDataUseC = DownloadAllDataUseC(dataRepository),
+            getAllDataUseC = GetAllDataUseC(
+                personsUseCase,
+                walletsUseCase,
+                personCurrencyUseCase,
+                currencyUseCase,
+                historyUseCase
+            )
         )
     }
 }

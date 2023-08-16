@@ -1,4 +1,4 @@
-package com.example.a_common.data
+package com.example.a_common
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -34,4 +34,24 @@ fun Long.huminize(): String {
         SimpleDateFormat(format, Locale.getDefault()).format(Date(this))
     }
     return formatted
+}
+
+
+fun Long.huminizeForFile() =
+    SimpleDateFormat("dd.MM.yyyy  HH:mm:ss", Locale.getDefault()).format(Date(this))
+
+fun Long.huminizeKb(): String {
+    val kbyte = 1024
+    val mbyte = 1024 * 1024
+    val gbyte = 1024 * 1024 * 1024
+    val value = if (this < kbyte) "${this} byte"
+    else if (this < 700 * kbyte) "${(this.toDouble() / kbyte).roundTen()} Kb"
+    else if (this < 700 * mbyte) "${(this.toDouble() / mbyte).roundTen()} Mb"
+    else "${(this.toDouble() / gbyte).roundTen()} Gb"
+    return value
+}
+fun Double.roundTen(): String {
+    val dec =
+        DecimalFormat("###,###,###,###,###.0", DecimalFormatSymbols(Locale.ENGLISH))
+    return dec.format(this).replace(",", " ")
 }

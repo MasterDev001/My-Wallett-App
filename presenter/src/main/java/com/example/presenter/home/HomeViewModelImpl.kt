@@ -5,6 +5,7 @@ import com.example.a_common.data.CurrencyData
 import com.example.a_common.data.HistoryData
 import com.example.a_common.data.PersonData
 import com.example.a_common.data.WalletData
+import com.example.a_common.data.WalletOwnerDataList
 import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
 import com.example.r_usecase.usecases.dataUseCase.DataUseCase
 import com.example.r_usecase.usecases.historyUseCase.HistoryUseCase
@@ -36,6 +37,10 @@ internal class HomeViewModelImpl @Inject constructor(
                 dataUseCase.loadedDataUseC.invoke()
             }
         }
+    }
+
+    override fun getCurrency(id: String): CurrencyData {
+        return currencyUseCase.getCurrency.invoke(id)
     }
 
     override val uiState = MutableStateFlow(HomeContract.UiState.Default)
@@ -130,6 +135,14 @@ internal class HomeViewModelImpl @Inject constructor(
                     )
                 }
             }
+
+            is HomeContract.Intent.OpenShare -> {
+                coroutineScope.launch { direction.navigateToShare() }
+            }
         }
+    }
+
+    override val getAllBalance: Flow<List<WalletOwnerDataList>> = flow {
+//        emitAll(walletsUseCase.getAllBalanceUseC.invoke())
     }
 }

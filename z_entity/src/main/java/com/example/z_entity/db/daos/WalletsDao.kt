@@ -36,7 +36,7 @@ interface WalletsDao {
 
 //    @Query("SELECT currencies.* FROM wallets JOIN currencies ON wallets.id = currencies.id WHERE wallets.id =:id;")
 
-    @Query("SELECT * FROM wallets ")
+    @Query("SELECT * FROM wallets")
     fun getAllWallets(): Flow<List<MyWallet>>
 
     @Query("SELECT * FROM wallets WHERE uploaded=0")
@@ -45,16 +45,5 @@ interface WalletsDao {
     @Query("SELECT EXISTS(SELECT 1 FROM wallets WHERE uploaded =0)")
     fun isNeedUpdate(): Boolean
 
-//    @Query(
-//        "SELECT currencies.name as name,\n" +
-//                "SUM(currencyList) as amount,\n" +
-//                "currencies.rate as rate \n" +
-//                "FROM wallets,currencies \n" +
-//                "WHERE wallets.currencyId=currencies.id \n" +
-//                "AND wallets.ownerId NOT IN (SELECT id FROM persons) " +
-//                "GROUP BY currencies.id \n" +
-//                "ORDER BY currencies.name"
-//    )
-//    fun getBalances(): Flow<List<Balance>>
 
 }

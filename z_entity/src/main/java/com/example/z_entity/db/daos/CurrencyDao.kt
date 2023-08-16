@@ -38,4 +38,7 @@ interface CurrencyDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM currencies WHERE uploaded =0)")
     fun isNeedUpdate(): Boolean
+
+    @Query("SELECT SUM(balance*rate) FROM currencies")
+    fun getTotalBalance():Double
 }

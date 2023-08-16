@@ -16,8 +16,8 @@ import javax.inject.Inject
 internal class OutComeCurrenciesViewMImpl @Inject constructor(
     private val currencyUseCase: CurrencyUseCase,
     private val direction: OutComeCurrenciesDirection,
-    private val transactionUseCase: TransactionUseCase,
-    private val walletsUseCase: WalletsUseCase
+    private val walletsUseCase: WalletsUseCase,
+    private val transactionUseCase: TransactionUseCase
 ) : OutComeCurrenciesViewM {
 
     override val uiState =
@@ -47,12 +47,13 @@ internal class OutComeCurrenciesViewMImpl @Inject constructor(
                         rateTo = intent.currencyData.rate,
                         balance = 0.0
                     )
-                    transactionUseCase.addTransaction.invoke(transaction, intent.wallet)
+                    transactionUseCase.addTransaction.invoke(transaction)
 
                     walletsUseCase.outComeUseCase.invoke(
                         intent.amount,
                         intent.wallet,
                         intent.currentWalletOwner,
+                        intent.currencyData,
                     )
                 }
             }

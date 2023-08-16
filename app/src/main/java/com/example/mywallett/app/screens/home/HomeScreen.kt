@@ -65,7 +65,7 @@ private fun HomeScreenContent(
         if (selectedItem == 0) {
             HomeCScreen(uiState, onEvent, viewModel)
         } else {
-            Settings()
+            onEvent.invoke(HomeContract.Intent.OpenShare)
         }
     }, drawerContent = {
         Column(
@@ -87,7 +87,7 @@ private fun HomeScreenContent(
             selectedItem = 1
             scope.launch { scaffoldState.drawerState.close() }
         }) {
-            Text(text = "Second Screen")
+            Text(text = stringResource(R.string.share))
         }
         val activity = (LocalContext.current as Activity)
         BackHandler {
@@ -107,6 +107,8 @@ private fun HomeCScreen(
     viewModel: HomeViewModel
 ) {
     val historyList by viewModel.getLimitedHistory(5).collectAsState(initial = emptyList())
+    val balanceList by viewModel.getAllBalance.collectAsState(initial = emptyList())
+
 
     Column(
         Modifier.fillMaxSize(),
@@ -126,44 +128,24 @@ private fun HomeCScreen(
                     .padding(horizontalPadding_16),
                 verticalArrangement = Arrangement.SpaceAround
             ) {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = "USD", style = MaterialTheme.typography.h4)
-                    Text(
-                        "13245",
-                        modifier = Modifier.padding(start = horizontalPadding_16),
-                        style = MaterialTheme.typography.h5
-                    )
+                if (balanceList.isNotEmpty()) {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = viewModel.getCurrency(balanceList.first().walletOwnerData.first().id).name,
+                            style = MaterialTheme.typography.h4
+                        )
+                        Text(
+                            balanceList.first().walletOwnerData.first().currencyBalance.toString(),
+                            modifier = Modifier.padding(start = horizontalPadding_16),
+                            style = MaterialTheme.typography.h5
+                        )
+                    }
                 }
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = "UZS", style = MaterialTheme.typography.h4)
-                    Text(
-                        "13245",
-                        modifier = Modifier.padding(start = horizontalPadding_16),
-                        style = MaterialTheme.typography.h5
-                    )
-
-                }
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = "TL", style = MaterialTheme.typography.h4)
-                    Text(
-                        "13245",
-                        modifier = Modifier.padding(start = horizontalPadding_16),
-                        style = MaterialTheme.typography.h5
-                    )
-
-                }
+//
                 Column(
                     Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
                 ) {
