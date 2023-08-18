@@ -4,6 +4,7 @@ import cafe.adriel.voyager.core.model.coroutineScope
 import com.example.a_common.Type
 import com.example.a_common.data.TransactionData
 import com.example.a_common.getTypeNumber
+import com.example.r_usecase.usecases.currencyUseCase.CurrencyUseCase
 import com.example.r_usecase.usecases.transactionUseCase.TransactionUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 internal class BorrowViewModelImpl @Inject constructor(
     private val direction: BorrowDirection,
-    private val transactionUseCase: TransactionUseCase
+    private val transactionUseCase: TransactionUseCase,
+    private val currencyUseCase: CurrencyUseCase
 ) : BorrowViewModel {
 
     override val uiState = MutableStateFlow(BorrowContract.UiState.Default)
@@ -39,7 +41,7 @@ internal class BorrowViewModelImpl @Inject constructor(
                         rate = intent.currencyData.rate,
                         rateFrom = intent.currencyData.rate,
                         rateTo = intent.currencyData.rate,
-                        balance = 0.0
+                        balance = currencyUseCase.getTotalBalanceUseC.invoke()
                     )
 
                     transactionUseCase.borrowUseCase.invoke(

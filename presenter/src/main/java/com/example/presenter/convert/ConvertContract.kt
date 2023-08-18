@@ -13,6 +13,7 @@ class ConvertContract {
             val fromWalletOwner: WalletOwnerData,
             val fromWallet: WalletData,
             val toWallet: WalletData,
+            val fromCurrency:CurrencyData,
             val toCurrency: CurrencyData,
             val rate: String = "1.0"
         ) : Intent

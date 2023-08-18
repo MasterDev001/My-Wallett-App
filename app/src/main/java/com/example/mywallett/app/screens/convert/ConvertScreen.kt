@@ -97,6 +97,7 @@ class ConvertScreen(
                             fromWalletOwner!!,
                             fromWallet,
                             toWallet,
+                            fromCurrency,
                             toCurrency,
                             currencyRate.trim()
                         )

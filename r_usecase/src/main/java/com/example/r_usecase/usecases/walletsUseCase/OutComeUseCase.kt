@@ -20,6 +20,7 @@ class OutComeUseCase @Inject constructor(
         currentWalletOwner: WalletOwnerData,
         currencyData: CurrencyData,
     ) {
+
         var currentWalletOwnerIndex = 0
         val updatedAmount = currentWalletOwner.currencyBalance - amount
         val updatedWalletOwnerList = wallet.walletOwnerDataList.walletOwnerData
@@ -41,7 +42,7 @@ class OutComeUseCase @Inject constructor(
                 )
             ).toMyWallet()
         )
-            currencyUseCase.updateCurrency.invoke(currencyData.copy(balance = currencyData.balance - amount))
+        currencyUseCase.updateCurrency.invoke(currencyData.copy(balance = currencyData.balance - amount))
 
     }
 }

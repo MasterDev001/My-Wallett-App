@@ -119,7 +119,7 @@ internal object UseCaseModule {
                 walletsUseCase,
                 transactionRepository
             ),
-            convertUseCase = ConvertUseCase(walletsUseCase, transactionRepository)
+            convertUseCase = ConvertUseCase(walletsUseCase)
         )
     }
 

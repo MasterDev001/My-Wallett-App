@@ -38,37 +38,44 @@ internal class ConvertViewModelImpl @Inject constructor(
 
             is ConvertContract.Intent.ConvertMoney -> {
                 coroutineScope.launch(Dispatchers.IO) {
-                    val fromCurrency = getCurrency(intent.fromWalletOwner.id)
                     val transaction = TransactionData(
                         date = System.currentTimeMillis().toString(),
                         type = getTypeNumber(Type.CONVERTATION),
                         fromId = intent.fromWallet.id,
                         toId = intent.toWallet.id,
-                        currencyId = fromCurrency.id,
-                        currencyFrom = fromCurrency.id,
+                        currencyId = intent.fromCurrency.id,
+                        currencyFrom = intent.fromCurrency.id,
                         currencyTo = intent.toCurrency.id,
                         amount = intent.amount.toDouble(),
 
                         isFromPocket = true,
                         isToPocket = true,
-                        rate = fromCurrency.rate,
-                        rateFrom = fromCurrency.rate,
+                        rate = intent.fromCurrency.rate,
+                        rateFrom =1.0,
                         rateTo = intent.rate.toDouble(),
-                        balance = 0.0
+//                        rateFrom = intent.fromCurrency.rate,
+//                        rateTo = intent.toCurrency.rate,
+                        balance = currencyUseCase.getTotalBalanceUseC.invoke()
                     )
+                    transactionUseCase.addTransaction.invoke(transaction)
 
-                    transactionUseCase.convertUseCase.invoke(
-                        transaction,
+                    val t=transactionUseCase.convertUseCase.invoke(
                         intent.amount,
                         intent.fromWalletOwner,
                         intent.fromWallet,
                         intent.toWallet,
-                        fromCurrency,
+                        intent.fromCurrency,
                         intent.toCurrency,
                         intent.rate
                     )
-                    direction.back()
+                    t.collect(){
+                        if (it){
+                            direction.back()
+                        }
+                    }
                 }
+                coroutineScope.launch {  }
+
             }
         }
     }

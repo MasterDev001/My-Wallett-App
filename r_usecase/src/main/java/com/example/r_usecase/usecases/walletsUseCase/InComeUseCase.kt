@@ -45,7 +45,10 @@ class InComeUseCase @Inject constructor(
         repository.updateWallet(
             wallet.copy(walletOwnerDataList = WalletOwnerDataList(c)).toMyWallet()
         )
-        currencyUseCase.updateCurrency.invoke(currencyData.copy(balance = currencyData.balance + amount))
-
+        currencyUseCase.updateCurrency.invoke(
+            currencyData.copy(
+                balance = currencyUseCase.getCurrency.invoke(currencyData.id).balance + amount
+            )
+        )
     }
 }

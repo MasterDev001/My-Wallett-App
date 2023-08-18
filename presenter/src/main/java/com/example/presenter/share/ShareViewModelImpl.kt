@@ -18,7 +18,7 @@ import javax.inject.Inject
 internal class ShareViewModelImpl @Inject constructor(
     private val direction: ShareDirection,
     private val dataUseCase: DataUseCase,
-    private val context: Application
+    private val context: Application,
 ) : ShareViewModel {
 
     override val txtFile = MutableStateFlow(File(""))

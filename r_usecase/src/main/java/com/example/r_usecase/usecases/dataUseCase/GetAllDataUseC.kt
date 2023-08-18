@@ -1,7 +1,6 @@
 package com.example.r_usecase.usecases.dataUseCase
 
 import android.content.Context
-import android.util.Log
 import com.example.a_common.BALANCE
 import com.example.a_common.DEBTORS
 import com.example.a_common.HISTORY
@@ -150,16 +149,24 @@ class GetAllDataUseC @Inject constructor(
                         }
                     }
 
-                    val kurs =
-                        if (item.rateFrom > item.rateTo) {
-                            "1 ${item.moneyNameTo} = ${(item.rateFrom / item.rateTo).huminize()} ${item.moneyNameFrom}"
-                        } else if (item.rateFrom < item.rateTo) {
-                            "1 ${item.moneyNameFrom} = ${(item.rateTo / item.rateFrom).huminize()} ${item.moneyNameTo}"
-                        } else if (item.rateFrom != 1.0 && item.rateTo != 1.0) {
-                            "1$ = ${item.rateTo.huminize()}"
-                        } else ""
-                    if (kurs.trim().isNotEmpty()) {
-                        list.add("kurs: $kurs")
+//                    val kurs =
+//                        if (item.rateFrom > item.rateTo) {
+//                            "1 ${item.moneyNameTo} = ${(item.rateFrom / item.rateTo).huminize()} ${item.moneyNameFrom}"
+//                        } else if (item.rateFrom < item.rateTo) {
+//                            "1 ${item.moneyNameFrom} = ${(item.rateTo / item.rateFrom).huminize()} ${item.moneyNameTo}"
+//                        } else if (item.rateFrom != 1.0 && item.rateTo != 1.0) {
+//                            "1$ = ${item.rateTo.huminize()}"
+//                        } else ""
+
+                    val value = if (!item.fromName.isNullOrEmpty()) {
+                        "${item.rateFrom} ${item.moneyNameFrom} = ${item.rateTo} ${item.moneyNameTo}"
+                    } else {
+                        "1$ = ${item.rateTo}"
+                    }
+
+
+                    if (value.trim().isNotEmpty()) {
+                        list.add("kurs: $value")
                     }
                     val oldBalance =
                         "${context.getString(R.string.bundan_oldingi_balans)} ${item.balance.huminize()} ${
@@ -181,8 +188,9 @@ class GetAllDataUseC @Inject constructor(
                 mainMap[DEBTORS] = mapDebtors
                 mainMap[LENDERS] = mapLenders
                 mainMap[HISTORY] = mapHistory
-                Log.d("TAG12", "w: $mainMap")
+
                 emit(mainMap)
+
             }.collect()
         }
 

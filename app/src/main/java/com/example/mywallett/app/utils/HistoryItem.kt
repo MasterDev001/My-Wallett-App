@@ -67,7 +67,7 @@ fun HistoryItem(
     ) {
 
         var incr = ""
-        var color =Color.Black
+        var color = Color.Black
         if (item.title == getTypeNumber(Type.INCOME) || item.title == getTypeNumber(Type.BORROW)) {
             incr = "+"
             color = ColorGreenText
@@ -92,7 +92,8 @@ fun HistoryItem(
             )
 
             if (!item.uploaded) {
-                Image(modifier=Modifier.clickable { onIconClicked() },
+                Image(
+                    modifier = Modifier.clickable { onIconClicked() },
                     painter = painterResource(id = R.drawable.error), contentDescription = ""
                 )
             }
@@ -161,24 +162,27 @@ fun HistoryItem(
             }
         }
 
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-            val kurs =
-                if (item.rateFrom > item.rateTo) {
-                    "1 ${item.moneyNameTo} = ${(item.rateFrom / item.rateTo).huminize()} ${item.moneyNameFrom}"
-                } else if (item.rateFrom < item.rateTo) {
-                    "1 ${item.moneyNameFrom} = ${(item.rateTo / item.rateFrom).huminize()} ${item.moneyNameTo}"
-                } else if (item.rateFrom != 1.0 && item.rateTo != 1.0) {
-                    "1$ = ${item.rateTo.huminize()}"
-                } else " "
-
+//            val kurs =
+//                if (item.rateFrom > item.rateTo) {
+//                    "1 ${item.moneyNameTo} = ${(item.rateFrom / item.rateTo).huminize()} ${item.moneyNameFrom}"
+//                } else if (item.rateFrom < item.rateTo) {
+//                    "1 ${item.moneyNameFrom} = ${(item.rateTo / item.rateFrom).huminize()} ${item.moneyNameTo}"
+//                } else if (item.rateFrom != 1.0 && item.rateTo != 1.0) {
+//                    "1$ = ${item.rateTo.huminize()}"
+//                } else " "
+            val value = if (!item.fromName.isNullOrEmpty()) {
+                "${item.rateFrom} ${item.moneyNameFrom} = ${item.rateTo} ${item.moneyNameTo}"
+            } else {
+                "1$ = ${item.rateTo}"
+            }
             Text(
-                text = kurs,
+                text = value,
                 fontSize = 12.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -188,6 +192,8 @@ fun HistoryItem(
                 fontSize = 12.sp,
             )
         }
+
+
         if (visibilityComment) {
             var izoh = ""
             item.comment?.let {
